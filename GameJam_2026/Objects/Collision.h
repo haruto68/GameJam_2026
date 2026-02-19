@@ -11,7 +11,8 @@ enum eObjectType
 	ePlayer,
 	eBall,
 	eBlock,
-	eItem
+	eItem,
+	eClone
 };
 
 class Collision
