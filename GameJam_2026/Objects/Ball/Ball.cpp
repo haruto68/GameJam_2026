@@ -46,10 +46,11 @@ void Ball::OnHitCollision(GameObject* hit_object)
 {
 	eObjectType type = hit_object->GetCollision().object_type;
 
+
 	switch (type)
 	{
 	case ePlayer:
-		velocity.y *= -10.0f;
+		velocity.y = -1.0f;
 		break;
 	case eBlock:
 		object_manager->DestroyGameObject(hit_object);

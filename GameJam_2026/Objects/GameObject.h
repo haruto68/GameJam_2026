@@ -10,6 +10,7 @@ protected:
 	class GameObjectManager* object_manager;
 
 	Vector2D location;				//座標
+	Vector2D velocity = 0;
 	Collision collision;			//コリジョン
 	int image;						//画像
 	int transparency;				//透明度
@@ -37,6 +38,8 @@ public:
 
 	const Vector2D& GetLocation() const;			//座標取得処理
 	void SetLocation(const Vector2D);				//座標設定処理
+
+	const Vector2D& GetVelocity() const;
 
 	const Collision& GetCollision() const;			//コリジョン取得処理
 	const unsigned char GetZLayer() const;			//レイヤー取得処理

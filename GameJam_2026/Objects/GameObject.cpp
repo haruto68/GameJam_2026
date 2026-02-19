@@ -75,6 +75,11 @@ void GameObject::SetLocation(const Vector2D location)
 	this->location = location;
 }
 
+const Vector2D& GameObject::GetVelocity() const
+{
+	return velocity;
+}
+
 //ƒRƒŠƒWƒ‡ƒ“æ“¾ˆ—
 const Collision& GameObject::GetCollision() const
 {
