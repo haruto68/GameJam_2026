@@ -3,6 +3,10 @@
 #include"../../Objects/GameObject.h"
 #include"../../Objects/Character/Player/Player.h"
 #include"../../Objects/Ball/Ball.h"
+#include "../../Objects/Block/Block.h"
+#include <vector>
+
+//std::vector<Block*> blocks;
 class InGameScene : public SceneBase
 {
 protected:

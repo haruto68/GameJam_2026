@@ -19,6 +19,8 @@ InGameScene::~InGameScene()
 
 void InGameScene::Initialize()
 {
+
+
 	//GameObjectManagerインスタンス取得
 	object_manager = new GameObjectManager();
 
@@ -27,6 +29,36 @@ void InGameScene::Initialize()
 
 	//object_manager->CreateGameObject<Block>(Vector2D(160, 360));
 
+	object_manager->CreateGameObject<Ball>(Vector2D(640, 360));
+
+	//ブロック生成 
+	const int rows = 4;
+	const int cols = 8;
+
+	float startX = 100.0f;
+	float startY = 100.0f;
+
+	float blockWidth = 120.0f;
+	float blockHeight = 30.0f;
+	//Vector2D pos = 0;
+
+	for (int y = 0; y < rows; y++)
+	{
+		for (int x = 0; x < cols; x++)
+		{
+			Vector2D pos(
+				startX + x * (blockWidth + 10),
+				startY + y * (blockHeight + 10)
+			);
+			/*pos.x = startX + x * (blockWidth + 10);
+			pos.y = startY + y * (blockHeight + 10);*/
+			
+			
+			object_manager->CreateGameObject<Block>(pos);
+		}
+	}
+
+	// ボール生成
 	object_manager->CreateGameObject<Ball>(Vector2D(640, 360));
 }
 
