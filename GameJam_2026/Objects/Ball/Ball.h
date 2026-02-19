@@ -5,12 +5,12 @@
 class Ball : public GameObject
 {
 private:
-	Vector2D velocity = 0.0f;
+	//Vector2D velocity = 0.0f;
 	int hit_point = 0;
 	int anime_count = 0;
 	bool flip_flag = false;
 
-	float radius = 30.0f;
+	float radius = 20.0f;
 	
 
 public:

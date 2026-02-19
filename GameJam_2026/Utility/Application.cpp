@@ -25,7 +25,7 @@ void Application::WakeUp()
 	SetGraphMode(D_WIN_MAX_X, D_WIN_MAX_Y, D_COLOR_BIT);
 
 	// ウィンドウタイトルの設定
-	SetWindowText("Nebula Striker");
+	SetWindowText("Block Ninja");
 
 	// フォントサイズの設定
 	SetFontSize(48);
