@@ -40,6 +40,27 @@ void Player::Update(float delta_seconds)
             color_b = 255;
         }
     }
+
+
+    //入力機能インスタンス取得
+    InputManager* input = InputManager::GetInstance();
+
+    //入力情報の更新
+    input->Update();
+    
+    // クールタイム
+    if (attack_cool > 0)
+        attack_cool -= delta_seconds;
+    else
+        attack_cool = 0.0f;
+
+    // アタックL
+    if (input->GetKey(KEY_INPUT_L) && attack_cool <= 0.0f)
+    {
+        attack_cool = 1.0f;
+
+        object_manager->CreateGameObject<Attack_L>(Vector2D(location.x, location.y - 40.0f));
+    }
     
 }
 
@@ -82,44 +103,24 @@ void Player::Movement(float delta_seconds)
     input->Update();
 
     float move = 0.0f;
-    if (input->GetKey(KEY_INPUT_LEFT) ||input->GetKey(KEY_INPUT_A)||
+    if (input->GetKey(KEY_INPUT_LEFT) || input->GetKey(KEY_INPUT_A) ||
         input->GetButton(XINPUT_BUTTON_DPAD_LEFT) || input->GetLeftStick().x < -0.5f)
     {
 
         move -= 1.0;
     }
-    
+
     //右移動
-if ( input->GetKey(KEY_INPUT_RIGHT) ||input->GetKey(KEY_INPUT_D)||
-    input->GetButton(XINPUT_BUTTON_DPAD_RIGHT) || input->GetLeftStick().x > 0.5f)
-{
-    move += 1.0;
-}
+    if (input->GetKey(KEY_INPUT_RIGHT) || input->GetKey(KEY_INPUT_D) ||
+        input->GetButton(XINPUT_BUTTON_DPAD_RIGHT) || input->GetLeftStick().x > 0.5f)
+    {
+        move += 1.0;
+    }
 
-
-    // 左スティック
-    //Vector2D stick = input->GetLeftStick();
-    //if (stick.x > deadzone || stick.x < -deadzone)
-    //{
-    //    move = stick.x;
-    //}
-
-    ////  コントローラーボタン
-    //if (input->GetButton(0))   
-    //    move = -1.0f;
-
-    //if (input->GetButton(1))   
-    //    move = 1.0f;
-
-    ////  キーボード
-    //if (input->GetKey(KEY_INPUT_LEFT))
-    //    move = -1.0f;
-
-    //if (input->GetKey(KEY_INPUT_RIGHT))
-    //    move = 1.0f;
+   
 
     // 移動
-   location.x += move * speed * delta_seconds;
+    location.x += move * speed * delta_seconds;
 
     // 画面端制限
     float half = collision.box_size.x * 0.5f;

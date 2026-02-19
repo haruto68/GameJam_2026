@@ -3,6 +3,7 @@
 #include"../Character.h"
 #include"PlayerStats.h"
 #include "../../../Utility/InputManager.h"
+#include"../../Attack/Attack_L.h"
 
 class Player : public Character
 {
@@ -15,6 +16,8 @@ private:
 
 	float color_timer = 0.0f;  // 色変化タイマー
 private:
+
+	float attack_cool = 0.0f;
 
 	PlayerStats player_stats = {};
 

@@ -47,22 +47,24 @@ void Ball::OnHitCollision(GameObject* hit_object)
 	eObjectType type = hit_object->GetCollision().object_type;
 
 
-	// ”½ŽË
 	Vector2D hit_loc = hit_object->GetLocation();
-	if (hit_loc.y > location.y)
-	{
-		velocity.y = -1.0f;
-	}
-	else
-	{
-		velocity.y = 1.0f;
-	}	
+	
 
 	switch (type)
 	{
 	case ePlayer:
+		// ”½ŽË
+		if (hit_loc.y > location.y)
+			velocity.y = -1.0f;
+		else
+			velocity.y = 1.0f;
 		break;
-	case eBlock:		
+	case eBlock:
+		// ”½ŽË
+		if (hit_loc.y > location.y)
+			velocity.y = -1.0f;
+		else
+			velocity.y = 1.0f;
 		break;
 	default:
 		break;
