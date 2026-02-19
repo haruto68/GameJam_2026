@@ -2,6 +2,7 @@
 #include"../SceneBase.h"
 #include"../../Objects/GameObject.h"
 #include"../../Objects/Character/Player/Player.h"
+#include"../../Objects/Ball/Ball.h"
 class InGameScene : public SceneBase
 {
 protected:
@@ -26,4 +27,7 @@ public:
 	virtual eSceneType GetNowSceneType() const override;
 
 	void Animation(const float& delta_second);
+
+
+	void ObjectListLoop(const float& delta_second);	//オブジェクトリストループ
 };

@@ -26,6 +26,8 @@ void InGameScene::Initialize()
 	player = object_manager->CreateGameObject<Player>(Vector2D(160, 360));
 
 	//object_manager->CreateGameObject<Block>(Vector2D(160, 360));
+
+	object_manager->CreateGameObject<Ball>(Vector2D(640, 360));
 }
 
 eSceneType InGameScene::Update(const float& delta_second)
@@ -51,7 +53,38 @@ eSceneType InGameScene::Update(const float& delta_second)
 
 	Animation(delta_second);
 
+	
+	ObjectListLoop(delta_second);
 
+	return GetNowSceneType();
+}
+
+void InGameScene::Draw() const
+{
+	for (GameObject* obj : scene_objects_list)
+	{
+		obj->Draw(Vector2D(0, 0), true);
+	}
+}
+
+void InGameScene::Finalize()
+{
+
+}
+
+eSceneType InGameScene::GetNowSceneType()const
+{
+	return eSceneType::eInGame;
+}
+
+void InGameScene::Animation(const float& delta_second)
+{
+
+}
+
+// オブジェクトリスト確認
+void InGameScene::ObjectListLoop(const float& delta_second)
+{
 	// 生成するオブジェクトの確認
 	object_manager->CheckCreateObject();
 	// 破棄するオブジェクトの確認
@@ -72,28 +105,18 @@ eSceneType InGameScene::Update(const float& delta_second)
 
 		// プレイヤー座標受け渡し
 		obj->SetPlayerLocation(player->GetLocation());
+
+
 	}
 
-	return GetNowSceneType();
-}
 
-void InGameScene::Draw() const
-{
-	player->Draw(Vector2D(0, 0), true);
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "インゲームシーン");
-}
-
-void InGameScene::Finalize()
-{
-
-}
-
-eSceneType InGameScene::GetNowSceneType()const
-{
-	return eSceneType::eInGame;
-}
-
-void InGameScene::Animation(const float& delta_second)
-{
-
+	//当たり判定チェック処理
+	for (int a = 0; a < scene_objects_list.size(); a++)
+	{
+		for (int b = a + 1; b < scene_objects_list.size(); b++)
+		{
+			object_manager->HitCheck(scene_objects_list[a], scene_objects_list[b]);
+			object_manager->HitCheck(scene_objects_list[b], scene_objects_list[a]);
+		}
+	}
 }
