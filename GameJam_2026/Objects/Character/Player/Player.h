@@ -4,6 +4,7 @@
 #include"PlayerStats.h"
 #include "../../../Utility/InputManager.h"
 #include"../../Attack/Attack_L.h"
+#include"../../Attack/Attack_R.h"
 
 class Player : public Character
 {

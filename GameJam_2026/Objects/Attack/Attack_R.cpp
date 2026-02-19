@@ -1,6 +1,6 @@
-#include "Attack_L.h"
+#include "Attack_R.h"
 
-Attack_L::Attack_L()
+Attack_R::Attack_R()
 {
 	collision.is_blocking = true;
 	collision.box_size = Vector2D(120.0f, 50.0f);
@@ -9,17 +9,17 @@ Attack_L::Attack_L()
 
 }
 
-Attack_L::~Attack_L()
+Attack_R::~Attack_R()
 {
 
 }
 
-void Attack_L::Initialize()
+void Attack_R::Initialize()
 {
-	
+
 }
 
-void Attack_L::Update(float delta_seconds)
+void Attack_R::Update(float delta_seconds)
 {
 	cool_time += delta_seconds;
 
@@ -32,40 +32,40 @@ void Attack_L::Update(float delta_seconds)
 	Animation(delta_seconds);
 }
 
-void Attack_L::Draw(const Vector2D& screen_offset, bool flip_flag) const
+void Attack_R::Draw(const Vector2D& screen_offset, bool flip_flag) const
 {
 	float size_x = collision.box_size.x / 2;
 	float size_y = collision.box_size.y / 2;
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 155);
 	DrawBoxAA(location.x - size_x, location.y - size_y, location.x + size_x, location.y + size_y,
-		GetColor(0, 255, 255), true);
+		GetColor(255, 255, 0), true);
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
 }
 
-void Attack_L::Finalize()
+void Attack_R::Finalize()
 {
 
 }
 
-void Attack_L::OnHitCollision(GameObject* hit_object)
+void Attack_R::OnHitCollision(GameObject* hit_object)
 {
 	eObjectType type = hit_object->GetCollision().object_type;
 
-	// ボールを左上に飛ばす
+	// ボールを右上に飛ばす
 	if (type == eBall)
 	{
 		float vel_x = 2.0f - (cool_time * 5.0f);
-		hit_object->SetVelocity(Vector2D(-vel_x, -1.0f));
+		hit_object->SetVelocity(Vector2D(vel_x, -1.0f));
 	}
 }
 
-void Attack_L::Movement(float delta_seconds)
+void Attack_R::Movement(float delta_seconds)
 {
 
 }
 
-void Attack_L::Animation(float delta_seconds)
+void Attack_R::Animation(float delta_seconds)
 {
 
 }

@@ -54,13 +54,23 @@ void Player::Update(float delta_seconds)
     else
         attack_cool = 0.0f;
 
+
+    // collision.is_blocking = false;
     // アタックL
-    if (input->GetKey(KEY_INPUT_L) && attack_cool <= 0.0f)
+    if ((input->GetKey(KEY_INPUT_J) || input->GetButton(XINPUT_BUTTON_LEFT_SHOULDER))
+        && attack_cool <= 0.0f)
     {
         attack_cool = 1.0f;
-
         object_manager->CreateGameObject<Attack_L>(Vector2D(location.x, location.y - 40.0f));
     }
+    // アタックR
+    if ((input->GetKey(KEY_INPUT_K) || input->GetButton(XINPUT_BUTTON_RIGHT_SHOULDER))
+        && attack_cool <= 0.0f)
+    {
+        attack_cool = 1.0f;
+        object_manager->CreateGameObject<Attack_R>(Vector2D(location.x, location.y - 40.0f));
+    }
+
     
 }
 

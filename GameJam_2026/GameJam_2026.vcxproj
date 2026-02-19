@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClCompile Include="AppMain.cpp" />
     <ClCompile Include="Objects\Attack\Attack_L.cpp" />
+    <ClCompile Include="Objects\Attack\Attack_R.cpp" />
     <ClCompile Include="Objects\Item\Item.cpp" />
     <ClCompile Include="Objects\Block\Block.cpp" />
     <ClCompile Include="Objects\Ball\Ball.cpp" />
@@ -157,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Objects\Attack\Attack_L.h" />
+    <ClInclude Include="Objects\Attack\Attack_R.h" />
     <ClInclude Include="Objects\Item\Item.h" />
     <ClInclude Include="Objects\Block\Block.h" />
     <ClInclude Include="Objects\Ball\Ball.h" />

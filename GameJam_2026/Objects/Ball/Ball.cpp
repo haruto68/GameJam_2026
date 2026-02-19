@@ -8,6 +8,7 @@ Ball::Ball()
 	collision.hit_object_type.push_back(eObjectType::ePlayer);
 	collision.hit_object_type.push_back(eObjectType::eBlock);
 	collision.hit_object_type.push_back(eObjectType::eClone);
+	collision.hit_object_type.push_back(eObjectType::eAttack);
 
 }
 
@@ -61,6 +62,13 @@ void Ball::OnHitCollision(GameObject* hit_object)
 			velocity.y = 1.0f;
 		break;
 	case eBlock:
+		// ”½ŽË
+		if (hit_loc.y > location.y)
+			velocity.y = -1.0f;
+		else
+			velocity.y = 1.0f;
+		break;
+	case eClone:
 		// ”½ŽË
 		if (hit_loc.y > location.y)
 			velocity.y = -1.0f;
