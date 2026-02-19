@@ -9,9 +9,8 @@ enum eObjectType
 {
 	eNone,
 	ePlayer,
-	eEnemy,
-	ePlayerShot,
-	eEnemyShot,
+	eBall,
+	eBlock,
 	eItem
 };
 

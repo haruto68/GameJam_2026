@@ -4,6 +4,10 @@
 
 Player::Player()
 {
+    collision.is_blocking = true;
+    collision.box_size = Vector2D(120.0f, 20.0f);
+    collision.object_type = eObjectType::ePlayer;
+    collision.hit_object_type.push_back(eObjectType::eBall);
 }
 
 Player::~Player()

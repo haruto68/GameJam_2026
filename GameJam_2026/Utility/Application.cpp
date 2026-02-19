@@ -18,7 +18,7 @@ Application::~Application()
 
 void Application::WakeUp()
 {
-	// ウィンドウモードで起動する
+	// フルスクリーンで起動する
 	ChangeWindowMode(TRUE);
 
 	// ウィンドウサイズの設定

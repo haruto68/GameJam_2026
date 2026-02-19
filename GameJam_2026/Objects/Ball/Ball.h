@@ -10,6 +10,9 @@ private:
 	int anime_count = 0;
 	bool flip_flag = false;
 
+	float radius = 30.0f;
+	
+
 public:
 	Ball();
 	~Ball();
