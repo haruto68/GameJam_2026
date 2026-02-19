@@ -47,13 +47,22 @@ void Ball::OnHitCollision(GameObject* hit_object)
 	eObjectType type = hit_object->GetCollision().object_type;
 
 
+	// ”½ŽË
+	Vector2D hit_loc = hit_object->GetLocation();
+	if (hit_loc.y > location.y)
+	{
+		velocity.y = -1.0f;
+	}
+	else
+	{
+		velocity.y = 1.0f;
+	}	
+
 	switch (type)
 	{
 	case ePlayer:
-		velocity.y = -1.0f;
 		break;
-	case eBlock:
-		object_manager->DestroyGameObject(hit_object);
+	case eBlock:		
 		break;
 	default:
 		break;
@@ -112,12 +121,3 @@ void Ball::Animation(float delta_seconds)
 
 }
 
-Vector2D Ball::GetVelocity()
-{
-	return this->velocity;
-}
-
-void Ball::SetVelocity(Vector2D velocity)
-{
-	this->velocity += velocity;
-}

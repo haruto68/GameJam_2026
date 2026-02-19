@@ -23,6 +23,10 @@ void Block::OnHitCollision(GameObject* hit_object)
             }
         }
 
+        //Vector2D vel = hit_object->GetVelocity();
+        //vel.y *= -1.0f;
+        //hit_object->SetVelocity(vel);
+
         // ©•ª‚Ìíœ‚Í•K‚¸s‚¤
         if (object_manager)
         {

@@ -40,6 +40,7 @@ public:
 	void SetLocation(const Vector2D);				//座標設定処理
 
 	const Vector2D& GetVelocity() const;
+	void SetVelocity(const Vector2D);
 
 	const Collision& GetCollision() const;			//コリジョン取得処理
 	const unsigned char GetZLayer() const;			//レイヤー取得処理

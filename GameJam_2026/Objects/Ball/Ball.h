@@ -11,6 +11,8 @@ private:
 	bool flip_flag = false;
 
 	float radius = 20.0f;
+
+	int hit_num = 0;
 	
 
 public:
@@ -30,7 +32,7 @@ public:
 	void Movement(float);
 	void Animation(float);
 
-	Vector2D GetVelocity();
-	void SetVelocity(Vector2D);
+	//Vector2D GetVelocity();
+	//void SetVelocity(Vector2D);
 
 };
