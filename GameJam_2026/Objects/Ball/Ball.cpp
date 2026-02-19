@@ -2,6 +2,11 @@
 
 Ball::Ball()
 {
+	collision.is_blocking = true;
+	collision.box_size = Vector2D(radius, radius);
+	collision.object_type = eObjectType::eBall;
+	collision.hit_object_type.push_back(eObjectType::ePlayer);
+	collision.hit_object_type.push_back(eObjectType::eBlock);
 
 }
 
@@ -27,7 +32,9 @@ void Ball::Update(float delta_seconds)
 
 void Ball::Draw(const Vector2D& screen_offset, bool flip_flag) const
 {
-	DrawCircle(location.x,location.y, 10.0, GetColor(255, 255, 255), TRUE);
+	DrawCircle(location.x,location.y, radius, GetColor(255, 255, 255), TRUE);
+	DrawBoxAA(location.x - radius, location.y - radius, location.x + radius, location.y + radius,
+		GetColor(255, 0, 0), false);
 }
 
 void Ball::Finalize()
@@ -41,6 +48,12 @@ void Ball::OnHitCollision(GameObject* hit_object)
 
 	switch (type)
 	{
+	case ePlayer:
+		velocity.y *= -10.0f;
+		break;
+	case eBlock:
+		object_manager->DestroyGameObject(hit_object);
+		break;
 	default:
 		break;
 	}
