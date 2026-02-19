@@ -139,6 +139,7 @@
     <ClCompile Include="Objects\Collision.cpp" />
     <ClCompile Include="Objects\GameObject.cpp" />
     <ClCompile Include="Objects\GameObjectManager.cpp" />
+    <ClCompile Include="Objects\Character\PlayerClone\PlayerClone.cpp" />
     <ClCompile Include="Resource\ResourceManager.cpp" />
     <ClCompile Include="Scene\SceneFactory.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Objects\Collision.h" />
     <ClInclude Include="Objects\GameObject.h" />
     <ClInclude Include="Objects\GameObjectManager.h" />
+    <ClInclude Include="Objects\Character\PlayerClone\PlayerClone.h" />
     <ClInclude Include="Resource\ResourceManager.h" />
     <ClInclude Include="Scene\SceneBase.h" />
     <ClInclude Include="Scene\SceneFactory.h" />

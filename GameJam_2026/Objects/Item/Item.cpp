@@ -2,6 +2,7 @@
 #include "DxLib.h"
 #include "../GameObjectManager.h"
 #include "../Character/Player/Player.h" // Playerを明示的にインクルード
+#include"../../Objects/Character/PlayerClone/PlayerClone.h"
 
 Item::Item()
 {
@@ -38,14 +39,21 @@ void Item::OnHitCollision(GameObject* hit_object)
 {
     if (hit_object->GetCollision().object_type == eObjectType::ePlayer)
     {
-        // Player にキャストして色を変える
         Player* player = dynamic_cast<Player*>(hit_object);
         if (player)
         {
-            player->ChangeColorTemporarily(255, 255, 0); // 黄色に2秒だけ
+            // プレイヤーの色を変える
+            player->ChangeColorTemporarily(255, 255, 0);
+
+            // 分身を生成
+            if (object_manager)
+            {
+                Vector2D clone_pos = player->GetLocation() + Vector2D(50, 0);
+                object_manager->CreateGameObject<PlayerClone>(clone_pos);
+            }
         }
 
-        // 自分を削除
+        // アイテムは消す
         if (object_manager)
         {
             object_manager->DestroyGameObject(this);
