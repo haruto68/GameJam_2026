@@ -14,7 +14,8 @@ enum class eSceneType
 	eInGame,
 	eResult,
 	eRanking,
-	eExit
+	eExit,
+	eCreditScene
 };
 
 class SceneBase

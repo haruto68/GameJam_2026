@@ -32,11 +32,13 @@ bool SceneManager::Update(float delta_seconds)
 	//描画処理
 	Graph();
 
+
 	// ゲームを終了するか確認する
 	if (next_scene_type == eSceneType::eExit)
 	{
 		return TRUE;
 	}
+
 
 	// 現在のシーンタイプが次のシーンタイプと違っているか？
 	if (current_scene->GetNowSceneType() != next_scene_type)

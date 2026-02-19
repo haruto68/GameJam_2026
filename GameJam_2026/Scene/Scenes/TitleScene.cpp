@@ -68,7 +68,7 @@ eSceneType TitleScene::Update(const float& delta_second)
 
 		if (cursor_num == 3)
 		{
-			return  eSceneType::eExit;
+			return  eSceneType::eCreditScene;
 		}
 		//return eSceneType::eInGame;
 	}
