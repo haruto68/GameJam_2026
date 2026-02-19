@@ -1,16 +1,17 @@
 #pragma once
+
 #include"../SceneBase.h"
 
-class ResultScene : public SceneBase
+
+class CreditScene : public SceneBase
 {
 protected:
 
 private:
-	int cursor_num = 0;
-
+	float exit_time = 0;
 public:
-	ResultScene();
-	~ResultScene();
+	CreditScene();
+	~CreditScene();
 
 public:
 	virtual void Initialize() override;

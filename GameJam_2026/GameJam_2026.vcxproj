@@ -141,6 +141,7 @@
     <ClCompile Include="Resource\ResourceManager.cpp" />
     <ClCompile Include="Scene\SceneFactory.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
+    <ClCompile Include="Scene\Scenes\CreditScene.cpp" />
     <ClCompile Include="Scene\Scenes\HelpScene.cpp" />
     <ClCompile Include="Scene\Scenes\InGameScene.cpp" />
     <ClCompile Include="Scene\Scenes\RankingScene.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="Scene\SceneBase.h" />
     <ClInclude Include="Scene\SceneFactory.h" />
     <ClInclude Include="Scene\SceneManager.h" />
+    <ClInclude Include="Scene\Scenes\CreditScene.h" />
     <ClInclude Include="Scene\Scenes\HelpScene.h" />
     <ClInclude Include="Scene\Scenes\InGameScene.h" />
     <ClInclude Include="Scene\Scenes\RankingScene.h" />

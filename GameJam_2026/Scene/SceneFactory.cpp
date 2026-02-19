@@ -6,6 +6,7 @@
 #include"Scenes/InGameScene.h"
 #include"Scenes/ResultScene.h"
 #include"Scenes/RankingScene.h"
+#include"Scenes/CreditScene.h"
 
 SceneBase* SceneFactory::CreateScene(eSceneType scene)
 {
@@ -27,6 +28,9 @@ SceneBase* SceneFactory::CreateScene(eSceneType scene)
 		return new RankingScene();
 		break;
 	case eSceneType::eExit:
+		break;
+	case eSceneType::eCreditScene:
+		return new CreditScene();
 		break;
 	default:
 		break;
