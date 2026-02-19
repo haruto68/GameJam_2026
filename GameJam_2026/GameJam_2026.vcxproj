@@ -132,6 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AppMain.cpp" />
+    <ClCompile Include="Objects\Ball\Ball.cpp" />
     <ClCompile Include="Objects\Character\Player\Player.cpp" />
     <ClCompile Include="Objects\Collision.cpp" />
     <ClCompile Include="Objects\GameObject.cpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="Utility\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Objects\Ball\Ball.h" />
     <ClInclude Include="Objects\Character\Character.h" />
     <ClInclude Include="Objects\Character\Player\Player.h" />
     <ClInclude Include="Objects\Character\Player\PlayerStats.h" />
