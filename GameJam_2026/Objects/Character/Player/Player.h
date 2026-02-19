@@ -2,6 +2,7 @@
 
 #include"../Character.h"
 #include"PlayerStats.h"
+#include "../../../Utility/InputManager.h"
 
 class Player : public Character
 {
@@ -10,6 +11,7 @@ protected:
 private:
 
 	PlayerStats player_stats = {};
+
 
 public:
 
@@ -26,12 +28,12 @@ public:
 	virtual void OnHitCollision(GameObject*) override;
 
 public:
-	Vector2D GetVelocity();
-	void SetVelocity(Vector2D);
+	/*Vector2D GetVelocity();
+	void SetVelocity(Vector2D);*/
 
-	void Movement(float);
+	void Movement(float);/*
 	void Animation(float);
 
 	void SetPlayerStats() const;
-	PlayerStats GetPlayerStats() const;
+	PlayerStats GetPlayerStats() const;*/
 };
