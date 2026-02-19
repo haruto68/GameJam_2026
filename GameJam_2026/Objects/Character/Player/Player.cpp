@@ -28,7 +28,18 @@ void Player::Update(float delta_seconds)
     Movement(delta_seconds);
 
     //input->Update();
-
+     // 色タイマー減算
+    if (color_timer > 0.0f)
+    {
+        color_timer -= delta_seconds;
+        if (color_timer <= 0.0f)
+        {
+            // 元の色に戻す
+            color_r = 255;
+            color_g = 255;
+            color_b = 255;
+        }
+    }
     
 }
 
@@ -42,13 +53,21 @@ void Player::Draw(const Vector2D&, bool) const
         (int)(location.y - halfH),
         (int)(location.x + halfW),
         (int)(location.y + halfH),
-        GetColor(255, 255, 255),
+        GetColor(color_r, color_g, color_b),
         TRUE
     );
 }
 
 void Player::Finalize()
 {
+}
+
+void Player::ChangeColorTemporarily(int r, int g, int b)
+{
+    color_r = r;
+    color_g = g;
+    color_b = b;
+    color_timer = 2.0f; // タイマーを2秒に固定
 }
 
 void Player::Movement(float delta_seconds)
@@ -111,6 +130,8 @@ if ( input->GetKey(KEY_INPUT_RIGHT) ||input->GetKey(KEY_INPUT_D)||
     if (location.x + half > D_WIN_MAX_X)
         location.x = D_WIN_MAX_X - half;
 }
+
+
 
 void Player::OnHitCollision(GameObject*)
 {

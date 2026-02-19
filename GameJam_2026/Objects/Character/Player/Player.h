@@ -9,6 +9,12 @@ class Player : public Character
 protected:
 
 private:
+	int color_r = 255;
+	int color_g = 255;
+	int color_b = 255;
+
+	float color_timer = 0.0f;  // 色変化タイマー
+private:
 
 	PlayerStats player_stats = {};
 
@@ -27,11 +33,13 @@ public:
 
 	virtual void OnHitCollision(GameObject*) override;
 
+	void ChangeColorTemporarily(int r, int g, int b);
 public:
 	/*Vector2D GetVelocity();
 	void SetVelocity(Vector2D);*/
 
-	void Movement(float);/*
+	void Movement(float);
+	/*
 	void Animation(float);
 
 	void SetPlayerStats() const;
