@@ -1,11 +1,16 @@
 #pragma once
 #include"../SceneBase.h"
-
+#include"../../Objects/GameObject.h"
+#include"../../Objects/Character/Player/Player.h"
 class InGameScene : public SceneBase
 {
 protected:
 
 private:
+public:
+	std::vector<GameObject*> scene_objects_list;//オブジェクトリスト
+	class GameObjectManager* object_manager;    //オブジェクトマネージャーインスタンス
+	class Player* player;                        //プレイヤーインスタンス
 
 public:
 	InGameScene();
