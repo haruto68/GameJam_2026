@@ -7,6 +7,7 @@ Ball::Ball()
 	collision.object_type = eObjectType::eBall;
 	collision.hit_object_type.push_back(eObjectType::ePlayer);
 	collision.hit_object_type.push_back(eObjectType::eBlock);
+	collision.hit_object_type.push_back(eObjectType::eClone);
 
 }
 
