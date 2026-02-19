@@ -5,7 +5,7 @@ class Block : public GameObject
 {
 private:
     Vector2D size;
-
+    bool item_spawned = false;
 public:
     Block(/*const Vector2D& pos*/);  
     virtual ~Block();
@@ -14,4 +14,6 @@ public:
     virtual void Update(float) override;
     virtual void Draw(const Vector2D&, bool) const override;
     virtual void Finalize() override;
+
+    virtual void OnHitCollision(GameObject* hit_object) override; // Õ“Ëˆ—
 };

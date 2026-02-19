@@ -3,6 +3,7 @@
 #include"../../Resource/ResourceManager.h"
 #include"../../Objects/GameObjectManager.h"
 #include <Windows.h>
+#include<time.h>
 
 InGameScene::InGameScene():
 	object_manager(nullptr),
@@ -19,7 +20,7 @@ InGameScene::~InGameScene()
 
 void InGameScene::Initialize()
 {
-
+	srand(time(NULL));
 
 	//GameObjectManagerインスタンス取得
 	object_manager = new GameObjectManager();
