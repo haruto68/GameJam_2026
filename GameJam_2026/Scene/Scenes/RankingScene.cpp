@@ -28,7 +28,28 @@ RankingScene::~RankingScene()
 
 void RankingScene::Initialize()
 {
+	FILE* fp;		// ファイルパス
+	errno_t result;	// ファイル読込み結果
 
+	//ランキングファイルオープン
+	fp = nullptr;
+	result = fopen_s(&fp, "Resource/save/ranking_data.csv", "r");
+
+	//エラーチェック
+	if (result != 0)
+	{
+		throw("Resoure/save/ranking_data.csvが読み込めません\n");
+	}
+
+	//ランキング
+	fscanf_s(fp, "%6d,\n", &high_score);
+	fscanf_s(fp, "%6d,\n", &second_score);
+	fscanf_s(fp, "%6d,\n", &third_score);
+	fscanf_s(fp, "%6d,\n", &four_score);
+	fscanf_s(fp, "%6d,\n", &five_score);
+
+	//ファイルクローズ
+	fclose(fp);
 }
 
 eSceneType RankingScene::Update(const float& delta_second)
@@ -125,17 +146,29 @@ void RankingScene::Animation(const float& delta_second)
 	highscore_location[0] = Vector2D(D_WIN_MAX_X / 1.8, D_WIN_MAX_Y / 6);
 	draw_number[0] = ((((high_score % 10000) % 1000) % 100) % 10);
 
-	highscore_location[1] = Vector2D(D_WIN_MAX_X / 1.8 - 100, D_WIN_MAX_Y / 6);
-	draw_number[1] = ((((high_score % 10000) % 1000) % 100) / 10);
+	if (high_score >= 10)
+	{
+		highscore_location[1] = Vector2D(D_WIN_MAX_X / 1.8 - 100, D_WIN_MAX_Y / 6);
+		draw_number[1] = ((((high_score % 10000) % 1000) % 100) / 10);
+	}
 
-	highscore_location[2] = Vector2D(D_WIN_MAX_X / 1.8 - 200, D_WIN_MAX_Y / 6);
-	draw_number[2] = ((((high_score % 10000) % 1000) / 100));
+	if (high_score >= 100)
+	{
+		highscore_location[2] = Vector2D(D_WIN_MAX_X / 1.8 - 200, D_WIN_MAX_Y / 6);
+		draw_number[2] = ((((high_score % 10000) % 1000) / 100));
+	}
 
-	highscore_location[3] = Vector2D(D_WIN_MAX_X / 1.8 - 300, D_WIN_MAX_Y / 6);
-	draw_number[3] = ((((high_score % 10000) / 1000)));
+	if (high_score >= 1000)
+	{
+		highscore_location[3] = Vector2D(D_WIN_MAX_X / 1.8 - 300, D_WIN_MAX_Y / 6);
+		draw_number[3] = ((((high_score % 10000) / 1000)));
+	}
 
-	highscore_location[4] = Vector2D(D_WIN_MAX_X / 1.8 - 400, D_WIN_MAX_Y / 6);
-	draw_number[4] = ((((high_score / 10000))));
+	if (high_score >= 10000)
+	{
+		highscore_location[4] = Vector2D(D_WIN_MAX_X / 1.8 - 400, D_WIN_MAX_Y / 6);
+		draw_number[4] = ((((high_score / 10000))));
+	}
 
 
 	//2位
