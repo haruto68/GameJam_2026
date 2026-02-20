@@ -42,7 +42,6 @@ void Ball::Update(float delta_seconds)
 
 void Ball::Draw(const Vector2D& screen_offset, bool flip_flag) const
 {
-
 	//DrawCircle(location.x,location.y, radius, GetColor(255, 255, 255), TRUE);
 	DrawRotaGraphF(location.x, location.y, 0.3, angle, image, true, FALSE);
 	DrawBoxAA(location.x - radius, location.y - radius, location.x + radius, location.y + radius,
@@ -139,8 +138,9 @@ void Ball::Animation(float delta_seconds)
 		animation_time = 0.0f;
 		anim_num++;
 		if (anim_num > 3)
+		{
 			anim_num = 0;
-
+		}
 		image = syuriken_image[anim_num];
 
 	}

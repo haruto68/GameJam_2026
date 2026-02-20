@@ -30,7 +30,6 @@ void InGameScene::Initialize()
 
 	//object_manager->CreateGameObject<Block>(Vector2D(160, 360));
 
-	object_manager->CreateGameObject<Ball>(Vector2D(640, 360));
 
 	//ƒuƒƒbƒN¶¬ 
 	const int rows = 4;
