@@ -9,6 +9,12 @@ private:
 	int hit_point = 0;
 	int anime_count = 0;
 	bool flip_flag = false;
+	int syuriken_image[4];
+	float angle = 0.0f;
+	float angle_pluse = ƒÎ / 36;
+	float animation_time = 0.0f;
+	int anim_num = 0;
+	float syuriken_time = 0.0f;
 
 	float radius = 20.0f;
 
