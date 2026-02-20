@@ -61,25 +61,30 @@ void Ball::OnHitCollision(GameObject* hit_object)
 	eObjectType type = hit_object->GetCollision().object_type;
 	Vector2D hit_loc = hit_object->GetLocation();
 
+
 	switch (type)
 	{
 	case ePlayer:
 	case eClone:
 		// プレイヤー・クローンは必ず反射
+		if (velocity.y < 0)
+			velocity.y = velocity.y * -1.0;
 		if (hit_loc.y > location.y)
-			velocity.y = -1.0f;
+			velocity.y *= -1.0f;
 		else
-			velocity.y = 1.0f;
+			velocity.y *= 1.0f;
 		break;
 
 	case eBlock:
 		// 必殺技中なら反射しない
 		if (!is_penetrating)
 		{
+			if (velocity.y < 0)
+				velocity.y = velocity.y * -1.0;
 			if (hit_loc.y > location.y)
-				velocity.y = -1.0f;
+				velocity.y *= -1.0f;
 			else
-				velocity.y = 1.0f;
+				velocity.y *= 1.0f;
 		}
 		break;
 
