@@ -20,6 +20,10 @@ private:
 
 	int hit_num = 0;
 	
+public:
+	//•KŽE‹Z
+	static bool is_penetrating;
+
 
 public:
 	Ball();
