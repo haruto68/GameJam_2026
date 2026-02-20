@@ -92,6 +92,12 @@ void Ball::OnHitCollision(GameObject* hit_object)
 void Ball::Movement(float delta_seconds)
 {
 
+	int gauge_width = 200;
+	int margin = 30;
+
+	// ゲージの左端
+	float gauge_left = D_WIN_MAX_X - margin - gauge_width;
+
 	// --- 2. 壁での反射処理 ---
    //上画面端
 	if ((location.y + velocity.y) < (0) - (collision.box_size.y / 2.0f))
@@ -117,8 +123,8 @@ void Ball::Movement(float delta_seconds)
 			velocity.x *= -1.0f;
 		}
 	}
-	//右画面端
-	if ((location.x + velocity.x) >= (D_WIN_MAX_X)-(collision.box_size.x / 2.0f))
+	// 右画面端ゲージまで
+	if ((location.x + velocity.x) >= (gauge_left)-(collision.box_size.x / 2.0f))
 	{
 		if ((location.x + velocity.x) > location.x)
 		{

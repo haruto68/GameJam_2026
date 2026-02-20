@@ -32,16 +32,31 @@ void PlayerClone::Update(float delta_seconds)
     // 左右に自動移動
     location.x += move_direction * speed * delta_seconds;
 
-    // 画面端で方向反転
+    //// 画面端で方向反転
+    //float halfW = collision.box_size.x * 0.5f;
+    //if (location.x - halfW < 0.0f)
+    //{
+    //    location.x = halfW;
+    //    move_direction = 1;
+    //}
     float halfW = collision.box_size.x * 0.5f;
+
+    int gauge_width = 200;
+    int margin = 30;
+
+    // ゲージ左端
+    float gauge_left = D_WIN_MAX_X - margin - gauge_width;
+
+    // 左端
     if (location.x - halfW < 0.0f)
     {
         location.x = halfW;
         move_direction = 1;
     }
-    else if (location.x + halfW > D_WIN_MAX_X)
+    // 右端（ゲージまで）
+    else if (location.x + halfW > gauge_left)
     {
-        location.x = D_WIN_MAX_X - halfW;
+        location.x = gauge_left - halfW;
         move_direction = -1;
     }
 
