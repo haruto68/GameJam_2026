@@ -8,6 +8,11 @@
 
 class Player : public Character
 {
+
+private:
+	float life;       // 現在のライフ
+	float max_life;   // 最大ライフ
+
 protected:
 
 private:
@@ -24,6 +29,13 @@ private:
 
 
 public:
+
+public:
+	/*Player() : max_life(5.0f), life(5.0f) {} */ // 例：最大5ライフ
+	void TakeDamage(float amount);            // ダメージを受ける
+/*	void Heal(float amount);  */                // 回復用
+	float GetLife() const { return life; }
+	float GetMaxLife() const { return max_life; }
 
 private:
 	int item_count = 0;
