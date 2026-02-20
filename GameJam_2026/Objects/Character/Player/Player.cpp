@@ -1,6 +1,9 @@
 #include "Player.h"
 #include "../../../Utility/InputManager.h"
 #include "../../../Utility/UserTemplate.h"
+#include"../../../Objects/Item/Item.h"
+#include"../../../Objects/Ball/Ball.h"
+#include"../../../Objects/GameObject.h"
 
 Player::Player()
 {
@@ -23,6 +26,12 @@ void Player::Initialize()
     collision.box_size = Vector2D(120.0f, 20.0f);
 }
 
+//アイテムをとった数
+void Player::AddItem()
+{
+    item_count++;
+}
+
 void Player::Update(float delta_seconds)
 {
     Movement(delta_seconds);
@@ -31,14 +40,7 @@ void Player::Update(float delta_seconds)
      // 色タイマー減算
     if (color_timer > 0.0f)
     {
-        color_timer -= delta_seconds;
-        if (color_timer <= 0.0f)
-        {
-            // 元の色に戻す
-            color_r = 255;
-            color_g = 255;
-            color_b = 255;
-        }
+
     }
 
 
@@ -47,7 +49,7 @@ void Player::Update(float delta_seconds)
 
     //入力情報の更新
     input->Update();
-    
+
     // クールタイム
     if (attack_cool > 0)
         attack_cool -= delta_seconds;
@@ -71,7 +73,23 @@ void Player::Update(float delta_seconds)
         object_manager->CreateGameObject<Attack_R>(Vector2D(location.x, location.y - 40.0f));
     }
 
-    
+    //貫通弾の時間管理
+    if (is_special_active)
+    {
+        special_timer -= delta_seconds;
+
+        if (special_timer <= 0.0f)
+        {
+            is_special_active = false;
+        }
+    }
+
+
+    // これだけで全ボールに反映
+    Ball::is_penetrating = is_special_active;
+
+
+
 }
 
 void Player::Draw(const Vector2D&, bool) const
@@ -79,12 +97,23 @@ void Player::Draw(const Vector2D&, bool) const
     float halfW = collision.box_size.x * 0.5f;
     float halfH = collision.box_size.y * 0.5f;
 
+    int r = 255;
+    int g = 255;
+    int b = 255;
+
+    if (is_special_active)
+    {
+        r = 255;
+        g = 0;
+        b = 0;
+    }
+
     DrawBox(
         (int)(location.x - halfW),
         (int)(location.y - halfH),
         (int)(location.x + halfW),
         (int)(location.y + halfH),
-        GetColor(color_r, color_g, color_b),
+        GetColor(r, g, b),
         TRUE
     );
 }
@@ -127,7 +156,18 @@ void Player::Movement(float delta_seconds)
         move += 1.0;
     }
 
-   
+
+    if (!is_special_active && item_count >= 2)
+    {
+        if (input->GetButton(XINPUT_BUTTON_A))
+        {
+            is_special_active = true;
+            special_timer = 3.0f;
+            item_count = 0;
+        }
+    }
+
+
 
     // 移動
     location.x += move * speed * delta_seconds;
@@ -140,6 +180,8 @@ void Player::Movement(float delta_seconds)
 
     if (location.x + half > D_WIN_MAX_X)
         location.x = D_WIN_MAX_X - half;
+
+
 }
 
 

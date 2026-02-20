@@ -25,6 +25,12 @@ private:
 
 public:
 
+private:
+	int item_count = 0;
+
+	bool is_special_active = false;
+	float special_timer = 0.0f;
+
 public:
 	Player();
 	~Player();
@@ -48,4 +54,5 @@ public:
 
 	void SetPlayerStats() const;
 	PlayerStats GetPlayerStats() const;*/
+	void AddItem();
 };

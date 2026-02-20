@@ -16,14 +16,24 @@ Attack_R::~Attack_R()
 
 void Attack_R::Initialize()
 {
-
+	target_R[0] = Vector2D(5.0f, -1.0f);	//81°
+	target_R[1] = Vector2D(5.0f, -2.0f);	//72°
+	target_R[2] = Vector2D(5.0f, -3.0f);	//63°
+	target_R[3] = Vector2D(5.0f, -4.0f);	//54°
+	target_R[4] = Vector2D(5.0f, -5.0f);	//45°
+	target_R[5] = Vector2D(4.0f, -5.0f);	//36°
+	target_R[6] = Vector2D(3.0f, -5.0f);	//27°
+	target_R[7] = Vector2D(2.0f, -5.0f);	//18°
+	target_R[8] = Vector2D(1.0f, -5.0f);	//9°
+	target_R[9] = Vector2D(0.0f, -5.0f);	//0°
 }
 
 void Attack_R::Update(float delta_seconds)
 {
 	cool_time += delta_seconds;
 
-	if (cool_time >= 0.5f)
+	// 消えるまでの時間
+	if (cool_time >= life_time)
 	{
 		object_manager->DestroyGameObject(this);
 	}
@@ -55,8 +65,18 @@ void Attack_R::OnHitCollision(GameObject* hit_object)
 	// ボールを右上に飛ばす
 	if (type == eBall)
 	{
-		float vel_x = 2.0f - (cool_time * 5.0f);
-		hit_object->SetVelocity(Vector2D(vel_x, -1.0f));
+		// 早い程右に、遅いほど上にハジク
+		for (int i = 9; i >= 0; i--)
+		{
+			if (cool_time <= (life_time / 10) * i)
+			{
+				//加速度設定
+				Vector2D target = Vector2D(location.x + target_R[i].x, location.y + target_R[i].y);
+				Vector2D target_velocity = Tracking(location, target);
+
+				hit_object->SetVelocity(target_velocity);
+			}
+		}
 	}
 }
 

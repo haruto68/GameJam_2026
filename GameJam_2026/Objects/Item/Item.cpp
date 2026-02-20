@@ -42,10 +42,15 @@ void Item::OnHitCollision(GameObject* hit_object)
         Player* player = dynamic_cast<Player*>(hit_object);
         if (player)
         {
-            // プレイヤーの色を変える
+            collision.is_blocking = false;
+
+            //必殺技カウント追加
+            player->AddItem();
+
+            // 色変更
             player->ChangeColorTemporarily(255, 255, 0);
 
-            // 分身を生成
+            // 分身生成
             if (object_manager)
             {
                 Vector2D clone_pos = player->GetLocation() + Vector2D(50, 0);
@@ -53,7 +58,6 @@ void Item::OnHitCollision(GameObject* hit_object)
             }
         }
 
-        // アイテムは消す
         if (object_manager)
         {
             object_manager->DestroyGameObject(this);

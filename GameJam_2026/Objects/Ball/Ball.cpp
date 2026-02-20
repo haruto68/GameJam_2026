@@ -1,5 +1,7 @@
 #include "Ball.h"
 
+bool Ball::is_penetrating = false;
+
 Ball::Ball()
 {
 	collision.is_blocking = true;
@@ -56,29 +58,39 @@ void Ball::Finalize()
 void Ball::OnHitCollision(GameObject* hit_object)
 {
 	eObjectType type = hit_object->GetCollision().object_type;
-
-
 	Vector2D hit_loc = hit_object->GetLocation();
 
-	// 反射
-	if (hit_loc.y > location.y)
-		velocity.y = -1.0f;
-	else
-		velocity.y = 1.0f;
-
-	angle_pluse *= -1.0;
 
 	switch (type)
 	{
 	case ePlayer:
-		break;
-	case eBlock:
-		break;
 	case eClone:
+		// プレイヤー・クローンは必ず反射
+		if (velocity.y < 0)
+			velocity.y = velocity.y * -1.0;
+		if (hit_loc.y > location.y)
+			velocity.y *= -1.0f;
+		else
+			velocity.y *= 1.0f;
 		break;
+
+	case eBlock:
+		// 必殺技中なら反射しない
+		if (!is_penetrating)
+		{
+			if (velocity.y < 0)
+				velocity.y = velocity.y * -1.0;
+			if (hit_loc.y > location.y)
+				velocity.y *= -1.0f;
+			else
+				velocity.y *= 1.0f;
+		}
+		break;
+
 	default:
 		break;
 	}
+
 }
 
 void Ball::Movement(float delta_seconds)
