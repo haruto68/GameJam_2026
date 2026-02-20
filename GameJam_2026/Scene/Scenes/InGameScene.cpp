@@ -78,9 +78,9 @@ eSceneType InGameScene::Update(const float& delta_second)
 	}
 
 	// 決定
-	if (input->GetButtonDown(XINPUT_BUTTON_A) || input->GetKeyDown(KEY_INPUT_E))
+	if (input->GetKeyDown(KEY_INPUT_E))
 	{
-		//return eSceneType::eResult;
+		return eSceneType::eResult;
 	}
 
 	Animation(delta_second);
@@ -101,7 +101,38 @@ void InGameScene::Draw() const
 
 void InGameScene::Finalize()
 {
+	////スコアランダム
+	//score = rand() % 10000;
+	//item = 3;
+	//mato[0] = 8;
+	//mato[1] = 4;
+	//mato[2] = 1;
 
+	//リザルトデータの書き込み
+	FILE* fp = nullptr;
+	//ファイルオープン
+	errno_t result = fopen_s(&fp, "Resource/save/result_data.csv", "w");
+
+	//エラーチェック
+	if (result != 0)
+	{
+		throw("Resource/save/result_dat.csvが開けません\n");
+	}
+
+	//スコアを保存
+	fprintf(fp, "%d,\n", score);
+
+	//アイテム
+	fprintf(fp, "%d,\n", item);
+
+	//マト
+	for (int i = 0; i < 3; i++)
+	{
+		fprintf(fp, "%d,\n", mato[i]);
+	}
+
+	//ファイルクローズ
+	fclose(fp);
 }
 
 eSceneType InGameScene::GetNowSceneType()const

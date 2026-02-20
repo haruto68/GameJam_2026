@@ -12,6 +12,10 @@ class InGameScene : public SceneBase
 protected:
 
 private:
+	int score = 0;
+	int item = 0;
+	int mato[3] = {};
+
 public:
 	std::vector<GameObject*> scene_objects_list;//オブジェクトリスト
 	class GameObjectManager* object_manager;    //オブジェクトマネージャーインスタンス
