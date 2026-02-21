@@ -27,7 +27,7 @@ Player::~Player()
 void Player::Initialize()
 {
     // 画面下中央に配置
-    location = Vector2D(D_WIN_MAX_X / 2.0f, D_WIN_MAX_Y - 80.0f);
+    location = Vector2D(D_WIN_MAX_X / 2.0f - 115.0f, D_WIN_MAX_Y - 80.0f);
 
     // バーサイズ
     collision.box_size = Vector2D(120.0f, 20.0f);
@@ -113,6 +113,12 @@ void Player::Draw(const Vector2D&, bool) const
     {
         r = 255; g = 0; b = 0;
     }
+    
+    if (stan_time > 0.0f)
+        r = 0, g = 0, b = 255;
+    else
+        r = 255, g = 255, b = 255;
+
 
     // プレイヤー本体描画
     DrawBox(

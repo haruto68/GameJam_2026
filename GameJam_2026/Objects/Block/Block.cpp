@@ -67,6 +67,7 @@ void Block::Draw(const Vector2D&, bool) const
     
     DrawBoxAA(location.x - halfW, location.y - halfH, location.x + halfW, location.y + halfH,
         GetColor(0, 0, 255), false);
+
 }
 
 void Block::Finalize()

@@ -51,11 +51,9 @@ public:
 	void SetPlayerLocation(Vector2D location);		//プレイヤー座標設定処理
 	void SetPlayerStats(PlayerStats stats);			//プレイヤーステータス設定処理
 	Vector2D Tracking(Vector2D A, Vector2D B);		//AがBを追尾する処理
+	Vector2D Calc_Distance(Vector2D A, Vector2D B);	//AからBまでの距離を計算する処理
 
 	const GameObjectManager* CheckInstance() const;	//インスタンス確認処理
 	void SetInstance(GameObjectManager* instance);	//インスタンス設定処理
 
-	void Explosion(float);							//爆発処理
-	bool GetExplosionFlag();						//爆発フラグ取得処理
-	void DrawExplosion() const;						//爆発描画
 };

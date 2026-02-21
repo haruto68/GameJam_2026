@@ -26,7 +26,7 @@ void InGameScene::Initialize()
 	object_manager = new GameObjectManager();
 
 	//プレイヤー生成
-	player = object_manager->CreateGameObject<Player>(Vector2D(160, 360));
+	player = object_manager->CreateGameObject<Player>(Vector2D(0, 0));
 
 	//ブロック生成 
 	const int rows = 4;
@@ -75,8 +75,8 @@ void InGameScene::Initialize()
 	obj =  object_manager->CreateGameObject<Block2>(Vector2D(x, 60.0));
 	obj->SetVelocity(Vector2D(z, 0));
 
+
 	// ボール生成
-	//object_manager->CreateGameObject<Ball>(Vector2D(640, 360));
 	player->SetInstance(object_manager);
 	player->CreateBall();
 }
@@ -128,11 +128,14 @@ void InGameScene::Draw() const
 	}
 	DrawBox(1051, 0, D_WIN_MAX_X, D_WIN_MAX_Y, 0x000000, true);
 
-	DrawFormatString(1080, 400, GetColor(255, 255, 255), "sc_b  %d", screen_ball);
-	DrawFormatString(1080, 450, GetColor(255, 255, 255), "hb_b  %d", have_ball);
+	DrawFormatString(1080, 350, GetColor(255, 255, 255), "手裏剣数");
+	DrawFormatString(1080, 400, GetColor(255, 255, 255), "画面内");
+	DrawFormatString(1080, 450, GetColor(255, 255, 255), "  %d", screen_ball);
+	DrawFormatString(1080, 500, GetColor(255, 255, 255), "所持中");
+	DrawFormatString(1080, 550, GetColor(255, 255, 255), "  %d", have_ball);
 	
-	DrawFormatString(1080, 300, GetColor(255, 255, 255), "スコア");
-	DrawFormatString(1080, 350, GetColor(255, 255, 255), "%d", score);
+	DrawFormatString(1080, 250, GetColor(255, 255, 255), "スコア");
+	DrawFormatString(1080, 300, GetColor(255, 255, 255), "%d", score);
 
 
 }

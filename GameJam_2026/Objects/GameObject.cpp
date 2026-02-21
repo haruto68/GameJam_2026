@@ -146,6 +146,17 @@ Vector2D GameObject::Tracking(Vector2D A, Vector2D B)
 
 }
 
+//AからBまでの距離を計算する処理
+Vector2D GameObject::Calc_Distance(Vector2D A, Vector2D B)
+{
+	Vector2D distance;
+
+	distance.x = fabsf(A.x - B.x);
+	distance.y = fabsf(A.y - B.y);
+	
+	return distance;
+}
+
 //インスタンス確認処理
 const GameObjectManager* GameObject::CheckInstance() const
 {

@@ -62,6 +62,12 @@ void Ball::OnHitCollision(GameObject* hit_object)
 {
 	eObjectType type = hit_object->GetCollision().object_type;
 	Vector2D hit_loc = hit_object->GetLocation();
+	Vector2D distance = Calc_Distance(location, hit_loc);
+
+	Vector2D hit_size;
+	hit_size.x = (hit_object->GetCollision().box_size.x / 2) + (collision.box_size.x / 2);
+	hit_size.y = (hit_object->GetCollision().box_size.y / 2) + (collision.box_size.y / 2);
+
 
 
 	switch (type)
@@ -88,12 +94,43 @@ void Ball::OnHitCollision(GameObject* hit_object)
 		// 必殺技中なら反射しない
 		if (!is_penetrating)
 		{
-			if (velocity.y < 0)
-				velocity.y = velocity.y * -1.0;
-			if (hit_loc.y > location.y)
-				velocity.y *= -1.0f;
-			else
-				velocity.y *= 1.0f;
+			if(distance.x < hit_size.x - 2.5)	// 2つのX距離が2つのヒットボックスX合計よりも小さい
+			{
+				// Y方向に反射する
+				if (velocity.y < 0)
+					velocity.y = velocity.y * -1.0;
+				if (hit_loc.y > location.y)
+					velocity.y *= -1.0f;
+				else
+					velocity.y *= 1.0f;
+			}
+			else if(distance.y < hit_size.y - 2.5)	// 2つのY距離が2つのヒットボックスY合計よりも小さい
+			{
+				// X方向に反射する
+				if (velocity.x < 0)
+					velocity.x = velocity.x * -1.0;
+				if (hit_loc.x > location.x)
+					velocity.x *= -1.0f;
+				else
+					velocity.x *= 1.0f;
+			}
+			else// 2つのXY距離が2つのヒットボックスXY合計よりも小さい
+			{
+				// XY方向に反射する
+				if (velocity.y < 0)
+					velocity.y = velocity.y * -1.0;
+				if (hit_loc.y > location.y)
+					velocity.y *= -1.0f;
+				else
+					velocity.y *= 1.0f;
+
+				if (velocity.x < 0)
+					velocity.x = velocity.x * -1.0;
+				if (hit_loc.x > location.x)
+					velocity.x *= -1.0f;
+				else
+					velocity.x *= 1.0f;
+			}
 
 		}
 
