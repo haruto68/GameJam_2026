@@ -4,6 +4,7 @@
 #include"../../Objects/Character/Player/Player.h"
 #include"../../Objects/Ball/Ball.h"
 #include "../../Objects/Block/Block.h"
+#include "../../Objects/Block/Block2.h"
 #include <vector>
 
 //std::vector<Block*> blocks;

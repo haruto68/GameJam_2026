@@ -58,6 +58,26 @@ void InGameScene::Initialize()
 		}
 	}
 
+	// 生成セット
+	Block2* obj = nullptr;
+	float x = 0;
+	float z = 0;
+	int place = GetRand(1) + 0;
+	if (place == 0)
+	{
+		x = 0;
+		z = 1;
+	}
+
+	else if (place == 1)
+	{
+		x = 1020;
+		z = -1;
+	}
+
+	obj =  object_manager->CreateGameObject<Block2>(Vector2D(x, 60.0));
+	obj->SetVelocity(Vector2D(z, 0));
+
 	// ボール生成
 	object_manager->CreateGameObject<Ball>(Vector2D(640, 360));
 }
