@@ -36,10 +36,12 @@ void Ball::Initialize()
 void Ball::Update(float delta_seconds)
 {
     Movement(delta_seconds);
-    Animation(delta_seconds);
 
+	if(velocity.x != 0.0f || velocity.y != 0.0f)
+	{
+		Animation(delta_seconds);
+	}
 
-    
 }
 
 void Ball::Draw(const Vector2D& screen_offset, bool flip_flag) const

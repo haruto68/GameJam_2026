@@ -126,6 +126,8 @@ void InGameScene::Draw() const
 		obj->Draw(Vector2D(0, 0), true);
 		n++;
 	}
+	DrawBox(1051, 0, D_WIN_MAX_X, D_WIN_MAX_Y, 0x000000, true);
+
 	DrawFormatString(1080, 400, GetColor(255, 255, 255), "sc_b  %d", screen_ball);
 	DrawFormatString(1080, 450, GetColor(255, 255, 255), "hb_b  %d", have_ball);
 	
@@ -137,12 +139,6 @@ void InGameScene::Draw() const
 
 void InGameScene::Finalize()
 {
-	////スコアランダム
-	//score = rand() % 10000;
-	//item = 3;
-	//mato[0] = 8;
-	//mato[1] = 4;
-	//mato[2] = 1;
 
 	//リザルトデータの書き込み
 	FILE* fp = nullptr;
@@ -279,9 +275,10 @@ void InGameScene::ObjectListLoop(const float& delta_second)
 	// 画面外へでたオブジェクトを破壊する
 	for (GameObject* obj : scene_objects_list)
 	{
-		if (obj->GetLocation().x <= -50 || obj->GetLocation().x >= D_WIN_MAX_X + 50 ||
+		if (obj->GetLocation().x <= -50 || obj->GetLocation().x >= D_WIN_MAX_X - 230 + 50 ||
 			obj->GetLocation().y <= -50 || obj->GetLocation().y >= D_WIN_MAX_Y + 50)
 		{
+			obj->SetHp(0);
 			object_manager->DestroyGameObject(obj);
 		}
 	}
