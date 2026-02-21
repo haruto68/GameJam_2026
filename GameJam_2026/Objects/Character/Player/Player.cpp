@@ -152,7 +152,7 @@ void Player::Draw(const Vector2D&, bool) const
     DrawLine((int)gauge_left, 0, (int)gauge_left, D_WIN_MAX_Y, GetColor(255, 255, 255));
 
     // ¶’[‚àü‚É‚µ‚½‚¢ê‡
-    DrawLine(0, 0, 0, D_WIN_MAX_Y, GetColor(255, 255, 255));
+    //DrawLine(0, 0, 0, D_WIN_MAX_Y, GetColor(255, 255, 255));
 
     // ƒ‰ƒCƒtŠ„‡
     float life_rate = life / max_life;
