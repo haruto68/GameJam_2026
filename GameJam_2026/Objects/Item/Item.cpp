@@ -10,6 +10,10 @@ Item::Item()
     collision.box_size = Vector2D(size, size);
     collision.object_type = eObjectType::eItem; // アイテムタイプ
     collision.hit_object_type.push_back(eObjectType::ePlayer); // プレイヤーに当たる
+
+
+    ResourceManager* rm = ResourceManager::GetInstance();
+    makimono = rm->GetImages("Resource/Images/makimono1.png")[0];
 }
 
 Item::~Item()
@@ -29,6 +33,11 @@ void Item::Update(float delta_seconds)
 void Item::Draw(const Vector2D& screen_offset, bool flip_flag) const
 {
     DrawCircle(location.x, location.y, size / 2.0f, GetColor(255, 255, 0), TRUE);
+
+    DrawRotaGraphF(location.x, location.y, 0.25, 0.0, makimono, true, FALSE);
+
+    DrawBoxAA(location.x - size / 2.0f, location.y - size / 2.0f, location.x + size / 2.0f, location.y + size / 2.0f,
+        GetColor(0, 255, 0), false);
 }
 
 void Item::Finalize()

@@ -4,7 +4,8 @@
 class Item : public GameObject
 {
 private:
-    float size = 20.0f; // 表示サイズ
+    float size = 40.0f; // 表示サイズ
+    int makimono = 0;   // 巻物画像
 
 public:
     Item();
