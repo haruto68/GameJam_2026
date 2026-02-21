@@ -24,7 +24,7 @@ void HelpScene::Initialize()
 
 eSceneType HelpScene::Update(const float& delta_second)
 {
-	botton_time += delta_second;
+	
 	//入力機能インスタンス取得
 	InputManager* input = InputManager::GetInstance();
 
@@ -47,7 +47,8 @@ eSceneType HelpScene::Update(const float& delta_second)
 
 	if(botton == true)
 	{
-		if (botton_time >= 1.0)
+		botton_time += delta_second;
+		if (botton_time >= 0.5)
 		{
 			return eSceneType::eTitle;
 		}
