@@ -162,8 +162,9 @@ void Player::Draw(const Vector2D&, bool) const
 
     //// 枠
     //DrawBox(life_x1 + 15, life_y1, life_x2 + 15, life_y2, GetColor(255, 255, 255), FALSE);
-
-    DrawFormatString(location.x, location.y, 0xffffff, "%f", stan_time);
+    
+    //スタンタイマー
+    //DrawFormatString(location.x, location.y, 0xffffff, "%f", stan_time);
 }
 
 void Player::Movement(float delta_seconds)
