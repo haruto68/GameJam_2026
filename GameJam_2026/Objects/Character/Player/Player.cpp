@@ -129,12 +129,12 @@ void Player::Draw(const Vector2D&, bool) const
     int gauge_x2 = D_WIN_MAX_X - GAUGE_MARGIN;
     int gauge_y2 = GAUGE_MARGIN + GAUGE_HEIGHT;
 
-    DrawBox(gauge_x1, gauge_y1, gauge_x2, gauge_y2, GetColor(50, 50, 50), TRUE);
+    DrawBox(gauge_x1 + 15, gauge_y1, gauge_x2 + 15, gauge_y2, GetColor(50, 50, 50), TRUE);
     float rate = is_special_active ? special_timer / 3.0f : item_count / 2.0f;
     if (rate > 1.0f) rate = 1.0f;
     if (rate < 0.0f) rate = 0.0f;
-    DrawBox(gauge_x1, gauge_y1, gauge_x1 + (int)(GAUGE_WIDTH * rate), gauge_y2, GetColor(255, 0, 0), TRUE);
-    DrawBox(gauge_x1, gauge_y1, gauge_x2, gauge_y2, GetColor(255, 255, 255), FALSE);
+    DrawBox(gauge_x1 + 15, gauge_y1, gauge_x1 + 15 + (int)(GAUGE_WIDTH * rate), gauge_y2, GetColor(255, 0, 0), TRUE);
+    DrawBox(gauge_x1 + 15, gauge_y1, gauge_x2 + 15, gauge_y2, GetColor(255, 255, 255), FALSE);
 
     // --- ライフゲージ（右上、必殺技ゲージの下） ---
     int life_x1 = D_WIN_MAX_X - GAUGE_MARGIN - GAUGE_WIDTH;
@@ -143,7 +143,7 @@ void Player::Draw(const Vector2D&, bool) const
     int life_y2 = life_y1 + GAUGE_HEIGHT;
 
     // 背景
-    DrawBox(life_x1, life_y1, life_x2, life_y2, GetColor(50, 50, 50), TRUE);
+    DrawBox(life_x1 + 15, life_y1, life_x2 + 15, life_y2, GetColor(50, 50, 50), TRUE);
 
 
     // プレイヤー移動制限線（右端）
@@ -157,10 +157,10 @@ void Player::Draw(const Vector2D&, bool) const
     // ライフ割合
     float life_rate = life / max_life;
     if (life_rate < 0.0f) life_rate = 0.0f;
-    DrawBox(life_x1, life_y1, life_x1 + (int)(GAUGE_WIDTH * life_rate), life_y2, GetColor(0, 255, 0), TRUE);
+    DrawBox(life_x1 + 15, life_y1, life_x1 + 15 + (int)(GAUGE_WIDTH * life_rate), life_y2, GetColor(0, 255, 0), TRUE);
 
     // 枠
-    DrawBox(life_x1, life_y1, life_x2, life_y2, GetColor(255, 255, 255), FALSE);
+    DrawBox(life_x1 + 15, life_y1, life_x2 + 15, life_y2, GetColor(255, 255, 255), FALSE);
 }
 
 void Player::Movement(float delta_seconds)
@@ -174,15 +174,17 @@ void Player::Movement(float delta_seconds)
     //入力情報の更新
     input->Update();
 
-    float move = 0.0f;
+
+    velocity.x = 0.0f;
+
     if (input->GetKey(KEY_INPUT_LEFT) || input->GetKey(KEY_INPUT_A) ||
         input->GetButton(XINPUT_BUTTON_DPAD_LEFT) || input->GetLeftStick().x < -0.5f)
-        move -= 1.0f;
+        velocity.x = -1.0f;
 
     //右移動
     if (input->GetKey(KEY_INPUT_RIGHT) || input->GetKey(KEY_INPUT_D) ||
         input->GetButton(XINPUT_BUTTON_DPAD_RIGHT) || input->GetLeftStick().x > 0.5f)
-        move += 1.0f;
+        velocity.x = 1.0f;
 
     // アイテム使用
     if (!is_special_active && item_count >= 2 && input->GetButton(XINPUT_BUTTON_A))
@@ -191,12 +193,12 @@ void Player::Movement(float delta_seconds)
         special_timer = 3.0f;
         item_count = 0;
     }
-    
+
 
 
 
     // 移動
-    location.x += move * speed * delta_seconds;
+    location += velocity * speed * delta_seconds;
 
     // 画面端制限（右端はゲージ左端まで）
     float half = collision.box_size.x * 0.5f;
@@ -204,6 +206,7 @@ void Player::Movement(float delta_seconds)
 
     if (location.x - half < 0.0f) location.x = half;
     if (location.x + half > gauge_left) location.x = gauge_left - half;
+
 }
 
 void Player::ChangeColorTemporarily(int r, int g, int b)
