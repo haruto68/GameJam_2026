@@ -33,13 +33,13 @@ void InGameScene::Initialize()
 
 	//ÉuÉçÉbÉNê∂ê¨ 
 	const int rows = 4;
-	const int cols = 8;
+	const int cols = 9;
 
-	float startX = 100.0f;
+	float startX = 80.0f;
 	float startY = 100.0f;
 
-	float blockWidth = 120.0f;
-	float blockHeight = 30.0f;
+	float blockWidth = 100.0f;
+	float blockHeight = 50.0f;
 	//Vector2D pos = 0;
 
 	for (int y = 0; y < rows; y++)

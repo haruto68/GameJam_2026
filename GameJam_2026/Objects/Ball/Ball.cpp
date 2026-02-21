@@ -48,6 +48,7 @@ void Ball::Draw(const Vector2D& screen_offset, bool flip_flag) const
 	DrawRotaGraphF(location.x, location.y, 0.3, angle, image, true, FALSE);
 	DrawBoxAA(location.x - radius, location.y - radius, location.x + radius, location.y + radius,
 		GetColor(255, 0, 0), false);
+
 }
 
 void Ball::Finalize()
@@ -72,6 +73,13 @@ void Ball::OnHitCollision(GameObject* hit_object)
 			velocity.y *= -1.0f;
 		else
 			velocity.y *= 1.0f;
+
+		// ãtâÒì]
+		if (spin_velocity)
+			spin_velocity = false;
+		else
+			spin_velocity = true;
+
 		break;
 
 	case eBlock:
@@ -84,7 +92,15 @@ void Ball::OnHitCollision(GameObject* hit_object)
 				velocity.y *= -1.0f;
 			else
 				velocity.y *= 1.0f;
+
 		}
+
+		// ãtâÒì]
+		if (spin_velocity)
+			spin_velocity = false;
+		else
+			spin_velocity = true;
+
 		break;
 
 	default:
@@ -102,22 +118,33 @@ void Ball::Movement(float delta_seconds)
 	// ÉQÅ[ÉWÇÃç∂í[
 	float gauge_left = D_WIN_MAX_X - margin - gauge_width;
 
-	// --- 2. ï«Ç≈ÇÃîΩéÀèàóù ---
    //è„âÊñ í[
-	if ((location.y + velocity.y) < (0) - (collision.box_size.y / 2.0f))
+	if ((location.y + velocity.y) < (collision.box_size.y / 2.0f))
 	{
 		if ((location.y + velocity.y) < location.y)
 		{
 			velocity.y *= -1.0f;
 		}
+
+		// ãtâÒì]
+		if (spin_velocity)
+			spin_velocity = false;
+		else
+			spin_velocity = true;
 	}
 	//â∫âÊñ í[
-	if ((location.y + velocity.y) >= (720) - (collision.box_size.y / 2.0f))
+	if ((location.y + velocity.y) >= (720 - 3) - (collision.box_size.y / 2.0f))
 	{
 		if ((location.y + velocity.y) > location.y)
 		{
 			velocity.y *= -1.0f;
 		}
+
+		// ãtâÒì]
+		if (spin_velocity)
+			spin_velocity = false;
+		else
+			spin_velocity = true;
 	}
 	//ç∂âÊñ í[
 	if ((location.x + velocity.x) < (collision.box_size.x / 2.0f))
@@ -126,21 +153,29 @@ void Ball::Movement(float delta_seconds)
 		{
 			velocity.x *= -1.0f;
 		}
+
+		// ãtâÒì]
+		if (spin_velocity)
+			spin_velocity = false;
+		else
+			spin_velocity = true;
 	}
 	// âEâÊñ í[ÉQÅ[ÉWÇ‹Ç≈
-	if ((location.x + velocity.x) >= (gauge_left)-(collision.box_size.x / 2.0f))
+	if ((location.x + velocity.x) >= (gauge_left - 7) - (collision.box_size.x / 2.0f))
 	{
 		if ((location.x + velocity.x) > location.x)
 		{
 			velocity.x *= -1.0f;
 		}
+
+		// ãtâÒì]
+		if (spin_velocity)
+			spin_velocity = false;
+		else
+			spin_velocity = true;
 	}
 
-
-
-
-	float speed = 500.0f;
-
+	//speed = 500.0f;
 
 	//ç¿ïWåàíË
 	location += velocity * speed *  delta_seconds;
@@ -166,7 +201,13 @@ void Ball::Animation(float delta_seconds)
 	if (syuriken_time >= 0.01f)
 	{
 		syuriken_time = 0.0f;
-		angle += angle_pluse;
+
+		// âÒì]Ç≥ÇπÇÈ
+		if(spin_velocity)
+			angle += angle_pluse;
+		else
+			angle -= angle_pluse;
+
 		if (angle > ÉŒ * 2 || angle < -ÉŒ * 2)
 			angle = 0;
 	}

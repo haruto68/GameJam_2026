@@ -10,6 +10,7 @@ private:
     float anime_time = 0.0f;
     int anime_num = 0;
     int mato_image[6];
+    int maruta_image[4];
 
 public:
     Block(/*const Vector2D& pos*/);  
