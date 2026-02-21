@@ -7,6 +7,9 @@ HelpScene::HelpScene()
 {
 	//リソース管理インスタンス取得
 	ResourceManager* rm = ResourceManager::GetInstance();
+
+	botton_image[0] = rm->GetImages("Resource/Images/modoru1.png")[0];
+	botton_image[1] = rm->GetImages("Resource/Images/modoru2.png")[0];
 }
 
 HelpScene::~HelpScene()
@@ -21,7 +24,7 @@ void HelpScene::Initialize()
 
 eSceneType HelpScene::Update(const float& delta_second)
 {
-
+	botton_time += delta_second;
 	//入力機能インスタンス取得
 	InputManager* input = InputManager::GetInstance();
 
@@ -34,11 +37,22 @@ eSceneType HelpScene::Update(const float& delta_second)
 		return eSceneType::eExit;
 	}
 
+	
+
 	// タイトルシーンへ戻る
-	if (input->GetButtonDown(XINPUT_BUTTON_X) || input->GetKeyDown(KEY_INPUT_H))
+	if (input->GetButtonDown(XINPUT_BUTTON_A) || input->GetKeyDown(KEY_INPUT_E))
 	{
-		return eSceneType::eTitle;
+		botton = true;
 	}
+
+	if(botton == true)
+	{
+		if (botton_time >= 1.0)
+		{
+			return eSceneType::eTitle;
+		}
+	}
+	
 
 	Animation(delta_second);
 
@@ -47,7 +61,16 @@ eSceneType HelpScene::Update(const float& delta_second)
 
 void HelpScene::Draw() const
 {
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "ヘルプシーン");
+	if (botton == false)
+	{
+		DrawRotaGraphF(1150, 650, 1.1, 0.0, botton_image[0], true, FALSE);
+	}
+
+	else
+	{
+		DrawRotaGraphF(1150, 650, 1.1, 0.0, botton_image[1], true, FALSE);
+	}
+	//DrawFormatString(0, 0, GetColor(255, 255, 255), "ヘルプシーン");
 }
 
 void HelpScene::Finalize()
