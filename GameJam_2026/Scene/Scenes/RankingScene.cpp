@@ -7,6 +7,10 @@ RankingScene::RankingScene()
 {
 	//リソース管理インスタンス取得
 	ResourceManager* rm = ResourceManager::GetInstance();
+
+	botton_image[0] = rm->GetImages("Resource/Images/modoru1.png")[0];
+	botton_image[1] = rm->GetImages("Resource/Images/modoru2.png")[0];
+
 	numbers_image[0] = rm->GetImages("Resource/Images/number0.png")[0];
 	numbers_image[1] = rm->GetImages("Resource/Images/number1.png")[0];
 	numbers_image[2] = rm->GetImages("Resource/Images/number2.png")[0];
@@ -70,7 +74,16 @@ eSceneType RankingScene::Update(const float& delta_second)
 	// 決定
 	if (input->GetButtonDown(XINPUT_BUTTON_A) || input->GetKeyDown(KEY_INPUT_E))
 	{
-		return eSceneType::eTitle;
+		botton = true;
+	}
+
+	if (botton == true)
+	{
+		botton_time += delta_second;
+		if (botton_time >= 0.5)
+		{
+			return eSceneType::eTitle;
+		}
 	}
 
 	Animation(delta_second);
@@ -81,6 +94,16 @@ eSceneType RankingScene::Update(const float& delta_second)
 void RankingScene::Draw() const
 {
 	DrawBoxAA(0, 0, D_WIN_MAX_X, D_WIN_MAX_Y, GetColor(255, 255, 255), true);
+
+	if (botton == false)
+	{
+		DrawRotaGraphF(1150, 650, 1.1, 0.0, botton_image[0], true, FALSE);
+	}
+
+	else
+	{
+		DrawRotaGraphF(1150, 650, 1.1, 0.0, botton_image[1], true, FALSE);
+	}
 
 	DrawRotaGraphF(110,110, 0.41, 0.0, numbers_image[1], true, false);
 	DrawRotaGraphF(110, 240, 0.41, 0.0, numbers_image[2], true, false);  //順位

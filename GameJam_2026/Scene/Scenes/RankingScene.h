@@ -9,6 +9,9 @@ protected:
 
 private:
 	int numbers_image[11] = {};
+	int botton_image[2];
+	int botton = false;
+	float botton_time = 0.0;
 
 	int high_score = 12345;
 	int second_score = 2345;

@@ -134,8 +134,6 @@ eSceneType ResultScene::Update(const float& delta_second)
 				return eSceneType::eTitle;
 			}
 		}
-
-
 		
 	}
 
