@@ -28,9 +28,6 @@ void InGameScene::Initialize()
 	//プレイヤー生成
 	player = object_manager->CreateGameObject<Player>(Vector2D(160, 360));
 
-	//object_manager->CreateGameObject<Block>(Vector2D(160, 360));
-
-
 	//ブロック生成 
 	const int rows = 4;
 	const int cols = 9;
@@ -59,7 +56,9 @@ void InGameScene::Initialize()
 	}
 
 	// ボール生成
-	object_manager->CreateGameObject<Ball>(Vector2D(640, 360));
+	//object_manager->CreateGameObject<Ball>(Vector2D(640, 360));
+	player->SetInstance(object_manager);
+	player->CreateBall();
 }
 
 eSceneType InGameScene::Update(const float& delta_second)
@@ -88,18 +87,32 @@ eSceneType InGameScene::Update(const float& delta_second)
 	// オブジェクトリストループ
 	ObjectListLoop(delta_second);
 
+	// ボールが無くなれば終了する
+	if (have_ball < 0)
+	{
+		next_count += delta_second;
+		if (next_count > 1.0f)
+			return eSceneType::eResult;
+	}
+
 	return GetNowSceneType();
 }
 
 void InGameScene::Draw() const
 {
+	int n = 0;
 	for (GameObject* obj : scene_objects_list)
 	{
 		obj->Draw(Vector2D(0, 0), true);
+		n++;
 	}
+	DrawFormatString(1080, 400, GetColor(255, 255, 255), "sc_b  %d", screen_ball);
+	DrawFormatString(1080, 450, GetColor(255, 255, 255), "hb_b  %d", have_ball);
 	
-	DrawFormatString(1080, 300, GetColor(255, 255, 255), "スコア", score);
+	DrawFormatString(1080, 300, GetColor(255, 255, 255), "スコア");
 	DrawFormatString(1080, 350, GetColor(255, 255, 255), "%d", score);
+
+
 }
 
 void InGameScene::Finalize()
@@ -151,13 +164,42 @@ void InGameScene::Animation(const float& delta_second)
 // オブジェクトリスト確認
 void InGameScene::ObjectListLoop(const float& delta_second)
 {
+	// 生成するオブジェクトリストの確認
+	for (GameObject* obj : object_manager->GetObjects_Create())
+	{
+		// ボールの場合
+		if (obj->GetCollision().object_type == eObjectType::eBall)
+		{
+		}
+	}
+
 	// 破棄するオブジェクトリストの確認
 	for (GameObject* obj : object_manager->GetObjects_Destroy())
 	{
-		// 壊したマトのHPをスコアに加算する
+		// ボールの場合
+		if (obj->GetCollision().object_type == eObjectType::eBall)
+		{
+			screen_ball--;
+			
+			// 画面内にボールがない場合
+			if (screen_ball <= 0)
+			{
+				have_ball--;
+
+				// ボールを持っていれば
+				if(have_ball >= 0)
+				{
+					// プレイヤーがボールを生成する
+					player->CreateBall();
+					screen_ball = 1;
+				}
+			}
+		}
+
+		// ブロックの場合
 		if (obj->GetCollision().object_type == eObjectType::eBlock)
 		{
-			// スコア加算
+			// 壊したマトのHPをスコアに加算する
 			score += obj->GetHp();
 
 			// マト1のカウント
@@ -165,12 +207,12 @@ void InGameScene::ObjectListLoop(const float& delta_second)
 			{
 				mato[0]++;
 			}
-
 		}
 
-		// 取得したアイテムのカウント
+		// アイテムの場合
 		if (obj->GetCollision().object_type == eObjectType::eItem)
 		{
+			// 取得したアイテムのカウント
 			item++;
 		}
 
@@ -210,6 +252,17 @@ void InGameScene::ObjectListLoop(const float& delta_second)
 		{
 			object_manager->HitCheck(scene_objects_list[a], scene_objects_list[b]);
 			object_manager->HitCheck(scene_objects_list[b], scene_objects_list[a]);
+		}
+	}
+
+
+	// 画面外へでたオブジェクトを破壊する
+	for (GameObject* obj : scene_objects_list)
+	{
+		if (obj->GetLocation().x <= -50 || obj->GetLocation().x >= D_WIN_MAX_X + 50 ||
+			obj->GetLocation().y <= -50 || obj->GetLocation().y >= D_WIN_MAX_Y + 50)
+		{
+			object_manager->DestroyGameObject(obj);
 		}
 	}
 }

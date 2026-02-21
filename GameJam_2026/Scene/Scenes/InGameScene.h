@@ -16,6 +16,12 @@ private:
 	int item = 0;		//獲得アイテム数
 	int mato[3] = {};	//壊したマト数
 
+	int have_ball = 3;
+	int screen_ball = 1;
+
+	bool next_scene = false;
+	float next_count = 0.0f;
+
 public:
 	std::vector<GameObject*> scene_objects_list;//オブジェクトリスト
 	class GameObjectManager* object_manager;    //オブジェクトマネージャーインスタンス

@@ -30,7 +30,7 @@ Ball::~Ball()
 void Ball::Initialize()
 {
 	velocity.x = 1.0f;
-	velocity.y = 1.0f;
+	velocity.y = -1.0f;
 }
 
 void Ball::Update(float delta_seconds)
@@ -111,7 +111,6 @@ void Ball::OnHitCollision(GameObject* hit_object)
 
 void Ball::Movement(float delta_seconds)
 {
-
 	int gauge_width = 200;
 	int margin = 30;
 
@@ -137,7 +136,7 @@ void Ball::Movement(float delta_seconds)
 	{
 		if ((location.y + velocity.y) > location.y)
 		{
-			velocity.y *= -1.0f;
+			//velocity.y *= -1.0f;
 		}
 
 		// ãtâÒì]
@@ -145,6 +144,7 @@ void Ball::Movement(float delta_seconds)
 			spin_velocity = false;
 		else
 			spin_velocity = true;
+
 	}
 	//ç∂âÊñ í[
 	if ((location.x + velocity.x) < (collision.box_size.x / 2.0f))

@@ -13,6 +13,8 @@ private:
 	float life;       // 現在のライフ
 	float max_life;   // 最大ライフ
 
+	float stan_time = 0.0f;
+
 protected:
 
 private:
@@ -67,4 +69,8 @@ public:
 	void SetPlayerStats() const;
 	PlayerStats GetPlayerStats() const;*/
 	void AddItem();
+
+
+	void Attack(float);
+	void CreateBall();
 };
