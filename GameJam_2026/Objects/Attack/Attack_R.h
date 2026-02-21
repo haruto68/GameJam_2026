@@ -8,7 +8,9 @@ private:
 	float cool_time = 0.0f;
 	float life_time = 0.5f;
 
-	Vector2D target_R[10] = {};
+	Vector2D target_R[10] = {};	//ハジク方向
+
+	Vector2D footprints = 0;	//プレイヤーの移動量確認用
 
 public:
 	Attack_R();

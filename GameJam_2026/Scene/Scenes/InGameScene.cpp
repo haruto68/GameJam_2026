@@ -197,6 +197,8 @@ void InGameScene::ObjectListLoop(const float& delta_second)
 
 		// プレイヤー座標受け渡し
 		obj->SetPlayerLocation(player->GetLocation());
+		// プレイヤー加速度受け渡し
+		obj->SetPlayerVelocity(player->GetVelocity());
 
 	}
 

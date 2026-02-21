@@ -40,6 +40,9 @@ void Attack_R::Update(float delta_seconds)
 
 	Movement(delta_seconds);
 	Animation(delta_seconds);
+
+	//プレイヤーの座標を保存
+	footprints = player_location;
 }
 
 void Attack_R::Draw(const Vector2D& screen_offset, bool flip_flag) const
@@ -51,6 +54,9 @@ void Attack_R::Draw(const Vector2D& screen_offset, bool flip_flag) const
 	DrawBoxAA(location.x - size_x, location.y - size_y, location.x + size_x, location.y + size_y,
 		GetColor(255, 255, 0), true);
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
+
+	//プレイヤーの移動量確認用
+	//DrawFormatString(location.x, location.y, GetColor(255, 255, 255), "%f", (player_location.x - footprints.x) * 0.7);
 }
 
 void Attack_R::Finalize()
@@ -74,6 +80,8 @@ void Attack_R::OnHitCollision(GameObject* hit_object)
 				Vector2D target = Vector2D(location.x + target_R[i].x, location.y + target_R[i].y);
 				Vector2D target_velocity = Tracking(location, target);
 
+				//プレイヤーの移動量分加算
+				target_velocity.x += (player_location.x - footprints.x) * 0.7;
 				hit_object->SetVelocity(target_velocity);
 			}
 		}
@@ -82,11 +90,11 @@ void Attack_R::OnHitCollision(GameObject* hit_object)
 
 void Attack_R::Movement(float delta_seconds)
 {
-
+	location.x = player_location.x;
 }
 
 void Attack_R::Animation(float delta_seconds)
 {
-
+	
 }
 

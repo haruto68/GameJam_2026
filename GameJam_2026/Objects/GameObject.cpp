@@ -103,6 +103,12 @@ const bool GameObject::GetMobility() const
 	return is_mobility;
 }
 
+//プレイヤー加速度設定処理
+void GameObject::SetPlayerVelocity(Vector2D velocity)
+{
+	player_velocity = velocity;
+}
+
 //プレイヤー座標設定処理
 void GameObject::SetPlayerLocation(Vector2D location)
 {
