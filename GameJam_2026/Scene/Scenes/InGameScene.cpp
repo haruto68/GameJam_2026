@@ -157,8 +157,23 @@ void InGameScene::ObjectListLoop(const float& delta_second)
 		// 壊したマトのHPをスコアに加算する
 		if (obj->GetCollision().object_type == eObjectType::eBlock)
 		{
+			// スコア加算
 			score += obj->GetHp();
+
+			// マト1のカウント
+			if (obj->GetHp() == 500)
+			{
+				mato[0]++;
+			}
+
 		}
+
+		// 取得したアイテムのカウント
+		if (obj->GetCollision().object_type == eObjectType::eItem)
+		{
+			item++;
+		}
+
 	}
 
 
