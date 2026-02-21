@@ -8,6 +8,10 @@ protected:
 private:
 	int cursor_num = 0;
 
+	int botton = false;
+	int botton_image[3][3] = {};
+	float botton_time = 0;
+
 	int high_score = 0;
 	int second_score = 0;
 	int third_score = 0;

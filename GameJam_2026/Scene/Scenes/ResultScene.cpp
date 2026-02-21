@@ -7,6 +7,13 @@ ResultScene::ResultScene()
 {
 	//リソース管理インスタンス取得
 	ResourceManager* rm = ResourceManager::GetInstance();
+
+	botton_image[0][0] = rm->GetImages("Resource/Images/saityousen1.png")[0];
+	botton_image[0][1] = rm->GetImages("Resource/Images/saityousen2.png")[0];
+	botton_image[1][0] = rm->GetImages("Resource/Images/modoru1.png")[0];
+	botton_image[1][1] = rm->GetImages("Resource/Images/modoru2.png")[0];
+	botton_image[2][0] = rm->GetImages("Resource/Images/juni1.png")[0];
+	botton_image[2][1] = rm->GetImages("Resource/Images/juni2.png")[0];
 }
 
 ResultScene::~ResultScene()
@@ -80,35 +87,56 @@ eSceneType ResultScene::Update(const float& delta_second)
 		return eSceneType::eExit;
 	}
 
-	if (input->GetButtonDown(XINPUT_BUTTON_DPAD_RIGHT) || input->GetKeyDown(KEY_INPUT_D))
-	{
-		if (cursor_num < 2 - 1)
-		{
-			cursor_num += 1;
-		}
-	}
-	// カーソル下移動
-	if (input->GetButtonDown(XINPUT_BUTTON_DPAD_LEFT) || input->GetKeyDown(KEY_INPUT_A))
+	if (input->GetButtonDown(XINPUT_BUTTON_DPAD_UP) || input->GetKeyDown(KEY_INPUT_W))
 	{
 		if (cursor_num > 0)
 			cursor_num -= 1;
-		
+	}
+	// カーソル下移動
+	if (input->GetButtonDown(XINPUT_BUTTON_DPAD_DOWN) || input->GetKeyDown(KEY_INPUT_S))
+	{
+		if (cursor_num < 3 - 1)
+			cursor_num += 1;
 	}
 
 	// 決定
 	if (input->GetButtonDown(XINPUT_BUTTON_A) || input->GetKeyDown(KEY_INPUT_E))
 	{
+		botton = true;
+		//return eSceneType::eTitle;
+	}
+
+	
+
+	if (botton == true)
+	{
+		botton_time += delta_second;
 		if (cursor_num == 0)
 		{
-			return eSceneType::eInGame;
+			if(botton_time >= 0.5)
+			{
+				return eSceneType::eInGame;
+			}
 		}
-
 
 		if (cursor_num == 1)
 		{
-			return eSceneType::eTitle;
+			if (botton_time >= 0.5)
+			{
+				return eSceneType::eRanking;
+			}
 		}
-		//return eSceneType::eTitle;
+
+		if (cursor_num == 2)
+		{
+			if (botton_time >= 0.5)
+			{
+				return eSceneType::eTitle;
+			}
+		}
+
+
+		
 	}
 
 	
@@ -138,28 +166,69 @@ void ResultScene::Draw() const
 	DrawFormatString(840, f * 7, 0xffffff, "%d", mato[2]);
 
 
+	if(botton == false)
+	{
+		if (cursor_num == 0)
+		{
+			DrawRotaGraphF(1050, 450, 1.1, 0.0, botton_image[0][0], true, FALSE);
+		}
+		else
+		{
+			DrawRotaGraphF(1100, 450, 1.1, 0.0, botton_image[0][0], true, FALSE);
+		}
 
-	if (cursor_num == 0)
-	{
-		DrawTriangle(150, 625, 120, 600, 120, 650, GetColor(255, 0, 0), true);
-		DrawFormatString(160, 600, GetColor(255, 255, 255), " リスタート");
-	}
-	else
-	{
-		DrawFormatString(160, 600, GetColor(255, 255, 255), "リスタート");
+		if (cursor_num == 1)
+		{
+			DrawRotaGraphF(1050, 550, 1.1, 0.0, botton_image[2][0], true, FALSE);
+		}
+		else
+		{
+			DrawRotaGraphF(1100, 550, 1.1, 0.0, botton_image[2][0], true, FALSE);
+		}
+
+		if (cursor_num == 2)
+		{
+			DrawRotaGraphF(1050, 650, 1.1, 0.0, botton_image[1][0], true, FALSE);
+		}
+		else
+		{
+			DrawRotaGraphF(1100, 650, 1.1, 0.0, botton_image[1][0], true, FALSE);
+		}
+
+		
 	}
 
-	if (cursor_num == 1)
+	if (botton == true)
 	{
-		DrawTriangle(900, 625, 870, 600, 870, 650, GetColor(255, 0, 0), true);
-		DrawFormatString(900, 600, GetColor(255, 255, 255), " タイトル");
+		if (cursor_num == 0)
+		{
+			DrawRotaGraphF(1050, 450, 1.1, 0.0, botton_image[0][1], true, FALSE);
+		}
+		else
+		{
+			DrawRotaGraphF(1100, 450, 1.1, 0.0, botton_image[0][0], true, FALSE);
+		}
+
+		if (cursor_num == 1)
+		{
+			DrawRotaGraphF(1050, 550, 1.1, 0.0, botton_image[2][1], true, FALSE);
+		}
+		else
+		{
+			DrawRotaGraphF(1100, 550, 1.1, 0.0, botton_image[2][0], true, FALSE);
+		}
+
+		if (cursor_num == 2)
+		{
+			DrawRotaGraphF(1050, 650, 1.1, 0.0, botton_image[1][1], true, FALSE);
+		}
+		else
+		{
+			DrawRotaGraphF(1100, 650, 1.1, 0.0, botton_image[1][0], true, FALSE);
+		}
+
+		
 	}
-	else
-	{
-		DrawFormatString(900, 600, GetColor(255, 255, 255), "タイトル");
-	}
-	
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "%d", cursor_num);
 }
 
 void ResultScene::Finalize()
