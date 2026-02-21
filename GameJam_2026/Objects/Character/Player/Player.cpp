@@ -4,6 +4,7 @@
 #include "../../../Objects/Item/Item.h"
 #include "../../../Objects/Ball/Ball.h"
 #include "../../../Objects/GameObject.h"
+#include"../../../Objects/GameObjectManager.h"
 #include "DxLib.h"
 
 // ゲージ関連定数
@@ -40,7 +41,7 @@ void Player::AddItem()
 
 void Player::Update(float delta_seconds)
 {
-    Movement(delta_seconds);
+
 
     // 色タイマー更新
     if (color_timer > 0.0f)
@@ -52,29 +53,9 @@ void Player::Update(float delta_seconds)
     //入力情報の更新
     input->Update();
 
-    // クールタイム管理
-    if (attack_cool > 0)
-        attack_cool -= delta_seconds;
-    else
-        attack_cool = 0.0f;
 
 
-    // collision.is_blocking = false;
-    // アタックL
-    if ((input->GetKey(KEY_INPUT_J) || input->GetButton(XINPUT_BUTTON_LEFT_SHOULDER))
-        && attack_cool <= 0.0f)
-    {
-        attack_cool = 1.0f;
-        object_manager->CreateGameObject<Attack_L>(Vector2D(location.x, location.y - 40.0f));
-    }
 
-    // アタックR
-    if ((input->GetKey(KEY_INPUT_K) || input->GetButton(XINPUT_BUTTON_RIGHT_SHOULDER))
-        && attack_cool <= 0.0f)
-    {
-        attack_cool = 1.0f;
-        object_manager->CreateGameObject<Attack_R>(Vector2D(location.x, location.y - 40.0f));
-    }
 
     // 貫通弾管理
     if (is_special_active)
@@ -90,6 +71,26 @@ void Player::Update(float delta_seconds)
     // 全ボールに反映
     Ball::is_penetrating = is_special_active;
 
+
+    // アタッククールタイム管理
+    if (attack_cool > 0)
+        attack_cool -= delta_seconds;
+    else
+        attack_cool = 0.0f;
+
+    // スタンクールタイム
+    if (stan_time > 0.0f)
+    {
+        stan_time -= delta_seconds;
+    }
+    else
+    {
+        stan_time = 0.0f;
+
+        Movement(delta_seconds);
+
+        Attack(delta_seconds);
+    }
 
 
 }
@@ -136,14 +137,6 @@ void Player::Draw(const Vector2D&, bool) const
     DrawBox(gauge_x1 + 15, gauge_y1, gauge_x1 + 15 + (int)(GAUGE_WIDTH * rate), gauge_y2, GetColor(255, 0, 0), TRUE);
     DrawBox(gauge_x1 + 15, gauge_y1, gauge_x2 + 15, gauge_y2, GetColor(255, 255, 255), FALSE);
 
-    // --- ライフゲージ（右上、必殺技ゲージの下） ---
-    int life_x1 = D_WIN_MAX_X - GAUGE_MARGIN - GAUGE_WIDTH;
-    int life_y1 = GAUGE_MARGIN + GAUGE_HEIGHT + 10; // 必殺技ゲージの下に10px空ける
-    int life_x2 = D_WIN_MAX_X - GAUGE_MARGIN;
-    int life_y2 = life_y1 + GAUGE_HEIGHT;
-
-    // 背景
-    DrawBox(life_x1 + 15, life_y1, life_x2 + 15, life_y2, GetColor(50, 50, 50), TRUE);
 
 
     // プレイヤー移動制限線（右端）
@@ -153,14 +146,24 @@ void Player::Draw(const Vector2D&, bool) const
 
     // 左端も線にしたい場合
     //DrawLine(0, 0, 0, D_WIN_MAX_Y, GetColor(255, 255, 255));
+    
+    //// --- ライフゲージ（右上、必殺技ゲージの下） ---
+    //int life_x1 = D_WIN_MAX_X - GAUGE_MARGIN - GAUGE_WIDTH;
+    //int life_y1 = GAUGE_MARGIN + GAUGE_HEIGHT + 10; // 必殺技ゲージの下に10px空ける
+    //int life_x2 = D_WIN_MAX_X - GAUGE_MARGIN;
+    //int life_y2 = life_y1 + GAUGE_HEIGHT;
 
-    // ライフ割合
-    float life_rate = life / max_life;
-    if (life_rate < 0.0f) life_rate = 0.0f;
-    DrawBox(life_x1 + 15, life_y1, life_x1 + 15 + (int)(GAUGE_WIDTH * life_rate), life_y2, GetColor(0, 255, 0), TRUE);
+    //// 背景
+    //DrawBox(life_x1 + 15, life_y1, life_x2 + 15, life_y2, GetColor(50, 50, 50), TRUE);
+    //// ライフ割合
+    //float life_rate = life / max_life;
+    //if (life_rate < 0.0f) life_rate = 0.0f;
+    //DrawBox(life_x1 + 15, life_y1, life_x1 + 15 + (int)(GAUGE_WIDTH * life_rate), life_y2, GetColor(0, 255, 0), TRUE);
 
-    // 枠
-    DrawBox(life_x1 + 15, life_y1, life_x2 + 15, life_y2, GetColor(255, 255, 255), FALSE);
+    //// 枠
+    //DrawBox(life_x1 + 15, life_y1, life_x2 + 15, life_y2, GetColor(255, 255, 255), FALSE);
+
+    DrawFormatString(location.x, location.y, 0xffffff, "%f", stan_time);
 }
 
 void Player::Movement(float delta_seconds)
@@ -170,9 +173,6 @@ void Player::Movement(float delta_seconds)
 
     //入力機能インスタンス取得
     InputManager* input = InputManager::GetInstance();
-
-    //入力情報の更新
-    input->Update();
 
 
     velocity.x = 0.0f;
@@ -228,10 +228,45 @@ void Player::OnHitCollision(GameObject* other)
     // 他のオブジェクトがボールなら
     if (other->GetCollision().object_type == eObjectType::eBall)
     {
+        stan_time = 1.0f;
+
         // ダメージ量
         TakeDamage(0.5f);
 
         // 当たったら一瞬色を変える（赤く光らせる）
         ChangeColorTemporarily(255, 0, 0);
+    }
+}
+
+// 攻撃処理
+void Player::Attack(float delta_seconds)
+{
+
+    //入力機能インスタンス取得
+    InputManager* input = InputManager::GetInstance();
+
+    // アタックL
+    if ((input->GetKey(KEY_INPUT_J) || input->GetButton(XINPUT_BUTTON_LEFT_SHOULDER))
+        && attack_cool <= 0.0f)
+    {
+        attack_cool = 1.0f;
+        object_manager->CreateGameObject<Attack_L>(Vector2D(location.x, location.y - 40.0f));
+    }
+    // アタックR
+    if ((input->GetKey(KEY_INPUT_K) || input->GetButton(XINPUT_BUTTON_RIGHT_SHOULDER))
+        && attack_cool <= 0.0f)
+    {
+        attack_cool = 1.0f;
+        object_manager->CreateGameObject<Attack_R>(Vector2D(location.x, location.y - 40.0f));
+    }
+}
+
+// ボール生成
+void Player::CreateBall()
+{
+    if(object_manager)
+    {
+        Ball* ball = object_manager->CreateGameObject<Ball>(Vector2D(location.x, location.y - 50));
+        ball->SetVelocity(Vector2D(0, 0));
     }
 }
