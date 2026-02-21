@@ -85,7 +85,7 @@ eSceneType InGameScene::Update(const float& delta_second)
 
 	Animation(delta_second);
 
-	
+	// オブジェクトリストループ
 	ObjectListLoop(delta_second);
 
 	return GetNowSceneType();
@@ -97,6 +97,9 @@ void InGameScene::Draw() const
 	{
 		obj->Draw(Vector2D(0, 0), true);
 	}
+	
+	DrawFormatString(1080, 300, GetColor(255, 255, 255), "スコア", score);
+	DrawFormatString(1080, 350, GetColor(255, 255, 255), "%d", score);
 }
 
 void InGameScene::Finalize()
@@ -148,6 +151,17 @@ void InGameScene::Animation(const float& delta_second)
 // オブジェクトリスト確認
 void InGameScene::ObjectListLoop(const float& delta_second)
 {
+	// 破棄するオブジェクトリストの確認
+	for (GameObject* obj : object_manager->GetObjects_Destroy())
+	{
+		// 壊したマトのHPをスコアに加算する
+		if (obj->GetCollision().object_type == eObjectType::eBlock)
+		{
+			score += obj->GetHp();
+		}
+	}
+
+
 	// 生成するオブジェクトの確認
 	object_manager->CheckCreateObject();
 	// 破棄するオブジェクトの確認
@@ -168,7 +182,6 @@ void InGameScene::ObjectListLoop(const float& delta_second)
 
 		// プレイヤー座標受け渡し
 		obj->SetPlayerLocation(player->GetLocation());
-
 
 	}
 

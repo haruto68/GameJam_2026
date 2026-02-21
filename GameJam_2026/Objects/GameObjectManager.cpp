@@ -91,9 +91,22 @@ void GameObjectManager::CheckDestroyObject()
 	}
 }
 
+// オブジェクトリスト取得
 const std::vector<GameObject*>& GameObjectManager::GetObjectList() const
 {
 	return game_objects_list;
+}
+
+// 生成オブジェクト取得
+const std::vector<GameObject*>& GameObjectManager::GetObjects_Create() const
+{
+	return create_objects;
+}
+
+// 破壊オブジェクト取得
+const std::vector<GameObject*>& GameObjectManager::GetObjects_Destroy() const
+{
+	return destroy_objects;
 }
 
 void GameObjectManager::HitCheck(GameObject* a, GameObject* b)

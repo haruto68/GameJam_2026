@@ -22,7 +22,9 @@ public:
 public:
 	void CheckCreateObject();
 	void CheckDestroyObject();
-	const std::vector<GameObject*>& GetObjectList() const;
+	const std::vector<GameObject*>& GetObjectList() const;		// オブジェクトリスト取得
+	const std::vector<GameObject*>& GetObjects_Create() const;	// 生成オブジェクト取得
+	const std::vector<GameObject*>& GetObjects_Destroy() const;	// 破壊オブジェクト取得
 
 	template <class T>
 	T* CreateGameObject(const Vector2D& generate_location)

@@ -12,9 +12,9 @@ class InGameScene : public SceneBase
 protected:
 
 private:
-	int score = 0;
-	int item = 0;
-	int mato[3] = {};
+	int score = 0;		//スコア
+	int item = 0;		//獲得アイテム数
+	int mato[3] = {};	//壊したマト数
 
 public:
 	std::vector<GameObject*> scene_objects_list;//オブジェクトリスト

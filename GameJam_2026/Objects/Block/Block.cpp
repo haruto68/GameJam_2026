@@ -3,6 +3,67 @@
 #include"../../Objects/GameObjectManager.h"
 #include"../../Objects/Item/Item.h"
 
+Block::Block(/*const Vector2D& pos*/)
+{
+    //location = pos;
+    size = Vector2D(62.0f, 62.0f);
+
+    collision.box_size = size;
+    collision.is_blocking = true;
+    collision.object_type = eObjectType::eBlock;
+    collision.hit_object_type.push_back(eObjectType::eBall);
+
+    ResourceManager* rm = ResourceManager::GetInstance();
+
+    mato_image[0] = rm->GetImages("Resource/Images/mato1.png")[0];
+    mato_image[1] = rm->GetImages("Resource/Images/mato2.png")[0];
+    mato_image[2] = rm->GetImages("Resource/Images/mato3.png")[0];
+    mato_image[3] = rm->GetImages("Resource/Images/mato4.png")[0];
+    mato_image[4] = rm->GetImages("Resource/Images/mato5.png")[0];
+    mato_image[5] = rm->GetImages("Resource/Images/mato6.png")[0];
+
+    image = mato_image[0];
+
+    z_layer = 1;
+    is_mobility = false;
+}
+
+Block::~Block()
+{
+}
+
+void Block::Initialize()
+{
+    hp = 500;
+}
+
+void Block::Update(float delta_seconds)
+{
+    Animation(delta_seconds);
+}
+
+
+void Block::Draw(const Vector2D&, bool) const
+{
+    float halfW = size.x * 0.5f;
+    float halfH = size.y * 0.5f;
+
+    DrawBox(
+        (int)(location.x - halfW),
+        (int)(location.y - halfH),
+        (int)(location.x + halfW),
+        (int)(location.y + halfH),
+        GetColor(0, 200, 255),
+        TRUE
+    );
+
+    DrawRotaGraphF(location.x, location.y, 0.3, 0.0, image, true, FALSE);
+}
+
+void Block::Finalize()
+{
+}
+
 void Block::OnHitCollision(GameObject* hit_object)
 {
     // �ՓˑΏۂ� Ball �̏ꍇ
@@ -41,68 +102,6 @@ void Block::OnHitCollision(GameObject* hit_object)
             object_manager->DestroyGameObject(this);
         }*/
     }
-}
-
-
-
-Block::Block(/*const Vector2D& pos*/)
-{
-    //location = pos;
-    size = Vector2D(62.0f, 62.0f);
-
-    collision.box_size = size;
-    collision.is_blocking = true;
-    collision.object_type = eObjectType::eBlock;
-    collision.hit_object_type.push_back(eObjectType::eBall);
-
-    ResourceManager* rm = ResourceManager::GetInstance();
-
-    mato_image[0] = rm->GetImages("Resource/Images/mato1.png")[0];
-    mato_image[1] = rm->GetImages("Resource/Images/mato2.png")[0];
-    mato_image[2] = rm->GetImages("Resource/Images/mato3.png")[0];
-    mato_image[3] = rm->GetImages("Resource/Images/mato4.png")[0];
-    mato_image[4] = rm->GetImages("Resource/Images/mato5.png")[0];
-    mato_image[5] = rm->GetImages("Resource/Images/mato6.png")[0];
-
-    image = mato_image[0];
-
-    z_layer = 1;
-    is_mobility = false;
-}
-
-Block::~Block()
-{
-}
-
-void Block::Initialize()
-{
-}
-
-void Block::Update(float delta_seconds)
-{
-    Animation(delta_seconds);
-}
-
-
-void Block::Draw(const Vector2D&, bool) const
-{
-    float halfW = size.x * 0.5f;
-    float halfH = size.y * 0.5f;
-
-    DrawBox(
-        (int)(location.x - halfW),
-        (int)(location.y - halfH),
-        (int)(location.x + halfW),
-        (int)(location.y + halfH),
-        GetColor(0, 200, 255),
-        TRUE
-    );
-
-    DrawRotaGraphF(location.x, location.y, 0.3, 0.0, image, true, FALSE);
-}
-
-void Block::Finalize()
-{
 }
 
 void Block::Animation(float delta_seconds)
