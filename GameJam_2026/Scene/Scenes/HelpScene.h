@@ -7,6 +7,10 @@ protected:
 
 private:
 
+	int botton_image[2];
+	int botton = false;
+	float botton_time = 0.0;
+
 public:
 	HelpScene();
 	~HelpScene();

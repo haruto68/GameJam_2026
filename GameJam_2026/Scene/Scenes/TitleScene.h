@@ -1,7 +1,7 @@
 #pragma once
 #include"../SceneBase.h"
 
-#define CURSOR_NUMS		(5)
+#define CURSOR_NUMS		(4)
 
 class TitleScene : public SceneBase
 {
@@ -9,6 +9,9 @@ protected:
 
 private:
 	int cursor_num;		//カーソル番号
+	int botton = false;    //ボタン判定
+	float botton_time = 0.0f;  
+	int botton_image[4][2] = {};
 
 public:
 	TitleScene();
