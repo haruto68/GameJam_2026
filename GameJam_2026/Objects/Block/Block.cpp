@@ -2,6 +2,8 @@
 #include "DxLib.h"
 #include"../../Objects/GameObjectManager.h"
 #include"../../Objects/Item/Item.h"
+#include"../../Objects/Item/Item_BallUp.h"
+
 
 Block::Block(/*const Vector2D& pos*/)
 {
@@ -92,13 +94,20 @@ void Block::OnHitCollision(GameObject* hit_object)
         {
             item_spawned = true; // フラグを先に立てる → 安全
 
-            // 1/3 の確率でアイテム生成
-            if (rand() % 3 == 0)
+            if (object_manager)
             {
-                if (object_manager)
+                int r = rand() % 10; // 0,1,2 のうち1つをランダムに
+                if (r == 0)
                 {
+                    // 1/10 の確率で分身アイテム
                     object_manager->CreateGameObject<Item>(location);
                 }
+                else if (r == 1)
+                {
+                    // 1/10 の確率でボール増加アイテム
+                    object_manager->CreateGameObject<Item_BallUp>(location);
+                }
+                // r == 2から９ の場合は何も出さない（８/１０ の確率でアイテムなし）
             }
         }
 
