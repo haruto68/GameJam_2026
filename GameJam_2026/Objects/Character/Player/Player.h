@@ -13,9 +13,14 @@ private:
 	float life;       // 現在のライフ
 	float max_life;   // 最大ライフ
 
+	float attack_cool = 0.0f;
 	float stan_time = 0.0f;
 
-protected:
+	int ninja_idle[4] = {};
+	int ninja_run[8] = {};
+	int anime_num = 0;
+	float anime_cool = 0.0f;
+	//bool 
 
 private:
 	int color_r = 255;
@@ -23,23 +28,7 @@ private:
 	int color_b = 255;
 
 	float color_timer = 0.0f;  // 色変化タイマー
-private:
 
-	float attack_cool = 0.0f;
-
-	PlayerStats player_stats = {};
-
-
-public:
-
-public:
-	/*Player() : max_life(5.0f), life(5.0f) {} */ // 例：最大5ライフ
-	void TakeDamage(float amount);            // ダメージを受ける
-/*	void Heal(float amount);  */                // 回復用
-	float GetLife() const { return life; }
-	float GetMaxLife() const { return max_life; }
-
-private:
 	int item_count = 0;
 
 	bool is_special_active = false;
@@ -57,20 +46,23 @@ public:
 
 	virtual void OnHitCollision(GameObject*) override;
 
-	void ChangeColorTemporarily(int r, int g, int b);
 public:
 	/*Vector2D GetVelocity();
 	void SetVelocity(Vector2D);*/
 
 	void Movement(float);
-	/*
 	void Animation(float);
 
-	void SetPlayerStats() const;
-	PlayerStats GetPlayerStats() const;*/
+public:
+	void TakeDamage(float amount);            // ダメージを受ける
+	float GetLife() const { return life; }
+	float GetMaxLife() const { return max_life; }
 	void AddItem();
+	void ChangeColorTemporarily(int r, int g, int b);
+	void DrawKari()const;
+	void DrawUI()const;
 
-
+public:
 	void Attack(float);
 	void CreateBall();
 };

@@ -18,6 +18,22 @@ Player::Player() : max_life(5.0f), life(5.0f)
     collision.box_size = Vector2D(120.0f, 20.0f);
     collision.object_type = eObjectType::ePlayer;
     collision.hit_object_type.push_back(eObjectType::eBall);
+
+    ResourceManager* rm = ResourceManager::GetInstance();
+    ninja_idle[0] = rm->GetImages("Resource/Images/ninja_idle1.png")[0];
+    ninja_idle[1] = rm->GetImages("Resource/Images/ninja_idle2.png")[0];
+    ninja_idle[2] = rm->GetImages("Resource/Images/ninja_idle3.png")[0];
+    ninja_idle[3] = rm->GetImages("Resource/Images/ninja_idle4.png")[0];
+    ninja_run[0] = rm->GetImages("Resource/Images/ninja_run1.png")[0];
+    ninja_run[1] = rm->GetImages("Resource/Images/ninja_run2.png")[0];
+    ninja_run[2] = rm->GetImages("Resource/Images/ninja_run3.png")[0];
+    ninja_run[3] = rm->GetImages("Resource/Images/ninja_run4.png")[0];
+    ninja_run[4] = rm->GetImages("Resource/Images/ninja_run5.png")[0];
+    ninja_run[5] = rm->GetImages("Resource/Images/ninja_run6.png")[0];
+    ninja_run[6] = rm->GetImages("Resource/Images/ninja_run7.png")[0];
+    ninja_run[7] = rm->GetImages("Resource/Images/ninja_run8.png")[0];
+
+    image = ninja_idle[0];
 }
 
 Player::~Player()
@@ -33,29 +49,12 @@ void Player::Initialize()
     collision.box_size = Vector2D(120.0f, 20.0f);
 }
 
-// アイテムを取得
-void Player::AddItem()
-{
-    item_count++;
-}
-
 void Player::Update(float delta_seconds)
 {
-
 
     // 色タイマー更新
     if (color_timer > 0.0f)
         color_timer -= delta_seconds;
-
-    // 入力更新
-    InputManager* input = InputManager::GetInstance();
-
-    //入力情報の更新
-    input->Update();
-
-
-
-
 
     // 貫通弾管理
     if (is_special_active)
@@ -63,14 +62,8 @@ void Player::Update(float delta_seconds)
         special_timer -= delta_seconds;
 
         if (special_timer <= 0.0f)
-        {
             is_special_active = false;
     }
-    }
-
-    // 全ボールに反映
-    Ball::is_penetrating = is_special_active;
-
 
     // アタッククールタイム管理
     if (attack_cool > 0)
@@ -80,97 +73,38 @@ void Player::Update(float delta_seconds)
 
     // スタンクールタイム
     if (stan_time > 0.0f)
-    {
         stan_time -= delta_seconds;
-    }
     else
     {
         stan_time = 0.0f;
-
         Movement(delta_seconds);
-
         Attack(delta_seconds);
     }
+    Animation(delta_seconds);
 
-
-}
-
-void Player::TakeDamage(float amount)
-{
-    life -= amount;
-    if (life < 0.0f)
-        life = 0.0f;  // 0以下になったら死亡扱い
 }
 
 void Player::Draw(const Vector2D&, bool) const
 {
-    float halfW = collision.box_size.x * 0.5f;
-    float halfH = collision.box_size.y * 0.5f;
-
-    int r = 255, g = 255, b = 255;
-
-    if (is_special_active)
-    {
-        r = 255; g = 0; b = 0;
-    }
     
-    if (stan_time > 0.0f)
-        r = 0, g = 0, b = 255;
+    //DrawKari();
+    DrawUI();
+    
+    if (velocity.x > 0)
+        DrawRotaGraphF(location.x, location.y + 40, 0.5, 0.0, image, TRUE, flip_flag);
     else
-        r = 255, g = 255, b = 255;
+        DrawRotaGraphF(location.x, location.y + 40, 0.5, 0.0, image, TRUE, flip_flag);
 
+    // 仮ボックス
+    int color = GetColor(255, 255, 255);
+    if (stan_time > 0)color = GetColor(0, 0, 255);
+    SetDrawBlendMode(DX_BLENDMODE_ALPHA, 155);
+    DrawBoxAA(
+        location.x - collision.box_size.x / 2, location.y - collision.box_size.y / 2,
+        location.x + collision.box_size.x / 2, location.y + collision.box_size.y / 2,
+        color, true);
+    SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
 
-    // プレイヤー本体描画
-    DrawBox(
-        (int)(location.x - halfW),
-        (int)(location.y - halfH),
-        (int)(location.x + halfW),
-        (int)(location.y + halfH),
-        GetColor(r, g, b),
-        TRUE
-    );
-
-    // --- 必殺技ゲージ（既存） ---
-    int gauge_x1 = D_WIN_MAX_X - GAUGE_MARGIN - GAUGE_WIDTH;
-    int gauge_y1 = GAUGE_MARGIN;
-    int gauge_x2 = D_WIN_MAX_X - GAUGE_MARGIN;
-    int gauge_y2 = GAUGE_MARGIN + GAUGE_HEIGHT;
-
-    DrawBox(gauge_x1 + 15, gauge_y1, gauge_x2 + 15, gauge_y2, GetColor(50, 50, 50), TRUE);
-    float rate = is_special_active ? special_timer / 3.0f : item_count / 2.0f;
-    if (rate > 1.0f) rate = 1.0f;
-    if (rate < 0.0f) rate = 0.0f;
-    DrawBox(gauge_x1 + 15, gauge_y1, gauge_x1 + 15 + (int)(GAUGE_WIDTH * rate), gauge_y2, GetColor(255, 0, 0), TRUE);
-    DrawBox(gauge_x1 + 15, gauge_y1, gauge_x2 + 15, gauge_y2, GetColor(255, 255, 255), FALSE);
-
-
-
-    // プレイヤー移動制限線（右端）
-    float half = collision.box_size.x * 0.5f;
-    float gauge_left = D_WIN_MAX_X - GAUGE_MARGIN - GAUGE_WIDTH;
-    DrawLine((int)gauge_left, 0, (int)gauge_left, D_WIN_MAX_Y, GetColor(255, 255, 255));
-
-    // 左端も線にしたい場合
-    //DrawLine(0, 0, 0, D_WIN_MAX_Y, GetColor(255, 255, 255));
-    
-    //// --- ライフゲージ（右上、必殺技ゲージの下） ---
-    //int life_x1 = D_WIN_MAX_X - GAUGE_MARGIN - GAUGE_WIDTH;
-    //int life_y1 = GAUGE_MARGIN + GAUGE_HEIGHT + 10; // 必殺技ゲージの下に10px空ける
-    //int life_x2 = D_WIN_MAX_X - GAUGE_MARGIN;
-    //int life_y2 = life_y1 + GAUGE_HEIGHT;
-
-    //// 背景
-    //DrawBox(life_x1 + 15, life_y1, life_x2 + 15, life_y2, GetColor(50, 50, 50), TRUE);
-    //// ライフ割合
-    //float life_rate = life / max_life;
-    //if (life_rate < 0.0f) life_rate = 0.0f;
-    //DrawBox(life_x1 + 15, life_y1, life_x1 + 15 + (int)(GAUGE_WIDTH * life_rate), life_y2, GetColor(0, 255, 0), TRUE);
-
-    //// 枠
-    //DrawBox(life_x1 + 15, life_y1, life_x2 + 15, life_y2, GetColor(255, 255, 255), FALSE);
-    
-    //スタンタイマー
-    //DrawFormatString(location.x, location.y, 0xffffff, "%f", stan_time);
 }
 
 void Player::Movement(float delta_seconds)
@@ -186,12 +120,18 @@ void Player::Movement(float delta_seconds)
 
     if (input->GetKey(KEY_INPUT_LEFT) || input->GetKey(KEY_INPUT_A) ||
         input->GetButton(XINPUT_BUTTON_DPAD_LEFT) || input->GetLeftStick().x < -0.5f)
+    {
         velocity.x = -1.0f;
+        flip_flag = false;
+    }
 
     //右移動
     if (input->GetKey(KEY_INPUT_RIGHT) || input->GetKey(KEY_INPUT_D) ||
         input->GetButton(XINPUT_BUTTON_DPAD_RIGHT) || input->GetLeftStick().x > 0.5f)
+    {
         velocity.x = 1.0f;
+        flip_flag = true;
+    }
 
     // アイテム使用
     if (!is_special_active && item_count >= 2 && input->GetButton(XINPUT_BUTTON_A))
@@ -216,12 +156,38 @@ void Player::Movement(float delta_seconds)
 
 }
 
-void Player::ChangeColorTemporarily(int r, int g, int b)
+void Player::Animation(float delta_seconds)
 {
-    color_r = r;
-    color_g = g;
-    color_b = b;
-    color_timer = 2.0f;
+    anime_cool += delta_seconds;
+
+    if (velocity.x == 0.0f)
+    {
+        if (anime_cool > 0.1f)
+        {
+            anime_cool = 0.0f;
+            anime_num++;
+
+            if (anime_num > 3)
+                anime_num = 0;
+
+            image = ninja_idle[anime_num];
+        }
+    }
+    else
+    {
+        if (anime_cool > 0.05f)
+        {
+            anime_cool = 0.0f;
+            anime_num++;
+
+            if (anime_num > 7)
+                anime_num = 0;
+
+            image = ninja_run[anime_num];
+        }
+    }
+
+
 }
 
 void Player::Finalize()
@@ -236,6 +202,7 @@ void Player::OnHitCollision(GameObject* other)
     if (other->GetCollision().object_type == eObjectType::eBall)
     {
         stan_time = 1.0f;
+        velocity = 0.0f;
 
         // ダメージ量
         TakeDamage(0.5f);
@@ -243,6 +210,99 @@ void Player::OnHitCollision(GameObject* other)
         // 当たったら一瞬色を変える（赤く光らせる）
         ChangeColorTemporarily(255, 0, 0);
     }
+}
+
+void Player::TakeDamage(float amount)
+{
+    life -= amount;
+    if (life < 0.0f)
+        life = 0.0f;  // 0以下になったら死亡扱い
+}
+
+// アイテムを取得
+void Player::AddItem()
+{
+    item_count++;
+}
+
+void Player::ChangeColorTemporarily(int r, int g, int b)
+{
+    color_r = r;
+    color_g = g;
+    color_b = b;
+    color_timer = 2.0f;
+}
+
+void Player::DrawKari()const
+{
+    float halfW = collision.box_size.x * 0.5f;
+    float halfH = collision.box_size.y * 0.5f;
+
+    int r = 255, g = 255, b = 255;
+
+    if (is_special_active)
+    {
+        r = 255; g = 0; b = 0;
+    }
+
+    if (stan_time > 0.0f)
+        r = 0, g = 0, b = 255;
+    else
+        r = 255, g = 255, b = 255;
+
+
+    // プレイヤー本体描画
+    DrawBox(
+        (int)(location.x - halfW),
+        (int)(location.y - halfH),
+        (int)(location.x + halfW),
+        (int)(location.y + halfH),
+        GetColor(r, g, b),
+        TRUE
+    );
+}
+
+void Player::DrawUI()const
+{
+    // --- 必殺技ゲージ（既存） ---
+    int gauge_x1 = D_WIN_MAX_X - GAUGE_MARGIN - GAUGE_WIDTH;
+    int gauge_y1 = GAUGE_MARGIN;
+    int gauge_x2 = D_WIN_MAX_X - GAUGE_MARGIN;
+    int gauge_y2 = GAUGE_MARGIN + GAUGE_HEIGHT;
+
+    DrawBox(gauge_x1 + 15, gauge_y1, gauge_x2 + 15, gauge_y2, GetColor(50, 50, 50), TRUE);
+    float rate = is_special_active ? special_timer / 3.0f : item_count / 2.0f;
+    if (rate > 1.0f) rate = 1.0f;
+    if (rate < 0.0f) rate = 0.0f;
+    DrawBox(gauge_x1 + 15, gauge_y1, gauge_x1 + 15 + (int)(GAUGE_WIDTH * rate), gauge_y2, GetColor(255, 0, 0), TRUE);
+    DrawBox(gauge_x1 + 15, gauge_y1, gauge_x2 + 15, gauge_y2, GetColor(255, 255, 255), FALSE);
+
+
+
+    // プレイヤー移動制限線（右端）
+    float half = collision.box_size.x * 0.5f;
+    float gauge_left = D_WIN_MAX_X - GAUGE_MARGIN - GAUGE_WIDTH;
+    DrawLine((int)gauge_left, 0, (int)gauge_left, D_WIN_MAX_Y, GetColor(255, 255, 255));
+
+    // 左端も線にしたい場合
+    //DrawLine(0, 0, 0, D_WIN_MAX_Y, GetColor(255, 255, 255));
+
+    //// --- ライフゲージ（右上、必殺技ゲージの下） ---
+    //int life_x1 = D_WIN_MAX_X - GAUGE_MARGIN - GAUGE_WIDTH;
+    //int life_y1 = GAUGE_MARGIN + GAUGE_HEIGHT + 10; // 必殺技ゲージの下に10px空ける
+    //int life_x2 = D_WIN_MAX_X - GAUGE_MARGIN;
+    //int life_y2 = life_y1 + GAUGE_HEIGHT;
+
+    //// 背景
+    //DrawBox(life_x1 + 15, life_y1, life_x2 + 15, life_y2, GetColor(50, 50, 50), TRUE);
+    //// ライフ割合
+    //float life_rate = life / max_life;
+    //if (life_rate < 0.0f) life_rate = 0.0f;
+    //DrawBox(life_x1 + 15, life_y1, life_x1 + 15 + (int)(GAUGE_WIDTH * life_rate), life_y2, GetColor(0, 255, 0), TRUE);
+
+    //// 枠
+    //DrawBox(life_x1 + 15, life_y1, life_x2 + 15, life_y2, GetColor(255, 255, 255), FALSE);
+
 }
 
 // 攻撃処理
