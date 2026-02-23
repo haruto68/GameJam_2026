@@ -12,6 +12,9 @@ private:
 	int botton = false;
 	int botton_image[3][3] = {};
 	float botton_time = 0;
+	int mato1_image;
+	int mato2_image;
+	int item_image;
 
 	int high_score = 0;
 	int second_score = 0;
