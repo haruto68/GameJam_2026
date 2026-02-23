@@ -72,6 +72,12 @@ void ResultScene::Initialize()
 		fscanf_s(fp, "%6d,\n", &mato[i]);
 	}
 
+	mato1_score = mato[0] * 500;
+	mato2_score = mato[1] * 1000;
+	item_score = item * 2000;
+
+	score = mato1_score + mato2_score + item_score;
+
 	//ファイルクローズ
 	fclose(fp);
 }
@@ -143,6 +149,7 @@ eSceneType ResultScene::Update(const float& delta_second)
 
 	
 
+
 	Animation(delta_second);
 
 	return GetNowSceneType();
@@ -150,29 +157,32 @@ eSceneType ResultScene::Update(const float& delta_second)
 
 void ResultScene::Draw() const
 {
+
 	DrawRotaGraphF(D_WIN_MAX_X / 2, D_WIN_MAX_Y / 2, 1.2, 0.0, background_makimono, true, FALSE);
 
 	int x = 130;
 	int y = 200;
 	int f = 50;
 	DrawFormatString(220,600, 0x000000, "ハイスコア");
-	DrawFormatString(y, x + f * 0, 0x000000, "アイテム");
-	DrawFormatString(y, x + f * 1, 0x000000, "マト1");
-	DrawFormatString(y, x + f * 2, 0x000000, "マト2");
+	DrawFormatString(y, x + f * 0, 0x000000, "マト1");
+	DrawFormatString(y, x + f * 1, 0x000000, "マト2");
+	DrawFormatString(y, x + f * 2, 0x000000, "アイテム");
+	
 	SetFontSize(68);
 	DrawFormatString(200,425, 0x000000, "スコア");
 	SetFontSize(48);
 	
-	DrawRotaGraphF(420, 150, 0.2, 0.0, item_image, true, FALSE);
+	DrawRotaGraphF(420, 250, 0.2, 0.0, item_image, true, FALSE);
 	DrawRotaGraphF(345, 205, 0.2, 0.0, mato1_image, true, FALSE);
-	DrawRotaGraphF(345, 255, 0.2, 0.0, mato2_image, true, FALSE);
+	DrawRotaGraphF(345, 155, 0.2, 0.0, mato2_image, true, FALSE);
 	
 
 	y = 650;
+
 	DrawFormatString(550,600 , 0x000000, "%d", ranking[0]);
-	DrawFormatString(y, x + f * 0, 0x000000, "%d", item);
-	DrawFormatString(y, x + f * 1, 0x000000, "%d", mato[0]);
-	DrawFormatString(y, x + f * 2, 0x000000, "%d", mato[1]);
+	DrawFormatString(y, x + f * 0, 0x000000, "%d × 500 =  %d", mato[0],mato1_score);
+	DrawFormatString(y, x + f * 1, 0x000000, "%d × 1000 =  %d", mato[1], mato2_score);
+	DrawFormatString(y, x + f * 2, 0x000000, "%d × 2000 =  %d", item, item_score);
 	SetFontSize(68);
 	DrawFormatString(480,430 , 0x000000, "%d", score);
 	SetFontSize(48);

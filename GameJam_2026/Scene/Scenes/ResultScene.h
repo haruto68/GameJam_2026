@@ -15,6 +15,9 @@ private:
 	int mato1_image;
 	int mato2_image;
 	int item_image;
+	int item_score = 0;
+	int mato1_score = 0;
+	int mato2_score = 0;
 
 	int high_score = 0;
 	int second_score = 0;
