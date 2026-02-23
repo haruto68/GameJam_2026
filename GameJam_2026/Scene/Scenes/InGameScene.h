@@ -13,6 +13,12 @@ class InGameScene : public SceneBase
 protected:
 
 private:
+	int backgound_UI = 0;	// UI背景
+
+	int numbers_image[11] = {};	//数字画像
+	int draw_number[5] = { 10,10,10,10,10 };	//数字引数
+	int syuriken = 0;	//手裏剣
+
 	int score = 0;		//スコア
 	int item = 0;		//獲得アイテム数
 	int mato[3] = {};	//壊したマト数

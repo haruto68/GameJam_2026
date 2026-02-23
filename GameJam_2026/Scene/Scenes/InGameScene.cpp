@@ -11,6 +11,20 @@ InGameScene::InGameScene():
 {
 	//リソース管理インスタンス取得
 	ResourceManager* rm = ResourceManager::GetInstance();
+	backgound_UI = rm->GetImages("Resource/Images/backgound_UI.png")[0];
+
+	numbers_image[0] = rm->GetImages("Resource/Images/number0.png")[0];
+	numbers_image[1] = rm->GetImages("Resource/Images/number1.png")[0];
+	numbers_image[2] = rm->GetImages("Resource/Images/number2.png")[0];
+	numbers_image[3] = rm->GetImages("Resource/Images/number3.png")[0];
+	numbers_image[4] = rm->GetImages("Resource/Images/number4.png")[0];
+	numbers_image[5] = rm->GetImages("Resource/Images/number5.png")[0];
+	numbers_image[6] = rm->GetImages("Resource/Images/number6.png")[0];
+	numbers_image[7] = rm->GetImages("Resource/Images/number7.png")[0];
+	numbers_image[8] = rm->GetImages("Resource/Images/number8.png")[0];
+	numbers_image[9] = rm->GetImages("Resource/Images/number9.png")[0];
+	numbers_image[10] = 0;
+	syuriken = rm->GetImages("Resource/Images/syuriken1.png")[0];
 }
 
 InGameScene::~InGameScene()
@@ -120,24 +134,37 @@ eSceneType InGameScene::Update(const float& delta_second)
 
 void InGameScene::Draw() const
 {
-	int n = 0;
+	float font = 0;		//数字サイズ
+	int x_start = 0;	//
+	int y_start = 0;	//
+	int x_size = 0;		//
+
+	int n = 0;	//オブジェクト数カウント
 	for (GameObject* obj : scene_objects_list)
 	{
 		obj->Draw(Vector2D(0, 0), true);
 		n++;
 	}
-	DrawBox(1051, 0, D_WIN_MAX_X, D_WIN_MAX_Y, 0x000000, true);
+	//DrawBox(1051, 0, D_WIN_MAX_X, D_WIN_MAX_Y, 0x000000, true);	//UIゾーン用隠し
 
-	DrawFormatString(1080, 350, GetColor(255, 255, 255), "手裏剣数");
-	DrawFormatString(1080, 400, GetColor(255, 255, 255), "画面内");
-	DrawFormatString(1080, 450, GetColor(255, 255, 255), "  %d", screen_ball);
-	DrawFormatString(1080, 500, GetColor(255, 255, 255), "所持中");
-	DrawFormatString(1080, 550, GetColor(255, 255, 255), "  %d", have_ball);
-	
-	DrawFormatString(1080, 250, GetColor(255, 255, 255), "スコア");
-	DrawFormatString(1080, 300, GetColor(255, 255, 255), "%d", score);
+	//UI背景
+	DrawRotaGraph(1165, 370, 1.15, 0.0, backgound_UI, true, false, false);
 
+	// スコア描画
+	font = 0.2;	x_start = 1080;	y_start = 280;	x_size = 30;
+	DrawFormatString(x_start, y_start - 80, 0x000000, "スコア");
+	DrawRotaGraphF(x_start + x_size * 5, y_start, font, 0.0, numbers_image[draw_number[0]], true, false);
+	DrawRotaGraphF(x_start + x_size * 4, y_start, font, 0.0, numbers_image[draw_number[1]], true, false);
+	DrawRotaGraphF(x_start + x_size * 3, y_start, font, 0.0, numbers_image[draw_number[2]], true, false);
+	DrawRotaGraphF(x_start + x_size * 2, y_start, font, 0.0, numbers_image[draw_number[3]], true, false);
+	DrawRotaGraphF(x_start + x_size * 1, y_start, font, 0.0, numbers_image[draw_number[4]], true, false);
 
+	// 手裏剣描画
+	x_start = 1100;	y_start = 430;	x_size = 60;
+	DrawFormatString(x_start - 40, y_start - 80, 0x000000, "手裏剣数");
+	//DrawFormatString(1080, 550, 0x000000, "  %d", have_ball);
+	for (int i = 0; i < have_ball; i++)
+		DrawRotaGraphF(x_start + x_size * i, y_start, 0.3, π / 4, syuriken, true, false);
 }
 
 void InGameScene::Finalize()
@@ -177,6 +204,16 @@ eSceneType InGameScene::GetNowSceneType()const
 
 void InGameScene::Animation(const float& delta_second)
 {
+	// スコアアニメ
+	draw_number[0] = ((((score % 10000) % 1000) % 100) % 10);
+	if (score >= 10)
+		draw_number[1] = ((((score % 10000) % 1000) % 100) / 10);
+	if (score >= 100)
+		draw_number[2] = ((((score % 10000) % 1000) / 100));
+	if (score >= 1000)
+		draw_number[3] = ((((score % 10000) / 1000)));
+	if (score >= 10000)
+		draw_number[4] = ((((score / 10000))));
 
 }
 
