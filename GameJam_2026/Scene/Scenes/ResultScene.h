@@ -6,6 +6,7 @@ class ResultScene : public SceneBase
 protected:
 
 private:
+	int background_makimono = 0;
 	int cursor_num = 0;
 
 	int botton = false;

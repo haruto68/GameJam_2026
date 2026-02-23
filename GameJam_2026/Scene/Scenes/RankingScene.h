@@ -8,6 +8,7 @@ class RankingScene : public SceneBase
 protected:
 
 private:
+	int background_makimono = 0;
 	int numbers_image[11] = {};
 	int botton_image[2];
 	int botton = false;

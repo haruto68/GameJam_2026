@@ -7,6 +7,7 @@ ResultScene::ResultScene()
 {
 	//リソース管理インスタンス取得
 	ResourceManager* rm = ResourceManager::GetInstance();
+	background_makimono = rm->GetImages("Resource/Images/background_makimono.png")[0];
 
 	botton_image[0][0] = rm->GetImages("Resource/Images/saityousen1.png")[0];
 	botton_image[0][1] = rm->GetImages("Resource/Images/saityousen2.png")[0];
@@ -146,22 +147,26 @@ eSceneType ResultScene::Update(const float& delta_second)
 
 void ResultScene::Draw() const
 {
-	int f = 50;
-	DrawFormatString(440, f * 0, 0xffffff, "ハイスコア");
-	DrawFormatString(440, f * 1, 0xffffff, "ロースコア");
-	DrawFormatString(440, f * 3, 0xffffff, "スコア");
-	DrawFormatString(440, f * 4, 0xffffff, "アイテム");
-	DrawFormatString(440, f * 5, 0xffffff, "マト1");
-	DrawFormatString(440, f * 6, 0xffffff, "マト2");
-	DrawFormatString(440, f * 7, 0xffffff, "マト3");
+	DrawRotaGraphF(D_WIN_MAX_X / 2, D_WIN_MAX_Y / 2, 1.2, 0.0, background_makimono, true, FALSE);
 
-	DrawFormatString(840, f * 0, 0xffffff, "%d", ranking[0]);
-	DrawFormatString(840, f * 1, 0xffffff, "%d", ranking[4]);
-	DrawFormatString(840, f * 3, 0xffffff, "%d", score);
-	DrawFormatString(840, f * 4, 0xffffff, "%d", item);
-	DrawFormatString(840, f * 5, 0xffffff, "%d", mato[0]);
-	DrawFormatString(840, f * 6, 0xffffff, "%d", mato[1]);
-	DrawFormatString(840, f * 7, 0xffffff, "%d", mato[2]);
+	int x = 200;
+	int y = 250;
+	int f = 50;
+	DrawFormatString(y, x + f * 0, 0x000000, "ハイスコア");
+	DrawFormatString(y, x + f * 1, 0x000000, "ロースコア");
+	DrawFormatString(y, x + f * 3, 0x000000, "スコア");
+	DrawFormatString(y, x + f * 4, 0x000000, "アイテム");
+	DrawFormatString(y, x + f * 5, 0x000000, "マト1");
+	DrawFormatString(y, x + f * 6, 0x000000, "マト2");
+	DrawFormatString(y, x + f * 7, 0x000000, "マト3");
+	y = 650;
+	DrawFormatString(y, x + f * 0, 0x000000, "%d", ranking[0]);
+	DrawFormatString(y, x + f * 1, 0x000000, "%d", ranking[4]);
+	DrawFormatString(y, x + f * 3, 0x000000, "%d", score);
+	DrawFormatString(y, x + f * 4, 0x000000, "%d", item);
+	DrawFormatString(y, x + f * 5, 0x000000, "%d", mato[0]);
+	DrawFormatString(y, x + f * 6, 0x000000, "%d", mato[1]);
+	DrawFormatString(y, x + f * 7, 0x000000, "%d", mato[2]);
 
 
 	if(botton == false)

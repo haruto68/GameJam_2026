@@ -6,6 +6,7 @@ class HelpScene : public SceneBase
 protected:
 
 private:
+	int background_makimono = 0;
 
 	int botton_image[2];
 	int botton = false;

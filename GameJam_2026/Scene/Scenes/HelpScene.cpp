@@ -8,6 +8,8 @@ HelpScene::HelpScene()
 	//リソース管理インスタンス取得
 	ResourceManager* rm = ResourceManager::GetInstance();
 
+	background_makimono = rm->GetImages("Resource/Images/background_makimono.png")[0];
+
 	botton_image[0] = rm->GetImages("Resource/Images/modoru1.png")[0];
 	botton_image[1] = rm->GetImages("Resource/Images/modoru2.png")[0];
 }
@@ -62,16 +64,12 @@ eSceneType HelpScene::Update(const float& delta_second)
 
 void HelpScene::Draw() const
 {
-	if (botton == false)
-	{
-		DrawRotaGraphF(1150, 650, 1.1, 0.0, botton_image[0], true, FALSE);
-	}
+	DrawRotaGraphF(D_WIN_MAX_X / 2, D_WIN_MAX_Y / 2, 1.2, 0.0, background_makimono, true, FALSE);
 
+	if (botton == false)
+		DrawRotaGraphF(1150, 650, 1.1, 0.0, botton_image[0], true, FALSE);
 	else
-	{
 		DrawRotaGraphF(1150, 650, 1.1, 0.0, botton_image[1], true, FALSE);
-	}
-	//DrawFormatString(0, 0, GetColor(255, 255, 255), "ヘルプシーン");
 }
 
 void HelpScene::Finalize()

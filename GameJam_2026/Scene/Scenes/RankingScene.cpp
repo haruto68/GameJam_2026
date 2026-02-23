@@ -7,6 +7,7 @@ RankingScene::RankingScene()
 {
 	//リソース管理インスタンス取得
 	ResourceManager* rm = ResourceManager::GetInstance();
+	background_makimono = rm->GetImages("Resource/Images/background_makimono.png")[0];
 
 	botton_image[0] = rm->GetImages("Resource/Images/modoru1.png")[0];
 	botton_image[1] = rm->GetImages("Resource/Images/modoru2.png")[0];
@@ -93,23 +94,21 @@ eSceneType RankingScene::Update(const float& delta_second)
 
 void RankingScene::Draw() const
 {
-	DrawBoxAA(0, 0, D_WIN_MAX_X, D_WIN_MAX_Y, GetColor(255, 255, 255), true);
+	DrawRotaGraphF(D_WIN_MAX_X / 2, D_WIN_MAX_Y / 2, 1.2, 0.0, background_makimono, true, FALSE);
 
 	if (botton == false)
-	{
 		DrawRotaGraphF(1150, 650, 1.1, 0.0, botton_image[0], true, FALSE);
-	}
-
 	else
-	{
 		DrawRotaGraphF(1150, 650, 1.1, 0.0, botton_image[1], true, FALSE);
-	}
 
-	DrawRotaGraphF(110,110, 0.41, 0.0, numbers_image[1], true, false);
-	DrawRotaGraphF(110, 240, 0.41, 0.0, numbers_image[2], true, false);  //順位
-	DrawRotaGraphF(110, 370, 0.41, 0.0, numbers_image[3], true, false);
-	DrawRotaGraphF(110, 500, 0.41, 0.0, numbers_image[4], true, false);
-	DrawRotaGraphF(110, 630, 0.41, 0.0, numbers_image[5], true, false);
+	float x = 300.0f;
+	float y = 110.0f;
+	float y_start = 50.0f;
+	DrawRotaGraphF(x, y_start + y * 1, 0.41, 0.0, numbers_image[1], true, false);
+	DrawRotaGraphF(x, y_start + y * 2, 0.41, 0.0, numbers_image[2], true, false);  //順位
+	DrawRotaGraphF(x, y_start + y * 3, 0.41, 0.0, numbers_image[3], true, false);
+	DrawRotaGraphF(x, y_start + y * 4, 0.41, 0.0, numbers_image[4], true, false);
+	DrawRotaGraphF(x, y_start + y * 5, 0.41, 0.0, numbers_image[5], true, false);
 
 	//1位
 	DrawRotaGraphF(highscore_location[0].x, highscore_location[0].y, 0.3, 0.0, numbers_image[draw_number[0]], true, false);
@@ -163,150 +162,130 @@ eSceneType RankingScene::GetNowSceneType()const
 
 void RankingScene::Animation(const float& delta_second)
 {
-
+	float x = 1.4f;
+	float y = 110.0f;
+	float y_start = 50.0f;
+	int i = 1;
 
 	//１位
-	highscore_location[0] = Vector2D(D_WIN_MAX_X / 1.8, D_WIN_MAX_Y / 6);
+	highscore_location[0] = Vector2D(D_WIN_MAX_X / x, y_start + y * i);
 	draw_number[0] = ((((high_score % 10000) % 1000) % 100) % 10);
 
 	if (high_score >= 10)
 	{
-		highscore_location[1] = Vector2D(D_WIN_MAX_X / 1.8 - 100, D_WIN_MAX_Y / 6);
+		highscore_location[1] = Vector2D(D_WIN_MAX_X / x - 100, y_start + y * i);
 		draw_number[1] = ((((high_score % 10000) % 1000) % 100) / 10);
 	}
-
 	if (high_score >= 100)
 	{
-		highscore_location[2] = Vector2D(D_WIN_MAX_X / 1.8 - 200, D_WIN_MAX_Y / 6);
+		highscore_location[2] = Vector2D(D_WIN_MAX_X / x - 200, y_start + y * i);
 		draw_number[2] = ((((high_score % 10000) % 1000) / 100));
 	}
-
 	if (high_score >= 1000)
 	{
-		highscore_location[3] = Vector2D(D_WIN_MAX_X / 1.8 - 300, D_WIN_MAX_Y / 6);
+		highscore_location[3] = Vector2D(D_WIN_MAX_X / x - 300, y_start + y * i);
 		draw_number[3] = ((((high_score % 10000) / 1000)));
 	}
-
 	if (high_score >= 10000)
 	{
-		highscore_location[4] = Vector2D(D_WIN_MAX_X / 1.8 - 400, D_WIN_MAX_Y / 6);
+		highscore_location[4] = Vector2D(D_WIN_MAX_X / x - 400, y_start + y * i);
 		draw_number[4] = ((((high_score / 10000))));
 	}
-
-
+	i++;
 	//2位
-	secondscore_location[0] = Vector2D(D_WIN_MAX_X / 1.8, D_WIN_MAX_Y / 3);
+	secondscore_location[0] = Vector2D(D_WIN_MAX_X / x, y_start + y * 2);
 	draw_number2[0] = ((((second_score % 10000) % 1000) % 100) % 10);
 	if(second_score >= 10)
 	{
-		secondscore_location[1] = Vector2D(D_WIN_MAX_X / 1.8 - 100, D_WIN_MAX_Y / 3);
+		secondscore_location[1] = Vector2D(D_WIN_MAX_X / x - 100, y_start + y * i);
 		draw_number2[1] = ((((second_score % 10000) % 1000) % 100) / 10);
 	}
-
 	if(second_score >= 100)
 	{
-		secondscore_location[2] = Vector2D(D_WIN_MAX_X / 1.8 - 200, D_WIN_MAX_Y / 3);
+		secondscore_location[2] = Vector2D(D_WIN_MAX_X / x - 200, y_start + y * i);
 		draw_number2[2] = ((((second_score % 10000) % 1000) / 100));
 	}
-
 	if (second_score >= 1000)
 	{
-		secondscore_location[3] = Vector2D(D_WIN_MAX_X / 1.8 - 300, D_WIN_MAX_Y / 3);
+		secondscore_location[3] = Vector2D(D_WIN_MAX_X / x - 300, y_start + y * i);
 		draw_number2[3] = ((((second_score % 10000) / 1000)));
 	}
-
 	if(second_score >= 10000)
 	{
-		secondscore_location[4] = Vector2D(D_WIN_MAX_X / 1.8 - 400, D_WIN_MAX_Y / 3);
+		secondscore_location[4] = Vector2D(D_WIN_MAX_X / x - 400, y_start + y * i);
 		draw_number2[4] = ((((second_score / 10000))));
 	}
-
-
+	i++;
 	//3位
-	thirdscore_location[0] = Vector2D(D_WIN_MAX_X / 1.8, D_WIN_MAX_Y / 2);
+	thirdscore_location[0] = Vector2D(D_WIN_MAX_X / x, y_start + y * i);
 	draw_number3[0] = ((((third_score % 10000) % 1000) % 100) % 10);
 	if (third_score >= 10)
 	{
-		thirdscore_location[1] = Vector2D(D_WIN_MAX_X / 1.8 - 100, D_WIN_MAX_Y / 2);
+		thirdscore_location[1] = Vector2D(D_WIN_MAX_X / x - 100, y_start + y * i);
 		draw_number3[1] = ((((third_score % 10000) % 1000) % 100) / 10);
 	}
-
 	if (third_score >= 100)
 	{
-		thirdscore_location[2] = Vector2D(D_WIN_MAX_X / 1.8 - 200, D_WIN_MAX_Y / 2);
+		thirdscore_location[2] = Vector2D(D_WIN_MAX_X / x - 200, y_start + y * i);
 		draw_number3[2] = ((((third_score % 10000) % 1000) / 100));
 	}
-
 	if (third_score >= 1000)
 	{
-		thirdscore_location[3] = Vector2D(D_WIN_MAX_X / 1.8 - 300, D_WIN_MAX_Y / 2);
+		thirdscore_location[3] = Vector2D(D_WIN_MAX_X / x - 300, y_start + y * i);
 		draw_number3[3] = ((((third_score % 10000) / 1000)));
 	}
-
 	if (third_score >= 10000)
 	{
-		thirdscore_location[4] = Vector2D(D_WIN_MAX_X / 1.8 - 400, D_WIN_MAX_Y / 2);
+		thirdscore_location[4] = Vector2D(D_WIN_MAX_X / x - 400, y_start + y * i);
 		draw_number3[4] = ((((third_score / 10000))));
 	}
-
-
-
+	i++;
 	//4位
-	fourscore_location[0] = Vector2D(D_WIN_MAX_X / 1.8, D_WIN_MAX_Y / 1.5);
+	fourscore_location[0] = Vector2D(D_WIN_MAX_X / x, y_start + y * i);
 	draw_number4[0] = ((((four_score % 10000) % 1000) % 100) % 10);
 	if (four_score >= 10)
 	{
-		fourscore_location[1] = Vector2D(D_WIN_MAX_X / 1.8 - 100, D_WIN_MAX_Y / 1.5);
+		fourscore_location[1] = Vector2D(D_WIN_MAX_X / x - 100, y_start + y * i);
 		draw_number4[1] = ((((four_score % 10000) % 1000) % 100) / 10);
 	}
-
 	if (four_score >= 100)
 	{
-		fourscore_location[2] = Vector2D(D_WIN_MAX_X / 1.8 - 200, D_WIN_MAX_Y / 1.5);
+		fourscore_location[2] = Vector2D(D_WIN_MAX_X / x - 200, y_start + y * i);
 		draw_number4[2] = ((((four_score % 10000) % 1000) / 100));
 	}
-
 	if (four_score >= 1000)
 	{
-		fourscore_location[3] = Vector2D(D_WIN_MAX_X / 1.8 - 300, D_WIN_MAX_Y / 1.5);
+		fourscore_location[3] = Vector2D(D_WIN_MAX_X / x - 300, y_start + y * i);
 		draw_number4[3] = ((((four_score % 10000) / 1000)));
 	}
-
 	if (four_score >= 10000)
 	{
-		fourscore_location[4] = Vector2D(D_WIN_MAX_X / 1.8 - 400, D_WIN_MAX_Y / 1.5);
+		fourscore_location[4] = Vector2D(D_WIN_MAX_X / x - 400, y_start + y * i);
 		draw_number4[4] = ((((four_score / 10000))));
 	}
-
-
-
+	i++;
 	//5位
-	fivescore_location[0] = Vector2D(D_WIN_MAX_X / 1.8, D_WIN_MAX_Y / 1.17);
+	fivescore_location[0] = Vector2D(D_WIN_MAX_X / x, y_start + y * i);
 	draw_number5[0] = ((((five_score % 10000) % 1000) % 100) % 10);
 	if (five_score >= 10)
 	{
-		fivescore_location[1] = Vector2D(D_WIN_MAX_X / 1.8 - 100, D_WIN_MAX_Y / 1.17);
+		fivescore_location[1] = Vector2D(D_WIN_MAX_X / x - 100, y_start + y * i);
 		draw_number5[1] = ((((five_score % 10000) % 1000) % 100) / 10);
 	}
-
 	if (five_score >= 100)
 	{
-		fivescore_location[2] = Vector2D(D_WIN_MAX_X / 1.8 - 200, D_WIN_MAX_Y / 1.17);
+		fivescore_location[2] = Vector2D(D_WIN_MAX_X / x - 200, y_start + y * i);
 		draw_number5[2] = ((((five_score % 10000) % 1000) / 100));
 	}
-
 	if (five_score >= 1000)
 	{
-		fivescore_location[3] = Vector2D(D_WIN_MAX_X / 1.8 - 300, D_WIN_MAX_Y / 1.17);
+		fivescore_location[3] = Vector2D(D_WIN_MAX_X / x - 300, y_start + y * i);
 		draw_number5[3] = ((((five_score % 10000) / 1000)));
 	}
-
 	if (five_score >= 10000)
 	{
-		fivescore_location[4] = Vector2D(D_WIN_MAX_X / 1.8 - 400, D_WIN_MAX_Y / 1.17);
+		fivescore_location[4] = Vector2D(D_WIN_MAX_X / x - 400, y_start + y * i);
 		draw_number5[4] = ((((five_score / 10000))));
 	}
-
-
 
 }
