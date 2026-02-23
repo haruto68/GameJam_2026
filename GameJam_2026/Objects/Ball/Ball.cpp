@@ -216,6 +216,11 @@ void Ball::Movement(float delta_seconds)
 
 	//speed = 500.0f;
 
+	if (velocity.x == 0.0f && velocity.y == 0.0f)
+	{
+		location.x = player_location.x;
+	}
+
 	//À•WŒˆ’è
 	location += velocity * speed *  delta_seconds;
 }

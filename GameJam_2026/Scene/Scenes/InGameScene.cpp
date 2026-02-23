@@ -189,6 +189,7 @@ void InGameScene::ObjectListLoop(const float& delta_second)
 		// ƒ{[ƒ‹‚Ìê‡
 		if (obj->GetCollision().object_type == eObjectType::eBall)
 		{
+			screen_ball++;
 		}
 	}
 

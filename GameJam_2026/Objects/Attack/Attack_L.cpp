@@ -80,7 +80,7 @@ void Attack_L::OnHitCollision(GameObject* hit_object)
 				Vector2D target_velocity = Tracking(location, target);
 
 				//ƒvƒŒƒCƒ„[‚ÌˆÚ“®—Ê•ª‰ÁŽZ
-				target_velocity.x += (player_location.x - footprints.x) * 0.7;
+				target_velocity.x += (player_location.x - footprints.x) * 0.25;
 				hit_object->SetVelocity(target_velocity);
 			}
 		}

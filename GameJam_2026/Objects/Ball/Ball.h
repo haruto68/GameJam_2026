@@ -19,7 +19,7 @@ private:
 	float radius = 20.0f;
 	bool spin_velocity = true;
 
-	float speed = 500.0f;
+	float speed = 400.0f;
 
 	int hit_num = 0;
 	

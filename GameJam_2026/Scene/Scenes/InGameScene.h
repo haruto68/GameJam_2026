@@ -18,7 +18,7 @@ private:
 	int mato[3] = {};	//‰ó‚µ‚½ƒ}ƒg”
 
 	int have_ball = 3;
-	int screen_ball = 1;
+	int screen_ball = 0;
 
 	bool next_scene = false;
 	float next_count = 0.0f;
