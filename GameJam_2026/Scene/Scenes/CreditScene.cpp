@@ -8,7 +8,10 @@ CreditScene::CreditScene()
 	//リソース管理インスタンス取得
 	ResourceManager* rm = ResourceManager::GetInstance();
 
+	background_makimono = rm->GetImages("Resource/Images/background_makimono.png")[0];
+
 	background = rm->GetImages("Resource/Images/haikei.png")[0];
+	
 }
 
 CreditScene::~CreditScene()
@@ -56,7 +59,12 @@ eSceneType CreditScene::Update(const float& delta_second)
 void CreditScene::Draw() const
 {
 	DrawRotaGraph(640, 360, 1.0, 0.0, background, true, false);
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "クレジットシーン");
+	DrawRotaGraphF(D_WIN_MAX_X / 2, D_WIN_MAX_Y / 2, 1.2, 0.0, background_makimono, true, FALSE);
+	DrawFormatString(240, 200, GetColor(100, 0, 0), "イラストレーター　　島 維那");
+	DrawFormatString(240, 250, GetColor(100, 0, 0), "　　　　　　　　　　大城 新奈");
+	DrawFormatString(240, 400, GetColor(0, 100, 0), "プログラマー　　大城 悠仁");
+	DrawFormatString(630, 450, GetColor(0, 100, 0), "幸地 秀斗");
+	DrawFormatString(630, 500, GetColor(0, 100, 0), "新城 怜空");
 }
 
 void CreditScene::Finalize()

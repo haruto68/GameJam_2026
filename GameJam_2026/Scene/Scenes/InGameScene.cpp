@@ -127,7 +127,7 @@ void InGameScene::Draw() const
 	int x_size = 0;		//
 
 	//背景描画
-	DrawRotaGraph(640, 360, 1.0, 0.0, background, true, false);
+	DrawRotaGraph(640, 380, 1.0, 0.0, background, true, false);
 
 	int n = 0;	//オブジェクト数カウント
 	for (GameObject* obj : scene_objects_list)

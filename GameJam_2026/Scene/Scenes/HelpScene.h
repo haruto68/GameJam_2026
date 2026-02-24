@@ -8,6 +8,11 @@ protected:
 private:
 	int background_makimono = 0;
 	int background;
+	int controller;
+	int a_botton;
+	int lb_image;
+	int rb_image;
+	int juuji;
 
 	int botton_image[2];
 	int botton = false;

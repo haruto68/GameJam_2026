@@ -11,6 +11,7 @@ private:
 	float exit_time = 0;
 
 	int background;
+	int background_makimono;
 public:
 	CreditScene();
 	~CreditScene();
