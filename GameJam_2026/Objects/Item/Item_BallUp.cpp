@@ -13,9 +13,8 @@ Item_BallUp::Item_BallUp()
     collision.object_type = eObjectType::eItem;
     collision.hit_object_type.push_back(eObjectType::ePlayer);
 
-    // 画像リソースがある場合はここで読み込む
-    // ResourceManager* rm = ResourceManager::GetInstance();
-    // makimono = rm->GetImages("Resource/Images/ball_item.png")[0];
+    ResourceManager* rm = ResourceManager::GetInstance();
+    makimono = rm->GetImages("Resource/Images/makimono2.png")[0];
 }
 
 Item_BallUp::~Item_BallUp()
@@ -40,7 +39,9 @@ void Item_BallUp::Draw(const Vector2D& screen_offset, bool flip_flag) const
     int r = (int)(size / 2.0f);
 
     // 青っぽいアイテム
-    DrawCircle(x, y, r, GetColor(0, 120, 255), TRUE);
+    //DrawCircle(x, y, r, GetColor(0, 120, 255), TRUE);
+
+    DrawRotaGraphF(location.x, location.y, 0.25, 0.0, makimono, true, FALSE);
 
     // 四角枠もつける場合
     DrawBoxAA(x - r, y - r, x + r, y + r, GetColor(0, 255, 255), false);

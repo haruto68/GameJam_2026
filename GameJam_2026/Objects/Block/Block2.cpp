@@ -40,6 +40,19 @@ Block2::~Block2()
 void Block2::Initialize()
 {
     hp = 300;
+
+    int random = rand() % 2;
+    if(random==0)
+    {
+        location.x = 0;
+        velocity.x = 1.0f;
+    }
+    else
+    {
+        location.x = 1050;
+        velocity.x = -1.0f;
+    }
+
 }
 
 void Block2::Update(float delta_seconds)
