@@ -30,6 +30,9 @@ private:
 
 	int screen_block1 = 0;	//‰æ–Ê“à‚ÌƒuƒƒbƒN1
 
+	int moji_score = 0;
+	int moji_syuriken = 0;
+
 	bool next_scene = false;
 	float next_count = 0.0f;
 

@@ -44,7 +44,7 @@ void Item_BallUp::Draw(const Vector2D& screen_offset, bool flip_flag) const
     DrawRotaGraphF(location.x, location.y, 0.25, 0.0, makimono, true, FALSE);
 
     // éläpògÇ‡Ç¬ÇØÇÈèÍçá
-    DrawBoxAA(x - r, y - r, x + r, y + r, GetColor(0, 255, 255), false);
+    //DrawBoxAA(x - r, y - r, x + r, y + r, GetColor(0, 255, 255), false);
 }
 
 void Item_BallUp::Finalize()

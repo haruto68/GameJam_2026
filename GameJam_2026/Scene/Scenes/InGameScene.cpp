@@ -27,6 +27,8 @@ InGameScene::InGameScene():
 	numbers_image[9] = rm->GetImages("Resource/Images/number9.png")[0];
 	numbers_image[10] = 0;
 	syuriken = rm->GetImages("Resource/Images/syuriken1.png")[0];
+	moji_syuriken = rm->GetImages("Resource/Images/syuriken_moji.png")[0];
+	moji_score = rm->GetImages("Resource/Images/score.png")[0];
 
 	main_handle=rm->GetSounds("Resource/sound/main.mp3");
 }
@@ -145,7 +147,8 @@ void InGameScene::Draw() const
 
 	// スコア描画
 	font = 0.2;	x_start = 1080;	y_start = 280;	x_size = 30;
-	DrawFormatString(x_start, y_start - 80, 0x000000, "スコア");
+	//DrawFormatString(x_start, y_start - 80, 0x000000, "スコア");
+	DrawRotaGraphF(x_start + 70, y_start - 60, 0.8, 0.0, moji_score, true, false);
 	DrawRotaGraphF(x_start + x_size * 5, y_start, font, 0.0, numbers_image[draw_number[0]], true, false);
 	DrawRotaGraphF(x_start + x_size * 4, y_start, font, 0.0, numbers_image[draw_number[1]], true, false);
 	DrawRotaGraphF(x_start + x_size * 3, y_start, font, 0.0, numbers_image[draw_number[2]], true, false);
@@ -153,14 +156,15 @@ void InGameScene::Draw() const
 	DrawRotaGraphF(x_start + x_size * 1, y_start, font, 0.0, numbers_image[draw_number[4]], true, false);
 
 	// 手裏剣描画
-	x_start = 1100;	y_start = 430;	x_size = 60;
-	DrawFormatString(x_start - 40, y_start - 80, 0x000000, "手裏剣数");
+	x_start = 1100;	y_start = 460;	x_size = 60;
+	//DrawFormatString(x_start - 40, y_start - 80, 0x000000, "手裏剣数");
+	DrawRotaGraphF(x_start + 60, y_start - 60, 1.2, 0.0, moji_syuriken, true, false);
 	//DrawFormatString(1080, 550, 0x000000, "  %d", have_ball);
 	for (int i = 0; i < have_ball; i++)
 		DrawRotaGraphF(x_start + x_size * i, y_start, 0.3, π / 4, syuriken, true, false);
 
 
-	DrawFormatString(1080, 650, 0x000000, "  %d", stage_level);
+	//DrawFormatString(1080, 650, 0x000000, "  %d", stage_level);
 }
 
 void InGameScene::Finalize()

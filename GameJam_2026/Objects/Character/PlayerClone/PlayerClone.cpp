@@ -99,7 +99,7 @@ void PlayerClone::Draw(const Vector2D&, bool) const
 
     DrawRotaGraphF(location.x, location.y, 0.5, 0.0, image, TRUE, flip_flag);
 
-    SetDrawBlendMode(DX_BLENDMODE_ALPHA, 125);
+    /*SetDrawBlendMode(DX_BLENDMODE_ALPHA, 125);
     DrawBox(
         (int)(location.x - halfW),
         (int)(location.y - halfH),
@@ -108,7 +108,7 @@ void PlayerClone::Draw(const Vector2D&, bool) const
         GetColor(255, 255, 255),
         false
     );
-    SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
+    SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);*/
 }
 
 void PlayerClone::Animation(float delta_seconds)

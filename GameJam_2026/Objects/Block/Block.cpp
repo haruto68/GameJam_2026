@@ -75,8 +75,8 @@ void Block::Draw(const Vector2D&, bool) const
     //DrawRotaGraphF(location.x, location.y, 0.3, 0.0, image, true, FALSE);
     DrawRotaGraphF(location.x, location.y, 0.6, 0.0, image, true, FALSE); 
     
-    DrawBoxAA(location.x - halfW, location.y - halfH, location.x + halfW, location.y + halfH,
-        GetColor(0, 0, 255), false);
+    /*DrawBoxAA(location.x - halfW, location.y - halfH, location.x + halfW, location.y + halfH,
+        GetColor(0, 0, 255), false);*/
 
 }
 
@@ -120,7 +120,7 @@ void Block::OnHitCollision(GameObject* hit_object)
                 }
                 else if (r < 33)
                 {
-                    obj = object_manager->CreateGameObject<Block2>(Vector2D(0, 350));
+                    //obj = object_manager->CreateGameObject<Block2>(Vector2D(0, 350));
                     //obj->SetVelocity(Vector2D(1.0f, 0.0f));
                 }
             }

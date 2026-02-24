@@ -36,8 +36,8 @@ void Item::Draw(const Vector2D& screen_offset, bool flip_flag) const
 
     DrawRotaGraphF(location.x, location.y, 0.25, 0.0, makimono, true, FALSE);
 
-    DrawBoxAA(location.x - size / 2.0f, location.y - size / 2.0f, location.x + size / 2.0f, location.y + size / 2.0f,
-        GetColor(0, 255, 0), false);
+    /*DrawBoxAA(location.x - size / 2.0f, location.y - size / 2.0f, location.x + size / 2.0f, location.y + size / 2.0f,
+        GetColor(0, 255, 0), false);*/
 }
 
 void Item::Finalize()
