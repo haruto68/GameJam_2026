@@ -28,7 +28,7 @@ ResultScene::~ResultScene()
 void ResultScene::Initialize()
 {
 	Result_handle = LoadSoundMem("Resource/sound/Results.mp3");
-
+	ChangeVolumeSoundMem(200, Result_handle);
 	if (Result_handle != -1)
 	{
 		PlaySoundMem(Result_handle, DX_PLAYTYPE_LOOP);

@@ -4,7 +4,7 @@
 #include <Windows.h>
 
 TitleScene::TitleScene() :
-	cursor_num(0),bgm_handle(-1)
+	cursor_num(0),bgm_handle(-1),cursor_se_handle(-1),ok_handle(-1)
 {
 	//リソース管理インスタンス取得
 	ResourceManager* rm = ResourceManager::GetInstance();
@@ -27,11 +27,15 @@ TitleScene::~TitleScene()
 void TitleScene::Initialize()
 {
 	bgm_handle = LoadSoundMem("Resource/sound/title.mp3");
+	ChangeVolumeSoundMem(200, bgm_handle);
 
 	if (bgm_handle != -1)
 	{
 		PlaySoundMem(bgm_handle, DX_PLAYTYPE_LOOP);
 	}
+
+	cursor_se_handle = LoadSoundMem("Resource/sound/cursor.mp3");
+	ok_handle = LoadSoundMem("Resource/sound/ok.mp3");
 }
 
 eSceneType TitleScene::Update(const float& delta_second)
@@ -53,20 +57,28 @@ eSceneType TitleScene::Update(const float& delta_second)
 	if (input->GetButtonDown(XINPUT_BUTTON_DPAD_UP) || input->GetKeyDown(KEY_INPUT_W))
 	{
 		if (cursor_num > 0)
+		{
 			cursor_num -= 1;
+			PlaySoundMem(cursor_se_handle, DX_PLAYTYPE_BACK);
+		}
+			
 	}
 	// カーソル下移動
 	if (input->GetButtonDown(XINPUT_BUTTON_DPAD_DOWN) || input->GetKeyDown(KEY_INPUT_S))
 	{
 		if (cursor_num < CURSOR_NUMS - 1)
+		{
 			cursor_num += 1;
+			PlaySoundMem(cursor_se_handle, DX_PLAYTYPE_BACK);
+		}
+			
 	}
 
 	// カーソル決定
 	if (input->GetButtonDown(XINPUT_BUTTON_A) || input->GetKeyDown(KEY_INPUT_E))
 	{
 		botton = true;
-		
+		PlaySoundMem(ok_handle, DX_PLAYTYPE_BACK);
 		//return eSceneType::eInGame;
 	}
 
@@ -81,6 +93,7 @@ eSceneType TitleScene::Update(const float& delta_second)
 			{
 				return eSceneType::eInGame;
 			}
+
 		}
 
 		if (cursor_num == 1)

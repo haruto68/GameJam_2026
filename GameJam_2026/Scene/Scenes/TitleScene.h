@@ -13,6 +13,8 @@ private:
 	float botton_time = 0.0f;  
 	int botton_image[4][2] = {};
 	int bgm_handle;
+	int cursor_se_handle;
+	int ok_handle;
 public:
 	TitleScene();
 	~TitleScene();

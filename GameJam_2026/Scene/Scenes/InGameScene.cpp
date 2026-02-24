@@ -37,7 +37,7 @@ void InGameScene::Initialize()
 {
 
 	main_handle = LoadSoundMem("Resource/sound/main.mp3");
-
+	ChangeVolumeSoundMem(170, main_handle);
 	if (main_handle != -1)
 	{
 		PlaySoundMem(main_handle, DX_PLAYTYPE_LOOP);
