@@ -4,7 +4,7 @@
 #include <Windows.h>
 
 TitleScene::TitleScene() :
-	cursor_num(0)
+	cursor_num(0),bgm_handle(-1)
 {
 	//リソース管理インスタンス取得
 	ResourceManager* rm = ResourceManager::GetInstance();
@@ -26,7 +26,12 @@ TitleScene::~TitleScene()
 
 void TitleScene::Initialize()
 {
-	
+	bgm_handle = LoadSoundMem("Resource/sound/title.mp3");
+
+	if (bgm_handle != -1)
+	{
+		PlaySoundMem(bgm_handle, DX_PLAYTYPE_LOOP);
+	}
 }
 
 eSceneType TitleScene::Update(const float& delta_second)
@@ -215,7 +220,11 @@ void TitleScene::Draw() const
 
 void TitleScene::Finalize()
 {
-	
+	if (bgm_handle != -1)
+	{
+		StopSoundMem(bgm_handle);
+		DeleteSoundMem(bgm_handle);
+	}
 }
 
 eSceneType TitleScene::GetNowSceneType()const

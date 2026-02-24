@@ -12,7 +12,7 @@ private:
 	int botton = false;    //ƒ{ƒ^ƒ“”»’è
 	float botton_time = 0.0f;  
 	int botton_image[4][2] = {};
-
+	int bgm_handle;
 public:
 	TitleScene();
 	~TitleScene();

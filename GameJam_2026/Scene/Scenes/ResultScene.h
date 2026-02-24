@@ -31,6 +31,9 @@ private:
 	int item = 0;
 	int mato[3] = {};
 
+	int Result_handle;
+
+
 public:
 	ResultScene();
 	~ResultScene();
