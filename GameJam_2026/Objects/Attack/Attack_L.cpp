@@ -2,7 +2,7 @@
 
 Attack_L::Attack_L():kakin_handle(0)
 {
-	kakin_handle = LoadSoundMem("Resource/sound/kakin.mp3");
+	kakin_handle = LoadSoundMem("Resource/sound/kinzoku.mp3");
 
 	size = Vector2D(100.0f, 50.0f);
 

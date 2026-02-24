@@ -1,7 +1,9 @@
 #include "Attack_R.h"
 
-Attack_R::Attack_R()
+Attack_R::Attack_R():kakinki_handle(0)
 {
+	kakinki_handle = LoadSoundMem("Resource/sound/kinzoku.mp3");
+
 	collision.is_blocking = true;
 	collision.box_size = Vector2D(120.0f, 50.0f);
 	collision.object_type = eObjectType::eAttack;
@@ -71,6 +73,7 @@ void Attack_R::OnHitCollision(GameObject* hit_object)
 	// ボールを右上に飛ばす
 	if (type == eBall)
 	{
+		PlaySoundMem(kakinki_handle, DX_PLAYTYPE_BACK);
 		// 早い程右に、遅いほど上にハジク
 		for (int i = 9; i >= 0; i--)
 		{
