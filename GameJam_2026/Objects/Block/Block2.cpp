@@ -39,7 +39,7 @@ Block2::~Block2()
 
 void Block2::Initialize()
 {
-    hp = 1500;
+    hp = 300;
 }
 
 void Block2::Update(float delta_seconds)

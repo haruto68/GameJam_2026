@@ -41,7 +41,7 @@ Block::~Block()
 
 void Block::Initialize()
 {
-    hp = 500;
+    hp = 100;
 
     intial_location = location;
 }
