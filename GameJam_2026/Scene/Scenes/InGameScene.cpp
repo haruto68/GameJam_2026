@@ -182,7 +182,7 @@ void InGameScene::Draw() const
 		DrawRotaGraphF(x_start + x_size * i, y_start, 0.3, π / 4, syuriken, true, false);
 
 
-	DrawFormatString(1080, 650, 0x000000, "  %d", screen_block1);
+	DrawFormatString(1080, 650, 0x000000, "  %d", stage_level);
 }
 
 void InGameScene::Finalize()
@@ -249,14 +249,13 @@ void InGameScene::ObjectListLoop(const float& delta_second)
 	for (GameObject* obj : object_manager->GetObjects_Create())
 	{
 		// ボールの場合
-		if (obj->GetCollision().object_type == eObjectType::eBall)
+		Ball* ball = dynamic_cast<Ball*>(obj);
+		if (ball != nullptr)
 		{
 			screen_ball++;
-		}
+			// レベルの設定
+			ball->SetSpeedLevel(stage_level);
 
-		// ブロック1の場合
-		if (dynamic_cast<Block*>(obj) != nullptr)
-		{
 		}
 	}
 
@@ -296,7 +295,21 @@ void InGameScene::ObjectListLoop(const float& delta_second)
 			{
 				// ブロック1おかわり
 				CreateBlock1();
+
+				//レベルアップ
+				stage_level++;
+				for (GameObject* obj : scene_objects_list)
+				{
+
+					Ball* ball = dynamic_cast<Ball*>(obj);
+
+					if (ball != nullptr)
+					{
+						ball->SetSpeedLevel(stage_level);
+					}
+				}
 			}
+
 		}
 
 

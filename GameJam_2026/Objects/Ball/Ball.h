@@ -21,6 +21,7 @@ private:
 
 	float speed = 400.0f;
 	int speed_level = 1;
+	float pluse_speed = 40.0f;
 
 	int hit_num = 0;
 	
