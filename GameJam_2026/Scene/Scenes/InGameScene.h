@@ -14,6 +14,7 @@ protected:
 
 private:
 	int backgound_UI = 0;	// UI”wŒi
+	int background;
 
 	int numbers_image[11] = {};	//”š‰æ‘œ
 	int draw_number[5] = { 10,10,10,10,10 };	//”šˆø”

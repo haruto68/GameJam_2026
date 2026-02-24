@@ -9,6 +9,8 @@ protected:
 
 private:
 	float exit_time = 0;
+
+	int background;
 public:
 	CreditScene();
 	~CreditScene();

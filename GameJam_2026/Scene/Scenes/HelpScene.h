@@ -7,6 +7,7 @@ protected:
 
 private:
 	int background_makimono = 0;
+	int background;
 
 	int botton_image[2];
 	int botton = false;

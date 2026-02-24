@@ -8,6 +8,7 @@ RankingScene::RankingScene()
 	//リソース管理インスタンス取得
 	ResourceManager* rm = ResourceManager::GetInstance();
 	background_makimono = rm->GetImages("Resource/Images/background_makimono.png")[0];
+	background = rm->GetImages("Resource/Images/haikei.png")[0];
 
 	botton_image[0] = rm->GetImages("Resource/Images/modoru1.png")[0];
 	botton_image[1] = rm->GetImages("Resource/Images/modoru2.png")[0];
@@ -94,6 +95,7 @@ eSceneType RankingScene::Update(const float& delta_second)
 
 void RankingScene::Draw() const
 {
+	DrawRotaGraph(640, 360, 1.0, 0.0, background, true, false);
 	DrawRotaGraphF(D_WIN_MAX_X / 2, D_WIN_MAX_Y / 2, 1.2, 0.0, background_makimono, true, FALSE);
 
 	if (botton == false)
