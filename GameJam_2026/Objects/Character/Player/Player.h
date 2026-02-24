@@ -65,4 +65,5 @@ public:
 public:
 	void Attack(float);
 	void CreateBall();
+	void CreateBall(Vector2D, Vector2D);
 };

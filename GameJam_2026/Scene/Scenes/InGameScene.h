@@ -17,14 +17,16 @@ private:
 
 	int numbers_image[11] = {};	//数字画像
 	int draw_number[5] = { 10,10,10,10,10 };	//数字引数
-	int syuriken = 0;	//手裏剣
+	int syuriken = 0;		//手裏剣
 
-	int score = 0;		//スコア
-	int item = 0;		//獲得アイテム数
-	int mato[3] = {};	//壊したマト数
+	int score = 0;			//スコア
+	int item = 0;			//獲得アイテム数
+	int mato[3] = {};		//壊したマト数
 
-	int have_ball = 3;
-	int screen_ball = 0;
+	int have_ball = 3;		//所持中の手裏剣
+	int screen_ball = 0;	//画面内の手裏剣
+
+	int screen_block1 = 0;	//画面内のブロック1
 
 	bool next_scene = false;
 	float next_count = 0.0f;

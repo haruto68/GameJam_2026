@@ -88,7 +88,6 @@ void Player::Draw(const Vector2D&, bool) const
 {
     
     //DrawKari();
-    DrawUI();
     
     if (velocity.x > 0)
         DrawRotaGraphF(location.x, location.y + 40, 0.5, 0.0, image, TRUE, flip_flag);
@@ -105,6 +104,7 @@ void Player::Draw(const Vector2D&, bool) const
         color, true);
     SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
 
+    DrawUI();
 }
 
 void Player::Movement(float delta_seconds)
@@ -335,5 +335,14 @@ void Player::CreateBall()
     {
         Ball* ball = object_manager->CreateGameObject<Ball>(Vector2D(location.x, location.y - 50));
         ball->SetVelocity(Vector2D(0, 0));
+    }
+}
+
+void Player::CreateBall(Vector2D set_location, Vector2D set_velocity)
+{
+    if (object_manager)
+    {
+        Ball* ball = object_manager->CreateGameObject<Ball>(set_location);
+        ball->SetVelocity(set_velocity);
     }
 }

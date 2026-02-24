@@ -54,6 +54,9 @@ void Item_BallUp::OnHitCollision(GameObject* hit_object)
 {
     if (hit_object->GetCollision().object_type == eObjectType::ePlayer)
     {
+
+        collision.is_blocking = false;
+
         Player* player = dynamic_cast<Player*>(hit_object);
         if (!player) return;
 
@@ -77,7 +80,7 @@ void Item_BallUp::OnHitCollision(GameObject* hit_object)
         if (source_ball)
         {
             Vector2D base_pos = source_ball->GetLocation();
-            Ball* new_ball = object_manager->CreateGameObject<Ball>(base_pos);
+            //Ball* new_ball = object_manager->CreateGameObject<Ball>(base_pos);
 
             Vector2D vel = source_ball->GetVelocity();
             float angle_offset = (rand() % 31 - 15) * 3.14159f / 180.0f; // }15‹
@@ -86,7 +89,9 @@ void Item_BallUp::OnHitCollision(GameObject* hit_object)
             Vector2D new_vel;
             new_vel.x = vel.x * cosA - vel.y * sinA;
             new_vel.y = vel.x * sinA + vel.y * cosA;
-            new_ball->SetVelocity(new_vel);
+            //new_ball->SetVelocity(new_vel);
+
+            player->CreateBall(base_pos, new_vel);
         }
 
         // ƒAƒCƒeƒ€‚ÍÁ‚·
