@@ -34,6 +34,11 @@ Player::Player() : max_life(5.0f), life(5.0f)
     ninja_run[6] = rm->GetImages("Resource/Images/ninja_run7.png")[0];
     ninja_run[7] = rm->GetImages("Resource/Images/ninja_run8.png")[0];
 
+    stan_images[0] = rm->GetImages("Resource/Images/piyopiyo1.png")[0];
+    stan_images[1] = rm->GetImages("Resource/Images/piyopiyo2.png")[0];
+    stan_images[2] = rm->GetImages("Resource/Images/piyopiyo3.png")[0];
+    stan_images[3] = rm->GetImages("Resource/Images/piyopiyo4.png")[0];
+
     image = ninja_idle[0];
 }
 
@@ -71,7 +76,21 @@ void Player::Update(float delta_seconds)
 
     // スタンクールタイム
     if (stan_time > 0.0f)
+    {
         stan_time -= delta_seconds;
+        //スタンアニメーション
+        stan_anime_cool += delta_seconds;
+        if (stan_anime_cool >= 0.15f)
+        {
+            stan_anime_cool = 0.0f;
+            stan_anime_num++;
+            if (stan_anime_num > 3)
+            {
+                stan_anime_num = 0;
+            }
+            stan_image = stan_images[stan_anime_num];
+        }
+    }
     else
     {
         stan_time = 0.0f;
@@ -87,7 +106,15 @@ void Player::Draw(const Vector2D&, bool) const
     
     //DrawKari();
 
+    //ニンジャ描画
     DrawRotaGraphF(location.x, location.y, 0.5, 0.0, image, TRUE, flip_flag);
+
+    if (stan_time > 0)
+    {
+        // スタンひよこ描画
+        DrawRotaGraphF(location.x, location.y - 50, 0.5, 0.0, stan_image, TRUE, flip_flag);
+    }
+
 
     // 仮ボックス
     int color = GetColor(255, 0, 255);

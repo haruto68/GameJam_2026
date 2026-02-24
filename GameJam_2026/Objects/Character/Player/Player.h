@@ -21,7 +21,11 @@ private:
 	int ninja_run[8] = {};
 	int anime_num = 0;
 	float anime_cool = 0.0f;
-	//bool 
+
+	int stan_image = 0;
+	int stan_images[4] = {};
+	int stan_anime_num = 0;
+	float stan_anime_cool = 0.0f;
 
 private:
 	int color_r = 255;
