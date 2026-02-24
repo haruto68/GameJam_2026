@@ -22,6 +22,10 @@ TitleScene::TitleScene() :
 	background = rm->GetImages("Resource/Images/haikei.png")[0];
 	ninja_image = rm->GetImages("Resource/Images/ninja.png")[0];
 	game_rogo = rm->GetImages("Resource/Images/rogo.png")[0];
+
+	bgm_handle = rm->GetSounds("Resource/sound/title.mp3");
+	cursor_se_handle = rm->GetSounds("Resource/sound/cursor.mp3");
+	ok_handle=rm->GetSounds("Resource/sound/ok.mp3");
 }
 
 TitleScene::~TitleScene()
@@ -31,7 +35,6 @@ TitleScene::~TitleScene()
 
 void TitleScene::Initialize()
 {
-	bgm_handle = LoadSoundMem("Resource/sound/title.mp3");
 	ChangeVolumeSoundMem(200, bgm_handle);
 
 	if (bgm_handle != -1)
@@ -39,8 +42,6 @@ void TitleScene::Initialize()
 		PlaySoundMem(bgm_handle, DX_PLAYTYPE_LOOP);
 	}
 
-	cursor_se_handle = LoadSoundMem("Resource/sound/cursor.mp3");
-	ok_handle = LoadSoundMem("Resource/sound/ok.mp3");
 }
 
 eSceneType TitleScene::Update(const float& delta_second)

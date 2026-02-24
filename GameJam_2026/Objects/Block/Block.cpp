@@ -8,9 +8,6 @@
 
 Block::Block(/*const Vector2D& pos*/): break_se(-1)
 {
-
-    break_se = LoadSoundMem("Resource/sound/isi.mp3");
-
     size = Vector2D(100.0f, 50.0f);
 
     //location = pos;
@@ -34,6 +31,8 @@ Block::Block(/*const Vector2D& pos*/): break_se(-1)
     maruta_image[1] = rm->GetImages("Resource/Images/maruta2.png")[0];
     maruta_image[2] = rm->GetImages("Resource/Images/maruta3.png")[0];
     maruta_image[3] = rm->GetImages("Resource/Images/maruta4.png")[0];
+
+    break_se=rm->GetSounds("Resource/sound/isi.mp3");
 
     image = maruta_image[0];
 

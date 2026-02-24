@@ -27,6 +27,8 @@ InGameScene::InGameScene():
 	numbers_image[9] = rm->GetImages("Resource/Images/number9.png")[0];
 	numbers_image[10] = 0;
 	syuriken = rm->GetImages("Resource/Images/syuriken1.png")[0];
+
+	main_handle=rm->GetSounds("Resource/sound/main.mp3");
 }
 
 InGameScene::~InGameScene()
@@ -36,8 +38,6 @@ InGameScene::~InGameScene()
 
 void InGameScene::Initialize()
 {
-
-	main_handle = LoadSoundMem("Resource/sound/main.mp3");
 	ChangeVolumeSoundMem(170, main_handle);
 	if (main_handle != -1)
 	{
@@ -289,17 +289,18 @@ void InGameScene::ObjectListLoop(const float& delta_second)
 		// ブロック2の場合
 		if (dynamic_cast<Block2*>(obj) != nullptr)
 		{
-			// 壊したマトのHPをスコアに加算する
-			score += obj->GetHp();
-
-			mato[1]++;
-
-			//ブロックをすべて破壊
-			for (GameObject* obj : scene_objects_list)
+			if(obj->GetHp() > 0)
 			{
-				Block* block = dynamic_cast<Block*>(obj);
-				if (block != nullptr)
-					block->Break();
+				// 壊したマトのHPをスコアに加算する
+				score += obj->GetHp();
+				mato[1]++;
+				//ブロックをすべて破壊
+				for (GameObject* obj : scene_objects_list)
+				{
+					Block* block = dynamic_cast<Block*>(obj);
+					if (block != nullptr)
+						block->Break();
+				}
 			}
 		}
 
