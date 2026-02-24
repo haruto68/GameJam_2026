@@ -190,87 +190,87 @@ void ResultScene::Draw() const
 	int y = 200;
 	int f = 50;
 
-	DrawRotaGraphF(320, 620, 1.2, 0.0, highscore_image, true, false);
+	DrawRotaGraphF(320 + 50, 620 - 50, 1.2, 0.0, highscore_image, true, false);
 	
 	
-	DrawRotaGraphF(310, 460, 1.3, 0.0, score_image, true, false);
+	DrawRotaGraphF(310 + 50, 460 - 50, 1.3, 0.0, score_image, true, false);
 
-	DrawRotaGraphF(250, 150, 0.4, 0.0, mato2_image, true, FALSE);
-	DrawRotaGraphF(250, 200, 0.25, 0.0, mato1_image, true, FALSE);
-	DrawRotaGraphF(250, 250, 0.25, 0.0, item_image, true, FALSE);
+	DrawRotaGraphF(250, 150 + 40, 0.4, 0.0, mato2_image, true, FALSE);
+	//DrawRotaGraphF(250, 200, 0.25, 0.0, mato1_image, true, FALSE);
+	DrawRotaGraphF(250, 250 + 40, 0.25, 0.0, item_image, true, FALSE);
 	
 	
 
 	y = 650;
 
-	DrawRotaGraphF(710, 150, 0.2, 0.0, numbers_image[0], true, false);
-	DrawRotaGraphF(675, 150, 0.2, 0.0, numbers_image[0], true, false);
-	DrawRotaGraphF(635, 150, 0.2, 0.0, numbers_image[1], true, false);
-	DrawRotaGraphF(710, 250, 0.2, 0.0, numbers_image[0], true, false);
-	DrawRotaGraphF(675, 250, 0.2, 0.0, numbers_image[0], true, false);
-	DrawRotaGraphF(635, 250, 0.2, 0.0, numbers_image[5], true, false);
-	DrawRotaGraphF(710, 200, 0.2, 0.0, numbers_image[0], true, false);
+	DrawRotaGraphF(710, 150 + 40, 0.2, 0.0, numbers_image[0], true, false);
+	DrawRotaGraphF(675, 150 + 40, 0.2, 0.0, numbers_image[0], true, false);
+	DrawRotaGraphF(635, 150 + 40, 0.2, 0.0, numbers_image[1], true, false);
+	DrawRotaGraphF(710, 250 + 40, 0.2, 0.0, numbers_image[0], true, false);
+	DrawRotaGraphF(675, 250 + 40, 0.2, 0.0, numbers_image[0], true, false);
+	DrawRotaGraphF(635, 250 + 40, 0.2, 0.0, numbers_image[5], true, false);
+	/*DrawRotaGraphF(710, 200, 0.2, 0.0, numbers_image[0], true, false);
 	DrawRotaGraphF(675, 200, 0.2, 0.0, numbers_image[0], true, false);
-	DrawRotaGraphF(635, 200, 0.2, 0.0, numbers_image[3], true, false);
+	DrawRotaGraphF(635, 200, 0.2, 0.0, numbers_image[3], true, false);*/
 
 	//ハイスコア
-	DrawRotaGraphF(750, 622, 0.2, 0.0, numbers_image[draw_number[0]], true, false);
-	DrawRotaGraphF(700, 622, 0.2, 0.0, numbers_image[draw_number[1]], true, false);
-	DrawRotaGraphF(650, 622, 0.2, 0.0, numbers_image[draw_number[2]], true, false);
-	DrawRotaGraphF(600, 622, 0.2, 0.0, numbers_image[draw_number[3]], true, false);
-	DrawRotaGraphF(550, 622, 0.2, 0.0, numbers_image[draw_number[4]], true, false);
+	DrawRotaGraphF(750 + 50, 622 - 50, 0.2, 0.0, numbers_image[draw_number[0]], true, false);
+	DrawRotaGraphF(700 + 50, 622 - 50, 0.2, 0.0, numbers_image[draw_number[1]], true, false);
+	DrawRotaGraphF(650 + 50, 622 - 50, 0.2, 0.0, numbers_image[draw_number[2]], true, false);
+	DrawRotaGraphF(600 + 50, 622 - 50, 0.2, 0.0, numbers_image[draw_number[3]], true, false);
+	DrawRotaGraphF(550 + 50, 622 - 50, 0.2, 0.0, numbers_image[draw_number[4]], true, false);
 	
 	//スコア
-	DrawRotaGraphF(750, 455, 0.3, 0.0, numbers_image[draw_number2[0]], true, false);
-	DrawRotaGraphF(700, 455, 0.3, 0.0, numbers_image[draw_number2[1]], true, false);
-	DrawRotaGraphF(650, 455, 0.3, 0.0, numbers_image[draw_number2[2]], true, false);
-	DrawRotaGraphF(600, 455, 0.3, 0.0, numbers_image[draw_number2[3]], true, false);
-	DrawRotaGraphF(550, 455, 0.3, 0.0, numbers_image[draw_number2[4]], true, false);
+	DrawRotaGraphF(750 + 50, 455 - 50, 0.3, 0.0, numbers_image[draw_number2[0]], true, false);
+	DrawRotaGraphF(700 + 50, 455 - 50, 0.3, 0.0, numbers_image[draw_number2[1]], true, false);
+	DrawRotaGraphF(650 + 50, 455 - 50, 0.3, 0.0, numbers_image[draw_number2[2]], true, false);
+	DrawRotaGraphF(600 + 50, 455 - 50, 0.3, 0.0, numbers_image[draw_number2[3]], true, false);
+	DrawRotaGraphF(550 + 50, 455 - 50, 0.3, 0.0, numbers_image[draw_number2[4]], true, false);
 
 	//まと1スコア
-	DrawRotaGraphF(1030, 150, 0.2, 0.0, numbers_image[draw_number3[0]], true, false);
-	DrawRotaGraphF(990, 150, 0.2, 0.0, numbers_image[draw_number3[1]], true, false);
-	DrawRotaGraphF(950, 150, 0.2, 0.0, numbers_image[draw_number3[2]], true, false);
-	DrawRotaGraphF(910, 150, 0.2, 0.0, numbers_image[draw_number3[3]], true, false);
-	DrawRotaGraphF(880, 150, 0.2, 0.0, numbers_image[draw_number3[4]], true, false);
+	DrawRotaGraphF(1030, 150 + 40, 0.2, 0.0, numbers_image[draw_number3[0]], true, false);
+	DrawRotaGraphF(990, 150 + 40, 0.2, 0.0, numbers_image[draw_number3[1]], true, false);
+	DrawRotaGraphF(950, 150 + 40, 0.2, 0.0, numbers_image[draw_number3[2]], true, false);
+	DrawRotaGraphF(910, 150 + 40, 0.2, 0.0, numbers_image[draw_number3[3]], true, false);
+	DrawRotaGraphF(880, 150 + 40, 0.2, 0.0, numbers_image[draw_number3[4]], true, false);
 
 	//まと2スコア
-	DrawRotaGraphF(1030, 200, 0.2, 0.0, numbers_image[draw_number4[0]], true, false);
+	/*DrawRotaGraphF(1030, 200, 0.2, 0.0, numbers_image[draw_number4[0]], true, false);
 	DrawRotaGraphF(990, 200, 0.2, 0.0, numbers_image[draw_number4[1]], true, false);
 	DrawRotaGraphF(950, 200, 0.2, 0.0, numbers_image[draw_number4[2]], true, false);
 	DrawRotaGraphF(910, 200, 0.2, 0.0, numbers_image[draw_number4[3]], true, false);
-	DrawRotaGraphF(880, 200, 0.2, 0.0, numbers_image[draw_number4[4]], true, false);
+	DrawRotaGraphF(880, 200, 0.2, 0.0, numbers_image[draw_number4[4]], true, false);*/
 
 
 	//アイテムスコア
-	DrawRotaGraphF(1030, 250, 0.2, 0.0, numbers_image[draw_number5[0]], true, false);
-	DrawRotaGraphF(990, 250, 0.2, 0.0, numbers_image[draw_number5[1]], true, false);
-	DrawRotaGraphF(950, 250, 0.2, 0.0, numbers_image[draw_number5[2]], true, false);
-	DrawRotaGraphF(910, 250, 0.2, 0.0, numbers_image[draw_number5[3]], true, false);
-	DrawRotaGraphF(880, 250, 0.2, 0.0, numbers_image[draw_number5[4]], true, false);
+	DrawRotaGraphF(1030, 250 + 40, 0.2, 0.0, numbers_image[draw_number5[0]], true, false);
+	DrawRotaGraphF(990, 250 + 40, 0.2, 0.0, numbers_image[draw_number5[1]], true, false);
+	DrawRotaGraphF(950, 250 + 40, 0.2, 0.0, numbers_image[draw_number5[2]], true, false);
+	DrawRotaGraphF(910, 250 + 40, 0.2, 0.0, numbers_image[draw_number5[3]], true, false);
+	DrawRotaGraphF(880, 250 + 40, 0.2, 0.0, numbers_image[draw_number5[4]], true, false);
 
 	//まと1の数
-	DrawRotaGraphF(440, 150, 0.2, 0.0, numbers_image[draw_number6[0]], true, false);
-	DrawRotaGraphF(400, 150, 0.2, 0.0, numbers_image[draw_number6[1]], true, false);
-	DrawRotaGraphF(360, 150, 0.2, 0.0, numbers_image[draw_number6[2]], true, false);
-	DrawRotaGraphF(320, 150, 0.2, 0.0, numbers_image[draw_number6[3]], true, false);
-	DrawRotaGraphF(280, 150, 0.2, 0.0, numbers_image[draw_number6[4]], true, false);
+	DrawRotaGraphF(440, 150 + 40, 0.2, 0.0, numbers_image[draw_number6[0]], true, false);
+	DrawRotaGraphF(400, 150 + 40, 0.2, 0.0, numbers_image[draw_number6[1]], true, false);
+	DrawRotaGraphF(360, 150 + 40, 0.2, 0.0, numbers_image[draw_number6[2]], true, false);
+	DrawRotaGraphF(320, 150 + 40, 0.2, 0.0, numbers_image[draw_number6[3]], true, false);
+	DrawRotaGraphF(280, 150 + 40, 0.2, 0.0, numbers_image[draw_number6[4]], true, false);
 
 
 	//まと2の数
-	DrawRotaGraphF(440, 200, 0.2, 0.0, numbers_image[draw_number7[0]], true, false);
+	/*DrawRotaGraphF(440, 200, 0.2, 0.0, numbers_image[draw_number7[0]], true, false);
 	DrawRotaGraphF(400, 200, 0.2, 0.0, numbers_image[draw_number7[1]], true, false);
 	DrawRotaGraphF(360, 200, 0.2, 0.0, numbers_image[draw_number7[2]], true, false);
 	DrawRotaGraphF(320, 200, 0.2, 0.0, numbers_image[draw_number7[3]], true, false);
-	DrawRotaGraphF(280, 200, 0.2, 0.0, numbers_image[draw_number7[4]], true, false);
+	DrawRotaGraphF(280, 200, 0.2, 0.0, numbers_image[draw_number7[4]], true, false);*/
 
 
 	//アイテムの数
-	DrawRotaGraphF(440, 250, 0.2, 0.0, numbers_image[draw_number8[0]], true, false);
-	DrawRotaGraphF(400, 250, 0.2, 0.0, numbers_image[draw_number8[1]], true, false);
-	DrawRotaGraphF(360, 250, 0.2, 0.0, numbers_image[draw_number8[2]], true, false);
-	DrawRotaGraphF(320, 250, 0.2, 0.0, numbers_image[draw_number8[3]], true, false);
-	DrawRotaGraphF(280, 250, 0.2, 0.0, numbers_image[draw_number8[4]], true, false);
+	DrawRotaGraphF(440, 250 + 40, 0.2, 0.0, numbers_image[draw_number8[0]], true, false);
+	DrawRotaGraphF(400, 250 + 40, 0.2, 0.0, numbers_image[draw_number8[1]], true, false);
+	DrawRotaGraphF(360, 250 + 40, 0.2, 0.0, numbers_image[draw_number8[2]], true, false);
+	DrawRotaGraphF(320, 250 + 40, 0.2, 0.0, numbers_image[draw_number8[3]], true, false);
+	DrawRotaGraphF(280, 250 + 40, 0.2, 0.0, numbers_image[draw_number8[4]], true, false);
 
 
 
@@ -282,13 +282,13 @@ void ResultScene::Draw() const
 	//DrawFormatString(y, x + f * 1, 0x000000, "  ×        =  ");
 	//DrawFormatString(y, x + f * 2, 0x000000, "  ×        =  ");
 	//SetFontSize(68);
-	DrawRotaGraphF(560, 150, 1.0, 0.0, kakeru_image, true, false);
-	DrawRotaGraphF(560, 200, 1.0, 0.0, kakeru_image, true, false);
-	DrawRotaGraphF(560, 250, 1.0, 0.0, kakeru_image, true, false);
+	DrawRotaGraphF(560, 150 + 40, 1.0, 0.0, kakeru_image, true, false);
+	//DrawRotaGraphF(560, 200, 1.0, 0.0, kakeru_image, true, false);
+	DrawRotaGraphF(560, 250 + 40, 1.0, 0.0, kakeru_image, true, false);
 
-	DrawRotaGraphF(800, 150, 1.0, 0.0, ikoru_image, true, false);
-	DrawRotaGraphF(800, 200, 1.0, 0.0, ikoru_image, true, false);
-	DrawRotaGraphF(800, 250, 1.0, 0.0, ikoru_image, true, false);
+	DrawRotaGraphF(800, 150 + 40, 1.0, 0.0, ikoru_image, true, false);
+	//DrawRotaGraphF(800, 200, 1.0, 0.0, ikoru_image, true, false);
+	DrawRotaGraphF(800, 250 + 40, 1.0, 0.0, ikoru_image, true, false);
 
 
 
