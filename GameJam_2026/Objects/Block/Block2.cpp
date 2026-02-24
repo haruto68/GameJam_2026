@@ -39,7 +39,7 @@ Block2::~Block2()
 
 void Block2::Initialize()
 {
-    hp = 1500;
+    hp = 300;
 }
 
 void Block2::Update(float delta_seconds)
@@ -89,31 +89,13 @@ void Block2::OnHitCollision(GameObject* hit_object)
             collision.is_blocking = false;
         }
 
-
         // まだアイテム生成していなければ
         if (!item_spawned)
         {
             item_spawned = true; // フラグを先に立てる → 安全
 
-            // 1/3 の確率でアイテム生成
-            if (rand() % 3 == 0)
-            {
-                if (object_manager)
-                {
-                    object_manager->CreateGameObject<Item>(location);
-                }
-            }
         }
 
-        //Vector2D vel = hit_object->GetVelocity();
-        //vel.y *= -1.0f;
-        //hit_object->SetVelocity(vel);
-
-        // 自分の削除は必ず行う
-        /*if (object_manager)
-        {
-            object_manager->DestroyGameObject(this);
-        }*/
     }
 }
 

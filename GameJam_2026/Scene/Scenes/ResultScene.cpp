@@ -7,11 +7,29 @@ ResultScene::ResultScene():Result_handle(0)
 {
 	//リソース管理インスタンス取得
 	ResourceManager* rm = ResourceManager::GetInstance();
+	//数字
+	numbers_image[0] = rm->GetImages("Resource/Images/number0.png")[0];
+	numbers_image[1] = rm->GetImages("Resource/Images/number1.png")[0];
+	numbers_image[2] = rm->GetImages("Resource/Images/number2.png")[0];
+	numbers_image[3] = rm->GetImages("Resource/Images/number3.png")[0];
+	numbers_image[4] = rm->GetImages("Resource/Images/number4.png")[0];
+	numbers_image[5] = rm->GetImages("Resource/Images/number5.png")[0];
+	numbers_image[6] = rm->GetImages("Resource/Images/number6.png")[0];
+	numbers_image[7] = rm->GetImages("Resource/Images/number7.png")[0];
+	numbers_image[8] = rm->GetImages("Resource/Images/number8.png")[0];
+	numbers_image[9] = rm->GetImages("Resource/Images/number9.png")[0];
+	numbers_image[10] = 0;
+
 	background_makimono = rm->GetImages("Resource/Images/background_makimono.png")[0];
 	mato1_image = rm->GetImages("Resource/Images/mato1.png")[0];
 	mato2_image = rm->GetImages("Resource/Images/maruta1.png")[0];
 	item_image = rm->GetImages("Resource/Images/makimono1.png")[0];
+	kakeru_image = rm->GetImages("Resource/Images/kakeru.png")[0];
+	ikoru_image = rm->GetImages("Resource/Images/ikoru.png")[0];
+	score_image = rm->GetImages("Resource/Images/score.png")[0];
+	highscore_image = rm->GetImages("Resource/Images/highscore.png")[0];
 
+	background = rm->GetImages("Resource/Images/haikei.png")[0];
 	botton_image[0][0] = rm->GetImages("Resource/Images/saityousen1.png")[0];
 	botton_image[0][1] = rm->GetImages("Resource/Images/saityousen2.png")[0];
 	botton_image[1][0] = rm->GetImages("Resource/Images/modoru1.png")[0];
@@ -79,9 +97,9 @@ void ResultScene::Initialize()
 		fscanf_s(fp, "%6d,\n", &mato[i]);
 	}
 
-	mato1_score = mato[0] * 500;
-	mato2_score = mato[1] * 1000;
-	item_score = item * 2000;
+	mato1_score = mato[0] * 100;
+	mato2_score = mato[1] * 300;
+	item_score = item * 500;
 
 	score = mato1_score + mato2_score + item_score;
 
@@ -164,34 +182,117 @@ eSceneType ResultScene::Update(const float& delta_second)
 
 void ResultScene::Draw() const
 {
+	DrawRotaGraph(640, 360, 1.0, 0.0, background, true, false);
 
 	DrawRotaGraphF(D_WIN_MAX_X / 2, D_WIN_MAX_Y / 2, 1.2, 0.0, background_makimono, true, FALSE);
 
 	int x = 130;
 	int y = 200;
 	int f = 50;
-	DrawFormatString(220,600, 0x000000, "ハイスコア");
-	DrawFormatString(y, x + f * 0, 0x000000, "マト1");
-	DrawFormatString(y, x + f * 1, 0x000000, "マト2");
-	DrawFormatString(y, x + f * 2, 0x000000, "アイテム");
+
+	DrawRotaGraphF(320, 620, 1.2, 0.0, highscore_image, true, false);
 	
-	SetFontSize(68);
-	DrawFormatString(200,425, 0x000000, "スコア");
-	SetFontSize(48);
 	
-	DrawRotaGraphF(420, 250, 0.2, 0.0, item_image, true, FALSE);
-	DrawRotaGraphF(345, 205, 0.2, 0.0, mato1_image, true, FALSE);
-	DrawRotaGraphF(345, 155, 0.2, 0.0, mato2_image, true, FALSE);
+	DrawRotaGraphF(310, 460, 1.3, 0.0, score_image, true, false);
+
+	DrawRotaGraphF(250, 150, 0.4, 0.0, mato2_image, true, FALSE);
+	DrawRotaGraphF(250, 200, 0.25, 0.0, mato1_image, true, FALSE);
+	DrawRotaGraphF(250, 250, 0.25, 0.0, item_image, true, FALSE);
+	
 	
 
 	y = 650;
 
-	DrawFormatString(550,600 , 0x000000, "%d", ranking[0]);
-	DrawFormatString(y, x + f * 0, 0x000000, "%d × 500 =  %d", mato[0],mato1_score);
-	DrawFormatString(y, x + f * 1, 0x000000, "%d × 1000 =  %d", mato[1], mato2_score);
-	DrawFormatString(y, x + f * 2, 0x000000, "%d × 2000 =  %d", item, item_score);
-	SetFontSize(68);
-	DrawFormatString(480,430 , 0x000000, "%d", score);
+	DrawRotaGraphF(710, 150, 0.2, 0.0, numbers_image[0], true, false);
+	DrawRotaGraphF(675, 150, 0.2, 0.0, numbers_image[0], true, false);
+	DrawRotaGraphF(635, 150, 0.2, 0.0, numbers_image[1], true, false);
+	DrawRotaGraphF(710, 250, 0.2, 0.0, numbers_image[0], true, false);
+	DrawRotaGraphF(675, 250, 0.2, 0.0, numbers_image[0], true, false);
+	DrawRotaGraphF(635, 250, 0.2, 0.0, numbers_image[5], true, false);
+	DrawRotaGraphF(710, 200, 0.2, 0.0, numbers_image[0], true, false);
+	DrawRotaGraphF(675, 200, 0.2, 0.0, numbers_image[0], true, false);
+	DrawRotaGraphF(635, 200, 0.2, 0.0, numbers_image[3], true, false);
+
+	//ハイスコア
+	DrawRotaGraphF(750, 622, 0.2, 0.0, numbers_image[draw_number[0]], true, false);
+	DrawRotaGraphF(700, 622, 0.2, 0.0, numbers_image[draw_number[1]], true, false);
+	DrawRotaGraphF(650, 622, 0.2, 0.0, numbers_image[draw_number[2]], true, false);
+	DrawRotaGraphF(600, 622, 0.2, 0.0, numbers_image[draw_number[3]], true, false);
+	DrawRotaGraphF(550, 622, 0.2, 0.0, numbers_image[draw_number[4]], true, false);
+	
+	//スコア
+	DrawRotaGraphF(750, 455, 0.3, 0.0, numbers_image[draw_number2[0]], true, false);
+	DrawRotaGraphF(700, 455, 0.3, 0.0, numbers_image[draw_number2[1]], true, false);
+	DrawRotaGraphF(650, 455, 0.3, 0.0, numbers_image[draw_number2[2]], true, false);
+	DrawRotaGraphF(600, 455, 0.3, 0.0, numbers_image[draw_number2[3]], true, false);
+	DrawRotaGraphF(550, 455, 0.3, 0.0, numbers_image[draw_number2[4]], true, false);
+
+	//まと1スコア
+	DrawRotaGraphF(1030, 150, 0.2, 0.0, numbers_image[draw_number3[0]], true, false);
+	DrawRotaGraphF(990, 150, 0.2, 0.0, numbers_image[draw_number3[1]], true, false);
+	DrawRotaGraphF(950, 150, 0.2, 0.0, numbers_image[draw_number3[2]], true, false);
+	DrawRotaGraphF(910, 150, 0.2, 0.0, numbers_image[draw_number3[3]], true, false);
+	DrawRotaGraphF(880, 150, 0.2, 0.0, numbers_image[draw_number3[4]], true, false);
+
+	//まと2スコア
+	DrawRotaGraphF(1030, 200, 0.2, 0.0, numbers_image[draw_number4[0]], true, false);
+	DrawRotaGraphF(990, 200, 0.2, 0.0, numbers_image[draw_number4[1]], true, false);
+	DrawRotaGraphF(950, 200, 0.2, 0.0, numbers_image[draw_number4[2]], true, false);
+	DrawRotaGraphF(910, 200, 0.2, 0.0, numbers_image[draw_number4[3]], true, false);
+	DrawRotaGraphF(880, 200, 0.2, 0.0, numbers_image[draw_number4[4]], true, false);
+
+
+	//アイテムスコア
+	DrawRotaGraphF(1030, 250, 0.2, 0.0, numbers_image[draw_number5[0]], true, false);
+	DrawRotaGraphF(990, 250, 0.2, 0.0, numbers_image[draw_number5[1]], true, false);
+	DrawRotaGraphF(950, 250, 0.2, 0.0, numbers_image[draw_number5[2]], true, false);
+	DrawRotaGraphF(910, 250, 0.2, 0.0, numbers_image[draw_number5[3]], true, false);
+	DrawRotaGraphF(880, 250, 0.2, 0.0, numbers_image[draw_number5[4]], true, false);
+
+	//まと1の数
+	DrawRotaGraphF(440, 150, 0.2, 0.0, numbers_image[draw_number6[0]], true, false);
+	DrawRotaGraphF(400, 150, 0.2, 0.0, numbers_image[draw_number6[1]], true, false);
+	DrawRotaGraphF(360, 150, 0.2, 0.0, numbers_image[draw_number6[2]], true, false);
+	DrawRotaGraphF(320, 150, 0.2, 0.0, numbers_image[draw_number6[3]], true, false);
+	DrawRotaGraphF(280, 150, 0.2, 0.0, numbers_image[draw_number6[4]], true, false);
+
+
+	//まと2の数
+	DrawRotaGraphF(440, 200, 0.2, 0.0, numbers_image[draw_number7[0]], true, false);
+	DrawRotaGraphF(400, 200, 0.2, 0.0, numbers_image[draw_number7[1]], true, false);
+	DrawRotaGraphF(360, 200, 0.2, 0.0, numbers_image[draw_number7[2]], true, false);
+	DrawRotaGraphF(320, 200, 0.2, 0.0, numbers_image[draw_number7[3]], true, false);
+	DrawRotaGraphF(280, 200, 0.2, 0.0, numbers_image[draw_number7[4]], true, false);
+
+
+	//アイテムの数
+	DrawRotaGraphF(440, 250, 0.2, 0.0, numbers_image[draw_number8[0]], true, false);
+	DrawRotaGraphF(400, 250, 0.2, 0.0, numbers_image[draw_number8[1]], true, false);
+	DrawRotaGraphF(360, 250, 0.2, 0.0, numbers_image[draw_number8[2]], true, false);
+	DrawRotaGraphF(320, 250, 0.2, 0.0, numbers_image[draw_number8[3]], true, false);
+	DrawRotaGraphF(280, 250, 0.2, 0.0, numbers_image[draw_number8[4]], true, false);
+
+
+
+
+
+
+	//DrawFormatString(550,600 , 0x000000, "%d", ranking[0]);
+	//DrawFormatString(y, x + f * 0, 0x000000, "  ×        =  ");
+	//DrawFormatString(y, x + f * 1, 0x000000, "  ×        =  ");
+	//DrawFormatString(y, x + f * 2, 0x000000, "  ×        =  ");
+	//SetFontSize(68);
+	DrawRotaGraphF(560, 150, 1.0, 0.0, kakeru_image, true, false);
+	DrawRotaGraphF(560, 200, 1.0, 0.0, kakeru_image, true, false);
+	DrawRotaGraphF(560, 250, 1.0, 0.0, kakeru_image, true, false);
+
+	DrawRotaGraphF(800, 150, 1.0, 0.0, ikoru_image, true, false);
+	DrawRotaGraphF(800, 200, 1.0, 0.0, ikoru_image, true, false);
+	DrawRotaGraphF(800, 250, 1.0, 0.0, ikoru_image, true, false);
+
+
+
+
 	SetFontSize(48);
 
 
@@ -321,5 +422,171 @@ eSceneType ResultScene::GetNowSceneType()const
 
 void ResultScene::Animation(const float& delta_second)
 {
+	//ハイスコア
+	draw_number[0] = ((((ranking[0] % 10000) % 1000) % 100) % 10);
 
+	if (ranking[0] >= 10)
+	{
+		draw_number[1] = ((((ranking[0] % 10000) % 1000) % 100) / 10);
+	}
+	if (ranking[0] >= 100)
+	{
+		draw_number[2] = ((((ranking[0] % 10000) % 1000) / 100));
+	}
+	if (ranking[0] >= 1000)
+	{
+		draw_number[3] = ((((ranking[0] % 10000) / 1000)));
+	}
+	if (ranking[0] >= 10000)
+	{
+		draw_number[4] = ((((ranking[0] / 10000))));
+	}
+
+
+	//スコア
+	draw_number2[0] = ((((score % 10000) % 1000) % 100) % 10);
+
+	if (score >= 10)
+	{
+		draw_number2[1] = ((((score % 10000) % 1000) % 100) / 10);
+	}
+	if (score >= 100)
+	{
+		draw_number2[2] = ((((score % 10000) % 1000) / 100));
+	}
+	if (score >= 1000)
+	{
+		draw_number2[3] = ((((score % 10000) / 1000)));
+	}
+	if (score >= 10000)
+	{
+		draw_number2[4] = ((((score / 10000))));
+	}
+
+
+	//まと1スコア
+	draw_number3[0] = ((((mato[0] * 100 % 10000) % 1000) % 100) % 10);
+
+	if (mato[0] * 100 >= 10)
+	{
+		draw_number3[1] = ((((mato[0] * 100 % 10000) % 1000) % 100) / 10);
+	}
+	if (mato[0] * 100 >= 100)
+	{
+		draw_number3[2] = ((((mato[0] * 100 % 10000) % 1000) / 100));
+	}
+	if (mato[0] * 100 >= 1000)
+	{
+		draw_number3[3] = ((((mato[0] * 100 % 10000) / 1000)));
+	}
+	if (mato[0] * 100 >= 10000)
+	{
+		draw_number3[4] = ((((mato[0] * 100 / 10000))));
+	}
+
+
+	//まと2スコア
+	draw_number4[0] = ((((mato[1]*300 % 10000) % 1000) % 100) % 10);
+
+	if (mato[1] * 300 >= 10)
+	{
+		draw_number4[1] = ((((mato[1] * 300 % 10000) % 1000) % 100) / 10);
+	}
+	if (mato[1] * 300 >= 100)
+	{
+		draw_number4[2] = ((((mato[1] * 300 % 10000) % 1000) / 100));
+	}
+	if (mato[1] * 300 >= 1000)
+	{
+		draw_number4[3] = ((((mato[1] * 300 % 10000) / 1000)));
+	}
+	if (mato[1] * 300 >= 10000)
+	{
+		draw_number4[4] = ((((mato[1] * 300 / 10000))));
+	}
+
+
+	//アイテムスコア
+	draw_number5[0] = ((((item * 500 % 10000) % 1000) % 100) % 10);
+
+	if (item * 500 >= 10)
+	{
+		draw_number5[1] = ((((item * 500 % 10000) % 1000) % 100) / 10);
+	}
+	if (item * 500 >= 100)
+	{
+		draw_number5[2] = ((((item * 500 % 10000) % 1000) / 100));
+	}
+	if (item * 500 >= 1000)
+	{
+		draw_number5[3] = ((((item * 500 % 10000) / 1000)));
+	}
+	if (item * 500 >= 10000)
+	{
+		draw_number5[4] = ((((item * 500 / 10000))));
+	}
+
+
+	//まと1の数
+	draw_number6[0] = ((((mato[0] % 10000) % 1000) % 100) % 10);
+
+	if (mato[0] >= 10)
+	{
+		draw_number6[1] = ((((mato[0] % 10000) % 1000) % 100) / 10);
+	}
+	if (mato[0] >= 100)
+	{
+		draw_number6[2] = ((((mato[0] % 10000) % 1000) / 100));
+	}
+	if (mato[0] >= 1000)
+	{
+		draw_number6[3] = ((((mato[0] % 10000) / 1000)));
+	}
+	if (mato[0] >= 10000)
+	{
+		draw_number6[4] = ((((mato[0] / 10000))));
+	}
+
+
+
+	//まと2の数
+	draw_number7[0] = ((((mato[1] % 10000) % 1000) % 100) % 10);
+
+	if (mato[1] >= 10)
+	{
+		draw_number7[1] = ((((mato[1] % 10000) % 1000) % 100) / 10);
+	}
+	if (mato[1] >= 100)
+	{
+		draw_number7[2] = ((((mato[1] % 10000) % 1000) / 100));
+	}
+	if (mato[1] >= 1000)
+	{
+		draw_number7[3] = ((((mato[1] % 10000) / 1000)));
+	}
+	if (mato[1] >= 10000)
+	{
+		draw_number7[4] = ((((mato[1] / 10000))));
+	}
+
+
+	//アイテムの数
+	draw_number8[0] = ((((item % 10000) % 1000) % 100) % 10);
+
+	if (item >= 10)
+	{
+		draw_number8[1] = ((((item % 10000) % 1000) % 100) / 10);
+	}
+	if (item >= 100)
+	{
+		draw_number8[2] = ((((item % 10000) % 1000) / 100));
+	}
+	if (item >= 1000)
+	{
+		draw_number8[3] = ((((item % 10000) / 1000)));
+	}
+	if (item >= 10000)
+	{
+		draw_number8[4] = ((((item / 10000))));
+	}
 }

@@ -46,7 +46,7 @@ Block::~Block()
 
 void Block::Initialize()
 {
-    hp = 500;
+    hp = 100;
 
     intial_location = location;
 }
@@ -121,15 +121,6 @@ void Block::OnHitCollision(GameObject* hit_object)
             }
         }
 
-        //Vector2D vel = hit_object->GetVelocity();
-        //vel.y *= -1.0f;
-        //hit_object->SetVelocity(vel);
-
-        // Ž©•ª‚Ìíœ‚Í•K‚¸s‚¤
-        /*if (object_manager)
-        {
-            object_manager->DestroyGameObject(this);
-        }*/
     }
 }
 

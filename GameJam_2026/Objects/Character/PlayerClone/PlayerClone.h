@@ -1,8 +1,9 @@
 // PlayerClone.h
 #pragma once
-#include "../../../Objects/Character/Player/Player.h"
+//#include "../../../Objects/Character/Player/Player.h"
 #include "../../../Utility/Vector2D.h"
 #include <cmath> // sin関数用
+#include"../Player/Player.h"
 
 class PlayerClone : public Player
 {
@@ -11,7 +12,7 @@ private:
     int anime_num = 0;
     float anime_cool = 0.0f;
 
-    float life_time = 8.0f;        // クローンの寿命（秒）
+    float life_time = 10.0f;        // クローンの寿命（秒）
     Vector2D start_location;       // 初期位置保持
     float move_direction = 1.0f;   // 左右移動方向
     float speed = 300.0f;          // 移動速度

@@ -20,6 +20,8 @@ private:
 	bool spin_velocity = true;
 
 	float speed = 400.0f;
+	int speed_level = 1;
+	float pluse_speed = 40.0f;
 
 	int hit_num = 0;
 	
@@ -45,7 +47,6 @@ public:
 	void Movement(float);
 	void Animation(float);
 
-	//Vector2D GetVelocity();
-	//void SetVelocity(Vector2D);
+	void SetSpeedLevel(int);
 
 };
