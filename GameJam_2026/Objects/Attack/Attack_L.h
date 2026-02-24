@@ -6,7 +6,7 @@ class Attack_L : public GameObject
 {
 private:
 	float cool_time = 0.0f;
-	float life_time = 0.5f;
+	float life_time = 0.6f;
 
 	Vector2D target_L[10] = {};	//ƒnƒWƒN•ûŒü
 

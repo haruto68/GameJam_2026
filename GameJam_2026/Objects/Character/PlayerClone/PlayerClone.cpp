@@ -8,7 +8,7 @@
 PlayerClone::PlayerClone()
 {
     collision.is_blocking = true;
-    collision.box_size = Vector2D(120.0f, 20.0f);
+    collision.box_size = Vector2D(120.0f, 100.0f);
     collision.object_type = eObjectType::eClone;
     collision.hit_object_type.push_back(eObjectType::eBall);
 
@@ -97,7 +97,7 @@ void PlayerClone::Draw(const Vector2D&, bool) const
     float halfH = collision.box_size.y * 0.5f;
 
 
-    DrawRotaGraphF(location.x, location.y + 40, 0.5, 0.0, image, TRUE, flip_flag);
+    DrawRotaGraphF(location.x, location.y, 0.5, 0.0, image, TRUE, flip_flag);
 
     SetDrawBlendMode(DX_BLENDMODE_ALPHA, 125);
     DrawBox(
@@ -106,7 +106,7 @@ void PlayerClone::Draw(const Vector2D&, bool) const
         (int)(location.x + halfW),
         (int)(location.y + halfH),
         GetColor(255, 255, 255),
-        TRUE
+        false
     );
     SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
 }
