@@ -8,6 +8,7 @@
 class Item_BallUp : public GameObject
 {
 private:
+    int makimono = 0;
     float size = 40.0f; // 表示サイズ
     int image_handle = 0; // 画像ハンドル（必要なら）
 

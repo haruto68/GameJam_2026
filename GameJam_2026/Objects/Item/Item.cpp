@@ -32,7 +32,7 @@ void Item::Update(float delta_seconds)
 
 void Item::Draw(const Vector2D& screen_offset, bool flip_flag) const
 {
-    DrawCircle(location.x, location.y, size / 2.0f, GetColor(255, 255, 0), TRUE);
+    //DrawCircle(location.x, location.y, size / 2.0f, GetColor(255, 255, 0), TRUE);
 
     DrawRotaGraphF(location.x, location.y, 0.25, 0.0, makimono, true, FALSE);
 

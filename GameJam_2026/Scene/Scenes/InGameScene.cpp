@@ -54,7 +54,6 @@ void InGameScene::Initialize()
 
 
 	// ブロック生成
-	//CreateBlock1();
 	const int rows = 4;
 	const int cols = 9;
 
@@ -77,27 +76,6 @@ void InGameScene::Initialize()
 			screen_block1++;
 		}
 	}
-
-	// 生成セット
-	Block2* obj = nullptr;
-	float x = 0;
-	float z = 0;
-	int place = GetRand(1) + 0;
-	if (place == 0)
-	{
-		x = 0;
-		z = 1;
-	}
-
-	else if (place == 1)
-	{
-		x = 1020;
-		z = -1;
-	}
-
-	obj =  object_manager->CreateGameObject<Block2>(Vector2D(x, 60.0));
-	obj->SetVelocity(Vector2D(z, 0));
-
 
 	// ボール生成
 	player->SetInstance(object_manager);
@@ -300,16 +278,29 @@ void InGameScene::ObjectListLoop(const float& delta_second)
 				stage_level++;
 				for (GameObject* obj : scene_objects_list)
 				{
-
 					Ball* ball = dynamic_cast<Ball*>(obj);
-
 					if (ball != nullptr)
-					{
 						ball->SetSpeedLevel(stage_level);
-					}
 				}
 			}
 
+		}
+
+		// ブロック2の場合
+		if (dynamic_cast<Block2*>(obj) != nullptr)
+		{
+			// 壊したマトのHPをスコアに加算する
+			score += obj->GetHp();
+
+			mato[1]++;
+
+			//ブロックをすべて破壊
+			for (GameObject* obj : scene_objects_list)
+			{
+				Block* block = dynamic_cast<Block*>(obj);
+				if (block != nullptr)
+					block->Break();
+			}
 		}
 
 

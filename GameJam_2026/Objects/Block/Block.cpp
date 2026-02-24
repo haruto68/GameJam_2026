@@ -3,6 +3,7 @@
 #include"../../Objects/GameObjectManager.h"
 #include"../../Objects/Item/Item.h"
 #include"../../Objects/Item/Item_BallUp.h"
+#include"../../Objects/Block/Block2.h"
 
 
 Block::Block(/*const Vector2D& pos*/)
@@ -91,6 +92,7 @@ void Block::OnHitCollision(GameObject* hit_object)
             collision.is_blocking = false;
         }
 
+        GameObject* obj = nullptr;
 
         // まだアイテム生成していなければ
         if (!item_spawned)
@@ -99,18 +101,22 @@ void Block::OnHitCollision(GameObject* hit_object)
 
             if (object_manager)
             {
-                int r = rand() % 10; // 0,1,2 のうち1つをランダムに
-                if (r == 0)
+                int r = rand() % 100; //
+                if (r < 15)
                 {
                     // 1/10 の確率で分身アイテム
                     object_manager->CreateGameObject<Item>(location);
                 }
-                else if (r == 1)
+                else if (r < 30)
                 {
                     // 1/10 の確率でボール増加アイテム
                     object_manager->CreateGameObject<Item_BallUp>(location);
                 }
-                // r == 2から９ の場合は何も出さない（８/１０ の確率でアイテムなし）
+                else if (r < 33)
+                {
+                    obj = object_manager->CreateGameObject<Block2>(Vector2D(0, 350));
+                    //obj->SetVelocity(Vector2D(1.0f, 0.0f));
+                }
             }
         }
 
@@ -156,5 +162,14 @@ void Block::Animation(float delta_seconds)
         }
         image = maruta_image[anime_num];
 
+    }
+}
+
+void Block::Break()
+{
+    if (death_flag == false)
+    {
+        death_flag = true;
+        collision.is_blocking = false;
     }
 }
