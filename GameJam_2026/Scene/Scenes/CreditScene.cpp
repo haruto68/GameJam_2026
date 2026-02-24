@@ -7,6 +7,8 @@ CreditScene::CreditScene()
 {
 	//リソース管理インスタンス取得
 	ResourceManager* rm = ResourceManager::GetInstance();
+
+	background = rm->GetImages("Resource/Images/haikei.png")[0];
 }
 
 CreditScene::~CreditScene()
@@ -53,6 +55,7 @@ eSceneType CreditScene::Update(const float& delta_second)
 
 void CreditScene::Draw() const
 {
+	DrawRotaGraph(640, 360, 1.0, 0.0, background, true, false);
 	DrawFormatString(0, 0, GetColor(255, 255, 255), "クレジットシーン");
 }
 

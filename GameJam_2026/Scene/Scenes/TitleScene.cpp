@@ -17,6 +17,11 @@ TitleScene::TitleScene() :
 	botton_image[2][1] = rm->GetImages("Resource/Images/juni2.png")[0];
 	botton_image[3][0] = rm->GetImages("Resource/Images/syuryou1.png")[0];
 	botton_image[3][1] = rm->GetImages("Resource/Images/syuryou2.png")[0];
+
+
+	background = rm->GetImages("Resource/Images/haikei.png")[0];
+	ninja_image = rm->GetImages("Resource/Images/ninja.png")[0];
+	game_rogo = rm->GetImages("Resource/Images/rogo.png")[0];
 }
 
 TitleScene::~TitleScene()
@@ -118,6 +123,13 @@ eSceneType TitleScene::Update(const float& delta_second)
 //タイトルでのカーソル移動
 void TitleScene::Draw() const
 {
+	DrawRotaGraphF(640, 330, 1.0, 0.0, background, true, FALSE);
+	DrawRotaGraphF(310, 440, 0.8, 0.0, ninja_image, true, FALSE);
+	DrawRotaGraphF(640, 230, 0.8, 0.0, game_rogo, true, FALSE);
+	
+
+
+
 	if(botton == false)
 	{
 		if (cursor_num == 0)

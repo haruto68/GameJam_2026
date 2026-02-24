@@ -13,6 +13,7 @@ InGameScene::InGameScene():
 	//リソース管理インスタンス取得
 	ResourceManager* rm = ResourceManager::GetInstance();
 	backgound_UI = rm->GetImages("Resource/Images/backgound_UI.png")[0];
+	background = rm->GetImages("Resource/Images/haikei.png")[0];
 
 	numbers_image[0] = rm->GetImages("Resource/Images/number0.png")[0];
 	numbers_image[1] = rm->GetImages("Resource/Images/number1.png")[0];
@@ -147,6 +148,9 @@ void InGameScene::Draw() const
 	int y_start = 0;	//
 	int x_size = 0;		//
 
+	//背景描画
+	DrawRotaGraph(640, 360, 1.0, 0.0, background, true, false);
+
 	int n = 0;	//オブジェクト数カウント
 	for (GameObject* obj : scene_objects_list)
 	{
@@ -155,8 +159,11 @@ void InGameScene::Draw() const
 	}
 	//DrawBox(1051, 0, D_WIN_MAX_X, D_WIN_MAX_Y, 0x000000, true);	//UIゾーン用隠し
 
+	
+
 	//UI背景
 	DrawRotaGraph(1165, 370, 1.15, 0.0, backgound_UI, true, false, false);
+	
 
 	// スコア描画
 	font = 0.2;	x_start = 1080;	y_start = 280;	x_size = 30;
@@ -298,6 +305,8 @@ void InGameScene::ObjectListLoop(const float& delta_second)
 		{
 			// 取得したアイテムのカウント
 			item++;
+			// 500点加算
+			score += 500;
 		}
 
 	}

@@ -9,6 +9,7 @@ protected:
 
 private:
 	int background_makimono = 0;
+	int background;
 	int cursor_num = 0;
 	int numbers_image[11] = {};
 	int draw_number[DIGIT] = { 10,10,10,10,10 };
