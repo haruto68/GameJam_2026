@@ -18,6 +18,8 @@ private:
 	int game_rogo;
 
 	int bgm_handle;
+	int cursor_se_handle;
+	int ok_handle;
 public:
 	TitleScene();
 	~TitleScene();
