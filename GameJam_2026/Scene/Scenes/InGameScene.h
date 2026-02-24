@@ -31,6 +31,8 @@ private:
 	bool next_scene = false;
 	float next_count = 0.0f;
 
+	int main_handle;
+
 public:
 	std::vector<GameObject*> scene_objects_list;//オブジェクトリスト
 	class GameObjectManager* object_manager;    //オブジェクトマネージャーインスタンス

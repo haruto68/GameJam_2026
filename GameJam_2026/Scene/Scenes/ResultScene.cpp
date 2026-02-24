@@ -3,7 +3,7 @@
 #include"../../Resource/ResourceManager.h"
 #include <Windows.h>
 
-ResultScene::ResultScene()
+ResultScene::ResultScene():Result_handle(0)
 {
 	//リソース管理インスタンス取得
 	ResourceManager* rm = ResourceManager::GetInstance();
@@ -27,6 +27,13 @@ ResultScene::~ResultScene()
 
 void ResultScene::Initialize()
 {
+	Result_handle = LoadSoundMem("Resource/sound/Results.mp3");
+
+	if (Result_handle != -1)
+	{
+		PlaySoundMem(Result_handle, DX_PLAYTYPE_LOOP);
+	}
+
 	FILE* fp;		// ファイルパス
 	errno_t result;	// ファイル読込み結果
 
@@ -292,6 +299,13 @@ void ResultScene::Finalize()
 
 		//ファイルクローズ
 		fclose(fp);
+
+
+		if (Result_handle != -1)
+		{
+			StopSoundMem(Result_handle);
+			DeleteSoundMem(Result_handle);
+		}
 
 	}
 

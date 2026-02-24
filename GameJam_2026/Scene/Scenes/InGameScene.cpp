@@ -7,7 +7,8 @@
 
 InGameScene::InGameScene():
 	object_manager(nullptr),
-	player()
+	player(),
+	main_handle(0)
 {
 	//リソース管理インスタンス取得
 	ResourceManager* rm = ResourceManager::GetInstance();
@@ -34,6 +35,14 @@ InGameScene::~InGameScene()
 
 void InGameScene::Initialize()
 {
+
+	main_handle = LoadSoundMem("Resource/sound/main.mp3");
+
+	if (main_handle != -1)
+	{
+		PlaySoundMem(main_handle, DX_PLAYTYPE_LOOP);
+	}
+
 	srand(time(NULL));
 
 	//GameObjectManagerインスタンス取得
@@ -195,6 +204,13 @@ void InGameScene::Finalize()
 
 	//ファイルクローズ
 	fclose(fp);
+
+
+	if (main_handle != -1)
+	{
+		StopSoundMem(main_handle);
+		DeleteSoundMem(main_handle);
+	}
 }
 
 eSceneType InGameScene::GetNowSceneType()const
