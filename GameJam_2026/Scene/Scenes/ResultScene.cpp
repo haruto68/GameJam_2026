@@ -201,17 +201,15 @@ void ResultScene::Draw() const
 
 	y = 650;
 
-	DrawRotaGraphF(720, 150, 0.2, 0.0, numbers_image[0], true, false);
-	DrawRotaGraphF(685, 150, 0.2, 0.0, numbers_image[0], true, false);
-	DrawRotaGraphF(645, 150, 0.2, 0.0, numbers_image[5], true, false);
-	DrawRotaGraphF(750, 250, 0.2, 0.0, numbers_image[0], true, false);
+	DrawRotaGraphF(710, 150, 0.2, 0.0, numbers_image[0], true, false);
+	DrawRotaGraphF(675, 150, 0.2, 0.0, numbers_image[0], true, false);
+	DrawRotaGraphF(635, 150, 0.2, 0.0, numbers_image[1], true, false);
 	DrawRotaGraphF(710, 250, 0.2, 0.0, numbers_image[0], true, false);
 	DrawRotaGraphF(675, 250, 0.2, 0.0, numbers_image[0], true, false);
-	DrawRotaGraphF(635, 250, 0.2, 0.0, numbers_image[2], true, false);
-	DrawRotaGraphF(750, 200, 0.2, 0.0, numbers_image[0], true, false);
+	DrawRotaGraphF(635, 250, 0.2, 0.0, numbers_image[5], true, false);
 	DrawRotaGraphF(710, 200, 0.2, 0.0, numbers_image[0], true, false);
 	DrawRotaGraphF(675, 200, 0.2, 0.0, numbers_image[0], true, false);
-	DrawRotaGraphF(635, 200, 0.2, 0.0, numbers_image[1], true, false);
+	DrawRotaGraphF(635, 200, 0.2, 0.0, numbers_image[3], true, false);
 
 	//ハイスコア
 	DrawRotaGraphF(750, 622, 0.2, 0.0, numbers_image[draw_number[0]], true, false);
