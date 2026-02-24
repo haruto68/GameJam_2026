@@ -123,7 +123,7 @@ eSceneType TitleScene::Update(const float& delta_second)
 //タイトルでのカーソル移動
 void TitleScene::Draw() const
 {
-	DrawRotaGraphF(640, 330, 1.0, 0.0, background, true, FALSE);
+	DrawRotaGraphF(640, 360, 1.0, 0.0, background, true, FALSE);
 	DrawRotaGraphF(310, 440, 0.8, 0.0, ninja_image, true, FALSE);
 	DrawRotaGraphF(640, 230, 0.8, 0.0, game_rogo, true, FALSE);
 	
