@@ -252,7 +252,7 @@ void Ball::Movement(float delta_seconds)
 	}
 
 	//À•WŒˆ’è
-	location += velocity * speed *  delta_seconds;
+	location += velocity * (speed + (speed_level * 20)) * delta_seconds;
 }
 
 void Ball::Animation(float delta_seconds)
@@ -285,4 +285,9 @@ void Ball::Animation(float delta_seconds)
 		if (angle > ƒÎ * 2 || angle < -ƒÎ * 2)
 			angle = 0;
 	}
+}
+
+void Ball::SetSpeedLevel(int level)
+{
+	speed_level = level;
 }
