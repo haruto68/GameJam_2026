@@ -51,6 +51,7 @@ public:
 
 	void Animation(const float& delta_second);
 
-
 	void ObjectListLoop(const float& delta_second);	//オブジェクトリストループ
+
+	void CreateBlock1();		//ブロック1生成
 };

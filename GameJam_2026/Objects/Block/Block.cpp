@@ -42,10 +42,13 @@ Block::~Block()
 void Block::Initialize()
 {
     hp = 500;
+
+    intial_location = location;
 }
 
 void Block::Update(float delta_seconds)
 {
+    Movement(delta_seconds);
     Animation(delta_seconds);
 }
 
@@ -120,6 +123,15 @@ void Block::OnHitCollision(GameObject* hit_object)
         {
             object_manager->DestroyGameObject(this);
         }*/
+    }
+}
+
+void Block::Movement(float delta_seconds)
+{
+    if (location.y < intial_location.y + 400.0f)
+    {
+        float speed = 300.0f;
+        location += velocity * speed * delta_seconds;
     }
 }
 

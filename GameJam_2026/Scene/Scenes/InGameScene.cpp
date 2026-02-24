@@ -42,7 +42,9 @@ void InGameScene::Initialize()
 	//プレイヤー生成
 	player = object_manager->CreateGameObject<Player>(Vector2D(0, 0));
 
-	//ブロック生成 
+
+	// ブロック生成
+	//CreateBlock1();
 	const int rows = 4;
 	const int cols = 9;
 
@@ -51,7 +53,6 @@ void InGameScene::Initialize()
 
 	float blockWidth = 100.0f;
 	float blockHeight = 50.0f;
-	//Vector2D pos = 0;
 
 	for (int y = 0; y < rows; y++)
 	{
@@ -61,11 +62,9 @@ void InGameScene::Initialize()
 				startX + x * (blockWidth + 10),
 				startY + y * (blockHeight + 10)
 			);
-			/*pos.x = startX + x * (blockWidth + 10);
-			pos.y = startY + y * (blockHeight + 10);*/
-			
-			
+
 			object_manager->CreateGameObject<Block>(pos);
+			screen_block1++;
 		}
 	}
 
@@ -165,6 +164,9 @@ void InGameScene::Draw() const
 	//DrawFormatString(1080, 550, 0x000000, "  %d", have_ball);
 	for (int i = 0; i < have_ball; i++)
 		DrawRotaGraphF(x_start + x_size * i, y_start, 0.3, π / 4, syuriken, true, false);
+
+
+	DrawFormatString(1080, 650, 0x000000, "  %d", screen_block1);
 }
 
 void InGameScene::Finalize()
@@ -228,6 +230,11 @@ void InGameScene::ObjectListLoop(const float& delta_second)
 		{
 			screen_ball++;
 		}
+
+		// ブロック1の場合
+		if (dynamic_cast<Block*>(obj) != nullptr)
+		{
+		}
 	}
 
 	// 破棄するオブジェクトリストの確認
@@ -253,18 +260,22 @@ void InGameScene::ObjectListLoop(const float& delta_second)
 			}
 		}
 
-		// ブロックの場合
-		if (obj->GetCollision().object_type == eObjectType::eBlock)
+		// ブロック1の場合
+		if (dynamic_cast<Block*>(obj) != nullptr)
 		{
 			// 壊したマトのHPをスコアに加算する
 			score += obj->GetHp();
 
-			// マト1のカウント
-			if (obj->GetHp() == 500)
+			mato[0]++;
+			screen_block1--;
+			//ブロック1が無い場合
+			if (screen_block1 == 0)
 			{
-				mato[0]++;
+				// ブロック1おかわり
+				CreateBlock1();
 			}
 		}
+
 
 		// アイテムの場合
 		if (obj->GetCollision().object_type == eObjectType::eItem)
@@ -319,8 +330,40 @@ void InGameScene::ObjectListLoop(const float& delta_second)
 		if (obj->GetLocation().x <= -50 || obj->GetLocation().x >= D_WIN_MAX_X - 230 + 50 ||
 			obj->GetLocation().y <= -50 || obj->GetLocation().y >= D_WIN_MAX_Y + 50)
 		{
-			obj->SetHp(0);
-			object_manager->DestroyGameObject(obj);
+			if(dynamic_cast<Block*>(obj) == nullptr)
+			{
+				obj->SetHp(0);
+				object_manager->DestroyGameObject(obj);
+			}
+		}
+	}
+}
+
+// ブロック1生成
+void InGameScene::CreateBlock1()
+{
+	//ブロック生成 
+	const int rows = 4;
+	const int cols = 9;
+
+	float startX = 80.0f;
+	float startY = -300.0f;
+
+	float blockWidth = 100.0f;
+	float blockHeight = 50.0f;
+
+	for (int y = 0; y < rows; y++)
+	{
+		for (int x = 0; x < cols; x++)
+		{
+			Vector2D pos(
+				startX + x * (blockWidth + 10),
+				startY + y * (blockHeight + 10)
+			);
+
+			GameObject* obj = object_manager->CreateGameObject<Block>(pos);
+			obj->SetVelocity(Vector2D(0.0f, 1.0f));
+			screen_block1++;
 		}
 	}
 }

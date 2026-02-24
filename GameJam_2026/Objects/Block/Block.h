@@ -12,6 +12,8 @@ private:
     int mato_image[6];
     int maruta_image[4];
 
+    Vector2D intial_location = 0.0f;
+
 public:
     Block(/*const Vector2D& pos*/);  
     virtual ~Block();
@@ -23,5 +25,6 @@ public:
 
     virtual void OnHitCollision(GameObject* hit_object) override; // Õ“Ëˆ—
 public:
+    void Movement(float);
     void Animation(float);
 };
