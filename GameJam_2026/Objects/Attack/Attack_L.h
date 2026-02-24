@@ -5,13 +5,14 @@
 class Attack_L : public GameObject
 {
 private:
+	Vector2D size;
 	float cool_time = 0.0f;
 	float life_time = 0.5f;
 
 	Vector2D target_L[10] = {};	//ハジク方向
 
 	Vector2D footprints = 0;	//プレイヤーの移動量確認用
-
+	 int kakin_handle;
 public:
 	Attack_L();
 	~Attack_L();

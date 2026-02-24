@@ -1,7 +1,11 @@
 #include "Attack_L.h"
 
-Attack_L::Attack_L()
+Attack_L::Attack_L():kakin_handle(0)
 {
+	kakin_handle = LoadSoundMem("Resource/sound/kakin.mp3");
+
+	size = Vector2D(100.0f, 50.0f);
+
 	collision.is_blocking = true;
 	collision.box_size = Vector2D(120.0f, 50.0f);
 	collision.object_type = eObjectType::eAttack;
@@ -70,6 +74,7 @@ void Attack_L::OnHitCollision(GameObject* hit_object)
 	// ボールを左上に飛ばす
 	if (type == eBall)
 	{
+		PlaySoundMem(kakin_handle, DX_PLAYTYPE_BACK);
 		// 早い程左に、遅いほど上にハジク
 		for (int i = 9; i >= 0; i--)
 		{

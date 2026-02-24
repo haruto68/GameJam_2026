@@ -5,8 +5,13 @@
 #include"../../Objects/Item/Item_BallUp.h"
 
 
-Block::Block(/*const Vector2D& pos*/)
+Block::Block(/*const Vector2D& pos*/): break_se(-1)
 {
+
+    break_se = LoadSoundMem("Resource/sound/isi.mp3");
+
+    size = Vector2D(100.0f, 50.0f);
+
     //location = pos;
     size = Vector2D(100.0f, 50.0f);
 
@@ -89,6 +94,8 @@ void Block::OnHitCollision(GameObject* hit_object)
         {
             death_flag = true;
             collision.is_blocking = false;
+
+            PlaySoundMem(break_se, DX_PLAYTYPE_BACK); 
         }
 
 

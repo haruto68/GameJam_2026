@@ -11,7 +11,7 @@ private:
     int anime_num = 0;
     int mato_image[6];
     int maruta_image[4];
-
+    int break_se;
     Vector2D intial_location = 0.0f;
 
 public:
