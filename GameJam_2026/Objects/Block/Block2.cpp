@@ -82,8 +82,8 @@ void Block2::Draw(const Vector2D&, bool) const
     DrawRotaGraphF(location.x, location.y, 0.3, 0.0, image, true, FALSE);
     //DrawRotaGraphF(location.x, location.y, 0.6, 0.0, image, true, FALSE);
 
-    DrawBoxAA(location.x - halfW, location.y - halfH, location.x + halfW, location.y + halfH,
-        GetColor(0, 0, 255), false);
+   /* DrawBoxAA(location.x - halfW, location.y - halfH, location.x + halfW, location.y + halfH,
+        GetColor(0, 0, 255), false);*/
 }
 
 void Block2::Finalize()

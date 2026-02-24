@@ -2,12 +2,20 @@
 
 Attack_R::Attack_R():kakinki_handle(0)
 {
-	kakinki_handle = LoadSoundMem("Resource/sound/kinzoku.mp3");
+	ResourceManager* rm = ResourceManager::GetInstance();
+	kakinki_handle = rm->GetSounds("Resource/sound/kinzoku.mp3");
 
 	collision.is_blocking = true;
-	collision.box_size = Vector2D(120.0f, 50.0f);
+	collision.box_size = Vector2D(140.0f, 50.0f);
 	collision.object_type = eObjectType::eAttack;
 	collision.hit_object_type.push_back(eObjectType::eBall);
+
+	attack_image[0] = rm->GetImages("Resource/images/attack1.png")[0];
+	attack_image[1] = rm->GetImages("Resource/images/attack2.png")[0];
+	attack_image[2] = rm->GetImages("Resource/images/attack3.png")[0];
+	attack_image[3] = rm->GetImages("Resource/images/attack4.png")[0];
+
+	image = attack_image[0];
 
 }
 
@@ -33,6 +41,7 @@ void Attack_R::Initialize()
 void Attack_R::Update(float delta_seconds)
 {
 	cool_time += delta_seconds;
+	
 
 	// 消えるまでの時間
 	if (cool_time >= life_time)
@@ -52,10 +61,12 @@ void Attack_R::Draw(const Vector2D& screen_offset, bool flip_flag) const
 	float size_x = collision.box_size.x / 2;
 	float size_y = collision.box_size.y / 2;
 
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 155);
+	/*SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
 	DrawBoxAA(location.x - size_x, location.y - size_y, location.x + size_x, location.y + size_y,
-		GetColor(255, 255, 0), true);
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
+		GetColor(255, 255, 0), false);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);*/
+
+	DrawRotaGraphF(location.x, location.y, 2.0, 0.0, image, true, TRUE);
 
 	//プレイヤーの移動量確認用
 	//DrawFormatString(location.x, location.y, GetColor(255, 255, 255), "%f", (player_location.x - footprints.x) * 0.7);
@@ -93,11 +104,22 @@ void Attack_R::OnHitCollision(GameObject* hit_object)
 
 void Attack_R::Movement(float delta_seconds)
 {
-	location.x = player_location.x;
+	location.x = player_location.x + 25;
 }
 
 void Attack_R::Animation(float delta_seconds)
 {
-	
+	anime_cool += delta_seconds;
+	if (anime_cool > life_time / 8)
+	{
+		anime_cool = 0.0f;
+		anime_num++;
+		if (anime_num > 3)
+		{
+			anime_num = 0;
+		}
+
+		image = attack_image[anime_num];
+	}
 }
 

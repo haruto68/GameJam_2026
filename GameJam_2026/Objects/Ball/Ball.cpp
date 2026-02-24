@@ -48,8 +48,8 @@ void Ball::Draw(const Vector2D& screen_offset, bool flip_flag) const
 {
 	//DrawCircle(location.x,location.y, radius, GetColor(255, 255, 255), TRUE);
 	DrawRotaGraphF(location.x, location.y, 0.3, angle, image, true, FALSE);
-	DrawBoxAA(location.x - radius, location.y - radius, location.x + radius, location.y + radius,
-		GetColor(255, 0, 0), false);
+	/*DrawBoxAA(location.x - radius, location.y - radius, location.x + radius, location.y + radius,
+		GetColor(255, 0, 0), false);*/
 
 }
 

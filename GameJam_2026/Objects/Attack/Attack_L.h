@@ -9,6 +9,10 @@ private:
 	float cool_time = 0.0f;
 	float life_time = 0.6f;
 
+	int attack_image[4] = {};
+	int anime_num = 0;
+	float anime_cool = 0.0f;
+
 	Vector2D target_L[10] = {};	//ハジク方向
 
 	Vector2D footprints = 0;	//プレイヤーの移動量確認用

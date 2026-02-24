@@ -116,15 +116,15 @@ void Player::Draw(const Vector2D&, bool) const
     }
 
 
-    // 仮ボックス
-    int color = GetColor(255, 0, 255);
-    if (stan_time > 0)color = GetColor(0, 0, 255);
-    SetDrawBlendMode(DX_BLENDMODE_ALPHA, 155);
-    DrawBoxAA(
-        location.x - collision.box_size.x / 2, location.y - collision.box_size.y / 2,
-        location.x + collision.box_size.x / 2, location.y + collision.box_size.y / 2,
-        color, false);
-    SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
+    //// 仮ボックス
+    //int color = GetColor(255, 0, 255);
+    //if (stan_time > 0)color = GetColor(0, 0, 255);
+    //SetDrawBlendMode(DX_BLENDMODE_ALPHA, 155);
+    //DrawBoxAA(
+    //    location.x - collision.box_size.x / 2, location.y - collision.box_size.y / 2,
+    //    location.x + collision.box_size.x / 2, location.y + collision.box_size.y / 2,
+    //    color, false);
+    //SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
 
     DrawUI();
 }
