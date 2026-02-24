@@ -74,13 +74,43 @@ void Ball::OnHitCollision(GameObject* hit_object)
 	{
 	case ePlayer:
 	case eClone:
-		// プレイヤー・クローンは必ず反射
-		if (velocity.y < 0)
-			velocity.y = velocity.y * -1.0;
-		if (hit_loc.y > location.y)
-			velocity.y *= -1.0f;
-		else
-			velocity.y *= 1.0f;
+		if (distance.x < hit_size.x - 2.5)	// 2つのX距離が2つのヒットボックスX合計よりも小さい
+		{
+			// Y方向に反射する
+			if (velocity.y < 0)
+				velocity.y = velocity.y * -1.0;
+			if (hit_loc.y > location.y)
+				velocity.y *= -1.0f;
+			else
+				velocity.y *= 1.0f;
+		}
+		else if (distance.y < hit_size.y - 2.5)	// 2つのY距離が2つのヒットボックスY合計よりも小さい
+		{
+			// X方向に反射する
+			if (velocity.x < 0)
+				velocity.x = velocity.x * -1.0;
+			if (hit_loc.x > location.x)
+				velocity.x *= -1.0f;
+			else
+				velocity.x *= 1.0f;
+		}
+		else// 2つのXY距離が2つのヒットボックスXY合計よりも小さい
+		{
+			// XY方向に反射する
+			if (velocity.y < 0)
+				velocity.y = velocity.y * -1.0;
+			if (hit_loc.y > location.y)
+				velocity.y *= -1.0f;
+			else
+				velocity.y *= 1.0f;
+
+			if (velocity.x < 0)
+				velocity.x = velocity.x * -1.0;
+			if (hit_loc.x > location.x)
+				velocity.x *= -1.0f;
+			else
+				velocity.x *= 1.0f;
+		}
 
 		// 逆回転
 		if (spin_velocity)

@@ -3,6 +3,7 @@
 #include "../../../Utility/UserTemplate.h"
 #include "../../../Objects/Item/Item.h"
 #include "../../../Objects/Ball/Ball.h"
+#include"../PlayerClone/PlayerClone.h"
 #include "../../../Objects/GameObject.h"
 #include"../../../Objects/GameObjectManager.h"
 #include "DxLib.h"
@@ -15,7 +16,7 @@ constexpr int GAUGE_MARGIN = 30;
 Player::Player() : max_life(5.0f), life(5.0f)
 {
     collision.is_blocking = true;
-    collision.box_size = Vector2D(120.0f, 20.0f);
+    collision.box_size = Vector2D(120.0f, 100.0f);
     collision.object_type = eObjectType::ePlayer;
     collision.hit_object_type.push_back(eObjectType::eBall);
 
@@ -43,10 +44,7 @@ Player::~Player()
 void Player::Initialize()
 {
     // 画面下中央に配置
-    location = Vector2D(D_WIN_MAX_X / 2.0f - 115.0f, D_WIN_MAX_Y - 80.0f);
-
-    // バーサイズ
-    collision.box_size = Vector2D(120.0f, 20.0f);
+    location = Vector2D(525.0f, 660.0f);
 }
 
 void Player::Update(float delta_seconds)
@@ -88,20 +86,17 @@ void Player::Draw(const Vector2D&, bool) const
 {
     
     //DrawKari();
-    
-    if (velocity.x > 0)
-        DrawRotaGraphF(location.x, location.y + 40, 0.5, 0.0, image, TRUE, flip_flag);
-    else
-        DrawRotaGraphF(location.x, location.y + 40, 0.5, 0.0, image, TRUE, flip_flag);
+
+    DrawRotaGraphF(location.x, location.y, 0.5, 0.0, image, TRUE, flip_flag);
 
     // 仮ボックス
-    int color = GetColor(255, 255, 255);
+    int color = GetColor(255, 0, 255);
     if (stan_time > 0)color = GetColor(0, 0, 255);
     SetDrawBlendMode(DX_BLENDMODE_ALPHA, 155);
     DrawBoxAA(
         location.x - collision.box_size.x / 2, location.y - collision.box_size.y / 2,
         location.x + collision.box_size.x / 2, location.y + collision.box_size.y / 2,
-        color, true);
+        color, false);
     SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
 
     DrawUI();
@@ -210,6 +205,14 @@ void Player::OnHitCollision(GameObject* other)
         // 当たったら一瞬色を変える（赤く光らせる）
         ChangeColorTemporarily(255, 0, 0);
     }
+
+    // アイテムに触れた場合
+    if (dynamic_cast<Item*>(other) != nullptr)
+    {
+        //クローン生成
+        object_manager->CreateGameObject<PlayerClone>(location);
+    }
+
 }
 
 void Player::TakeDamage(float amount)
@@ -316,15 +319,15 @@ void Player::Attack(float delta_seconds)
     if ((input->GetKey(KEY_INPUT_J) || input->GetButton(XINPUT_BUTTON_LEFT_SHOULDER))
         && attack_cool <= 0.0f)
     {
-        attack_cool = 1.0f;
-        object_manager->CreateGameObject<Attack_L>(Vector2D(location.x, location.y - 40.0f));
+        attack_cool = 0.8f;
+        object_manager->CreateGameObject<Attack_L>(Vector2D(location.x, location.y - 80.0f));
     }
     // アタックR
     if ((input->GetKey(KEY_INPUT_K) || input->GetButton(XINPUT_BUTTON_RIGHT_SHOULDER))
         && attack_cool <= 0.0f)
     {
-        attack_cool = 1.0f;
-        object_manager->CreateGameObject<Attack_R>(Vector2D(location.x, location.y - 40.0f));
+        attack_cool = 0.8f;
+        object_manager->CreateGameObject<Attack_R>(Vector2D(location.x, location.y - 80.0f));
     }
 }
 
@@ -333,11 +336,12 @@ void Player::CreateBall()
 {
     if(object_manager)
     {
-        Ball* ball = object_manager->CreateGameObject<Ball>(Vector2D(location.x, location.y - 50));
+        Ball* ball = object_manager->CreateGameObject<Ball>(Vector2D(location.x, location.y - 75.0f));
         ball->SetVelocity(Vector2D(0, 0));
     }
 }
 
+// 追加ボール生成
 void Player::CreateBall(Vector2D set_location, Vector2D set_velocity)
 {
     if (object_manager)

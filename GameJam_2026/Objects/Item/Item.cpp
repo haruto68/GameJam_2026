@@ -63,7 +63,7 @@ void Item::OnHitCollision(GameObject* hit_object)
             if (object_manager)
             {
                 Vector2D clone_pos = player->GetLocation() + Vector2D(50, 0);
-                object_manager->CreateGameObject<PlayerClone>(clone_pos);
+                //object_manager->CreateGameObject<PlayerClone>(clone_pos);
             }
         }
 
