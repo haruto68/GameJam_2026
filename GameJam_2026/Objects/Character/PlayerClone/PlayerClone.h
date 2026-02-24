@@ -7,7 +7,11 @@
 class PlayerClone : public Player
 {
 private:
-    float life_time = 5.0f;        // クローンの寿命（秒）
+    int ninja_bunshin[8] = {};
+    int anime_num = 0;
+    float anime_cool = 0.0f;
+
+    float life_time = 8.0f;        // クローンの寿命（秒）
     Vector2D start_location;       // 初期位置保持
     float move_direction = 1.0f;   // 左右移動方向
     float speed = 300.0f;          // 移動速度
@@ -20,4 +24,6 @@ public:
     virtual void Initialize() override;
     virtual void Update(float delta_seconds) override;
     virtual void Draw(const Vector2D&, bool) const override;
+
+    void Animation(float);
 };
